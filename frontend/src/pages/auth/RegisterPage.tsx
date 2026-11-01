@@ -56,7 +56,7 @@ export const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#16332c] text-[#fffdf4] flex flex-col justify-center items-center px-4 py-12 bg-dossier-grid">
+    <div className="min-h-screen bg-[#16151A] text-[#FFFFFF] flex flex-col justify-center items-center px-4 py-12 bg-dossier-grid">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="brand justify-center mb-5">
@@ -66,25 +66,26 @@ export const RegisterPage: React.FC = () => {
               <span></span>
               <span></span>
             </span>
-            <span className="brand-text !text-[#fffdf4] text-left">
+            <span className="brand-text !text-[#FFFFFF] text-left">
               CRÔNICA
-              <strong className="text-[#d8ff72]">ARQUIVO RPG</strong>
+              <strong className="text-[#FF4D5A]">ARQUIVO RPG</strong>
             </span>
           </Link>
-          <div className="eyebrow text-[#d8ff72] flex items-center justify-center gap-2 mb-2">
+          <div className="eyebrow text-[#FF4D5A] flex items-center justify-center gap-2 mb-2">
             <span className="pulse-dot" aria-hidden="true" />
             NOVO CADASTRO NA PLATAFORMA
           </div>
-          <h1 className="font-display text-3xl sm:text-4xl font-bold uppercase tracking-[-0.06em] text-[#fffdf4]">
-            CRIAR <em className="not-italic text-[#d8ff72]">CONTA.</em>
+          <h1 className="font-display text-3xl sm:text-4xl font-bold uppercase tracking-[-0.06em] text-[#FFFFFF]">
+            CRIAR <em className="not-italic text-[#FF4D5A]">CONTA</em>
+            <span className="text-[#FFFFFF]">.</span>
           </h1>
         </div>
 
-        <div className="bg-[#fffdf4] text-[#172e28] border-2 border-[#172e28] p-6 sm:p-8 shadow-[8px_8px_0_#0b1c17]">
+        <div className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] p-6 sm:p-8 shadow-[8px_8px_0_#111111]">
           {serverError && (
             <div
               role="alert"
-              className="mb-5 p-3.5 bg-[#ffd2bb] border-2 border-[#172e28] text-xs font-bold text-[#172e28]"
+              className="mb-5 p-3.5 bg-[#EFEAE2] border-2 border-[#111111] text-xs font-bold text-[#111111]"
             >
               {serverError}
             </div>
@@ -95,9 +96,9 @@ export const RegisterPage: React.FC = () => {
             <div>
               <label
                 htmlFor="reg-name"
-                className="block text-xs font-mono font-bold uppercase tracking-wider text-[#172e28] mb-1.5"
+                className="block text-xs font-mono font-bold uppercase tracking-wider text-[#111111] mb-1.5"
               >
-                Nome de Exibição <span className="text-[#fa775d]">*</span>
+                Nome de Exibição <span className="text-[#FF4D5A]">*</span>
               </label>
               <input
                 id="reg-name"
@@ -107,19 +108,19 @@ export const RegisterPage: React.FC = () => {
                 required
                 placeholder="Ex: Helena Vance"
                 {...register("name")}
-                className="w-full px-3.5 py-2.5 bg-[#f6f1e4] border-2 border-[#172e28] text-[#172e28] text-sm font-medium focus:outline-none focus:bg-[#fffdf4]"
+                className="w-full px-3.5 py-2.5 bg-[#EFEAE2] border-2 border-[#111111] text-[#111111] text-sm font-medium focus:outline-none focus:bg-[#FFFFFF]"
               />
               {errors.name && (
-                <p className="text-xs font-bold text-[#fa775d] mt-1">{errors.name.message}</p>
+                <p className="text-xs font-bold text-[#FF4D5A] mt-1">{errors.name.message}</p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="reg-username"
-                className="block text-xs font-mono font-bold uppercase tracking-wider text-[#172e28] mb-1.5"
+                className="block text-xs font-mono font-bold uppercase tracking-wider text-[#111111] mb-1.5"
               >
-                Nome de Usuário <span className="text-[#fa775d]">*</span>
+                Nome de Usuário <span className="text-[#FF4D5A]">*</span>
               </label>
               <input
                 id="reg-username"
@@ -132,19 +133,19 @@ export const RegisterPage: React.FC = () => {
                 required
                 placeholder="Ex: helena_gm"
                 {...register("username")}
-                className="w-full px-3.5 py-2.5 bg-[#f6f1e4] border-2 border-[#172e28] text-[#172e28] text-sm font-medium focus:outline-none focus:bg-[#fffdf4]"
+                className="w-full px-3.5 py-2.5 bg-[#EFEAE2] border-2 border-[#111111] text-[#111111] text-sm font-medium focus:outline-none focus:bg-[#FFFFFF]"
               />
               {errors.username && (
-                <p className="text-xs font-bold text-[#fa775d] mt-1">{errors.username.message}</p>
+                <p className="text-xs font-bold text-[#FF4D5A] mt-1">{errors.username.message}</p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="reg-email"
-                className="block text-xs font-mono font-bold uppercase tracking-wider text-[#172e28] mb-1.5"
+                className="block text-xs font-mono font-bold uppercase tracking-wider text-[#111111] mb-1.5"
               >
-                E-mail <span className="text-[#fa775d]">*</span>
+                E-mail <span className="text-[#FF4D5A]">*</span>
               </label>
               <input
                 id="reg-email"
@@ -155,19 +156,19 @@ export const RegisterPage: React.FC = () => {
                 required
                 placeholder="helena@cronica.rpg"
                 {...register("email")}
-                className="w-full px-3.5 py-2.5 bg-[#f6f1e4] border-2 border-[#172e28] text-[#172e28] text-sm font-medium focus:outline-none focus:bg-[#fffdf4]"
+                className="w-full px-3.5 py-2.5 bg-[#EFEAE2] border-2 border-[#111111] text-[#111111] text-sm font-medium focus:outline-none focus:bg-[#FFFFFF]"
               />
               {errors.email && (
-                <p className="text-xs font-bold text-[#fa775d] mt-1">{errors.email.message}</p>
+                <p className="text-xs font-bold text-[#FF4D5A] mt-1">{errors.email.message}</p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="new-password"
-                className="block text-xs font-mono font-bold uppercase tracking-wider text-[#172e28] mb-1.5"
+                className="block text-xs font-mono font-bold uppercase tracking-wider text-[#111111] mb-1.5"
               >
-                Senha <span className="text-[#fa775d]">*</span>
+                Senha <span className="text-[#FF4D5A]">*</span>
               </label>
               <div className="relative">
                 <input
@@ -178,26 +179,26 @@ export const RegisterPage: React.FC = () => {
                   required
                   placeholder="Mínimo de 6 caracteres"
                   {...register("password")}
-                  className="w-full pl-3.5 pr-10 py-2.5 bg-[#f6f1e4] border-2 border-[#172e28] text-[#172e28] text-sm font-medium focus:outline-none focus:bg-[#fffdf4]"
+                  className="w-full pl-3.5 pr-10 py-2.5 bg-[#EFEAE2] border-2 border-[#111111] text-[#111111] text-sm font-medium focus:outline-none focus:bg-[#FFFFFF]"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
                   aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-[#172e28]"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-[#111111]"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
               {errors.password && (
-                <p className="text-xs font-bold text-[#fa775d] mt-1">{errors.password.message}</p>
+                <p className="text-xs font-bold text-[#FF4D5A] mt-1">{errors.password.message}</p>
               )}
             </div>
 
             <div>
               <label
                 htmlFor="reg-avatar"
-                className="block text-xs font-mono font-bold uppercase tracking-wider text-[#172e28] mb-1.5"
+                className="block text-xs font-mono font-bold uppercase tracking-wider text-[#111111] mb-1.5"
               >
                 URL da Foto de Perfil (Opcional)
               </label>
@@ -207,7 +208,7 @@ export const RegisterPage: React.FC = () => {
                 enterKeyHint="done"
                 placeholder="https://exemplo.com/avatar.jpg"
                 {...register("avatar_url")}
-                className="w-full px-3.5 py-2.5 bg-[#f6f1e4] border-2 border-[#172e28] text-[#172e28] text-sm font-medium focus:outline-none focus:bg-[#fffdf4]"
+                className="w-full px-3.5 py-2.5 bg-[#EFEAE2] border-2 border-[#111111] text-[#111111] text-sm font-medium focus:outline-none focus:bg-[#FFFFFF]"
               />
             </div>
 
@@ -222,9 +223,9 @@ export const RegisterPage: React.FC = () => {
             </button>
           </form>
 
-          <div className="mt-6 pt-5 border-t-2 border-[#172e28] text-center text-sm text-[#172e28]">
+          <div className="mt-6 pt-5 border-t-2 border-[#111111] text-center text-sm text-[#111111]">
             Já possui uma conta?{" "}
-            <Link to="/login" className="font-bold uppercase underline hover:text-[#fa775d]">
+            <Link to="/login" className="font-bold uppercase underline hover:text-[#FF4D5A]">
               Fazer login
             </Link>
           </div>

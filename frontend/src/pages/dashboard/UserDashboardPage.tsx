@@ -105,22 +105,22 @@ export const UserDashboardPage: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#f6f1e4] text-[#172e28] flex flex-col">
+    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col">
       <Navbar />
 
       {/* Hero Editorial do Painel */}
-      <section className="bg-[#16332c] text-[#fffdf4] border-b-2 border-[#172e28] py-12 sm:py-16">
+      <section className="dark-hero bg-[#16151A] text-[#FFFFFF] border-b-2 border-[#111111] py-12 sm:py-16">
         <div className="wrap flex flex-col lg:flex-row lg:items-end justify-between gap-8">
           <div>
-            <div className="eyebrow text-[#d8ff72] flex items-center gap-2.5 mb-3">
+            <div className="eyebrow text-[#FF4D5A] flex items-center gap-2.5 mb-3">
               <span className="pulse-dot" aria-hidden="true" />
               01 / PAINEL CENTRAL DO USUÁRIO
             </div>
-            <h1 className="font-display text-4xl sm:text-6xl font-bold uppercase tracking-[-0.07em] leading-[0.94]">
-              MINHAS <em className="not-italic text-[#d8ff72]">CAMPANHAS</em>
-              <span className="text-[#fa775d]">.</span>
+            <h1 className="font-display text-4xl sm:text-6xl font-bold uppercase tracking-[-0.07em] leading-[0.94] text-[#FFFFFF]">
+              MINHAS <em className="not-italic text-[#FF4D5A]">CAMPANHAS</em>
+              <span className="text-[#FFFFFF]">.</span>
             </h1>
-            <p className="text-base sm:text-lg text-[#e2e9d8] mt-3 max-w-2xl">
+            <p className="text-base sm:text-lg text-[#EFEAE2] mt-3 max-w-2xl">
               Gerencie os arquivos narrativos que você mestra ou acompanhe as linhas do tempo em que
               atua como jogador.
             </p>
@@ -133,7 +133,7 @@ export const UserDashboardPage: React.FC = () => {
               className="ref-button ref-button-paper"
             >
               <span className="inline-flex items-center gap-2">
-                <Ticket className="w-4 h-4 text-[#fa775d]" />
+                <Ticket className="w-4 h-4 text-[#FF4D5A]" />
                 Aceitar Convite
               </span>
               <span aria-hidden="true">✳</span>
@@ -151,9 +151,9 @@ export const UserDashboardPage: React.FC = () => {
 
       <main className="flex-1 wrap py-10">
         {/* Filtros de Status Brutalistas */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b-2 border-[#172e28]">
-          <span className="section-index flex items-center gap-2 text-[#172e28]">
-            <span className="text-[#fa775d] text-base">✳</span>
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b-2 border-[#111111]">
+          <span className="section-index flex items-center gap-2 text-[#111111]">
+            <span className="text-[#FF4D5A] text-base">✳</span>
             02 / ARQUIVOS REGISTRADOS
           </span>
 
@@ -169,10 +169,11 @@ export const UserDashboardPage: React.FC = () => {
                 key={tab.key}
                 type="button"
                 onClick={() => setStatusFilter(tab.key)}
-                className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider border-2 border-[#172e28] transition-all ${statusFilter === tab.key
-                    ? "bg-[#d8ff72] text-[#172e28] shadow-[3px_3px_0_#172e28]"
-                    : "bg-[#fffdf4] text-[#172e28] hover:bg-[#ffd2bb]"
-                  }`}
+                className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider border-2 border-[#111111] transition-all ${
+                  statusFilter === tab.key
+                    ? "bg-[#FF4D5A] text-[#111111] shadow-[3px_3px_0_#111111]"
+                    : "bg-[#FFFFFF] text-[#111111] hover:bg-[#EFEAE2]"
+                }`}
               >
                 {tab.label}
               </button>
@@ -203,17 +204,16 @@ export const UserDashboardPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {campaigns.map((camp, idx) => {
               const isGM = camp.user_role === "gm";
-              const accentBgs = ["bg-[#d8ff72]", "bg-[#ffd2bb]", "bg-[#fa775d]"];
-              const headerBg = accentBgs[idx % accentBgs.length];
+              const headerBg = "bg-[#FF4D5A]";
 
               return (
                 <article
                   key={camp.id}
-                  className="bg-[#fffdf4] text-[#172e28] border-2 border-[#172e28] shadow-[8px_8px_0_#172e28] flex flex-col overflow-hidden transition-transform hover:-translate-y-1"
+                  className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[8px_8px_0_#111111] flex flex-col overflow-hidden transition-transform hover:-translate-y-1"
                 >
                   {/* Cabeçalho/Capa da Campanha */}
                   <div
-                    className={`relative h-36 ${headerBg} border-b-2 border-[#172e28] overflow-hidden`}
+                    className={`relative h-36 ${headerBg} border-b-2 border-[#111111] overflow-hidden`}
                   >
                     {camp.cover_url ? (
                       <img
@@ -223,23 +223,23 @@ export const UserDashboardPage: React.FC = () => {
                       />
                     ) : (
                       <div className="w-full h-full flex items-end justify-between p-4">
-                        <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#172e28]/80">
+                        <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#111111]">
                           DOSSIÊ #{String(idx + 1).padStart(2, "0")}
                         </span>
                         <span
                           aria-hidden="true"
-                          className="font-display text-7xl font-bold leading-none tracking-tighter text-[#172e28]/15 select-none"
+                          className="font-display text-7xl font-bold leading-none tracking-tighter text-[#111111]/15 select-none"
                         >
                           RPG
                         </span>
                       </div>
                     )}
                     <div className="absolute top-3 left-3 flex items-center gap-2">
-                      <span className="px-2.5 py-1 text-[11px] font-mono font-bold uppercase tracking-wider bg-[#172e28] text-[#fffdf4]">
+                      <span className="px-2.5 py-1 text-[11px] font-mono font-bold uppercase tracking-wider bg-[#16151A] text-[#FFFFFF] border border-[#111111]">
                         {camp.rpg_system}
                       </span>
                       {camp.status === "archived" && (
-                        <span className="px-2 py-1 text-[10px] font-mono font-bold uppercase bg-[#fffdf4] text-[#172e28] border border-[#172e28]">
+                        <span className="px-2 py-1 text-[10px] font-mono font-bold uppercase bg-[#FFFFFF] text-[#111111] border border-[#111111]">
                           Arquivada
                         </span>
                       )}
@@ -252,50 +252,50 @@ export const UserDashboardPage: React.FC = () => {
                   {/* Corpo do Card */}
                   <div className="p-5 flex-1 flex flex-col justify-between">
                     <div>
-                      <h2 className="font-display text-2xl font-bold uppercase tracking-[-0.04em] text-[#172e28] hover:underline">
+                      <h2 className="font-display text-2xl font-bold uppercase tracking-[-0.04em] text-[#111111] hover:underline">
                         <Link to={`/campaigns/${camp.id}`}>{camp.name}</Link>
                       </h2>
-                      <p className="text-sm text-[#172e28]/80 mt-2 line-clamp-3 leading-relaxed">
+                      <p className="text-sm text-[#111111]/80 mt-2 line-clamp-3 leading-relaxed">
                         {camp.description || "Sem descrição cadastrada."}
                       </p>
                     </div>
 
-                    <div className="mt-5 pt-4 border-t-2 border-[#172e28] space-y-3">
+                    <div className="mt-5 pt-4 border-t-2 border-[#111111] space-y-3">
                       <div className="grid grid-cols-3 gap-2 text-center">
-                        <div className="p-2 bg-[#f6f1e4] border border-[#172e28]">
-                          <div className="font-mono text-base font-bold text-[#172e28] flex items-center justify-center gap-1">
-                            <Users className="w-3.5 h-3.5 text-[#fa775d]" />
+                        <div className="p-2 bg-[#EFEAE2] border border-[#111111]">
+                          <div className="font-mono text-base font-bold text-[#111111] flex items-center justify-center gap-1">
+                            <Users className="w-3.5 h-3.5 text-[#FF4D5A]" />
                             {camp.entities_count}
                           </div>
-                          <div className="text-[10px] font-mono uppercase text-[#172e28]/70">
+                          <div className="text-[10px] font-mono uppercase text-[#111111]/70">
                             Entidades
                           </div>
                         </div>
 
-                        <div className="p-2 bg-[#f6f1e4] border border-[#172e28]">
-                          <div className="font-mono text-base font-bold text-[#172e28] flex items-center justify-center gap-1">
-                            <BookOpen className="w-3.5 h-3.5 text-[#fa775d]" />
+                        <div className="p-2 bg-[#EFEAE2] border border-[#111111]">
+                          <div className="font-mono text-base font-bold text-[#111111] flex items-center justify-center gap-1">
+                            <BookOpen className="w-3.5 h-3.5 text-[#FF4D5A]" />
                             {camp.sessions_count}
                           </div>
-                          <div className="text-[10px] font-mono uppercase text-[#172e28]/70">
+                          <div className="text-[10px] font-mono uppercase text-[#111111]/70">
                             Sessões
                           </div>
                         </div>
 
-                        <div className="p-2 bg-[#f6f1e4] border border-[#172e28]">
-                          <div className="font-mono text-base font-bold text-[#172e28] flex items-center justify-center gap-1">
-                            <Clock className="w-3.5 h-3.5 text-[#fa775d]" />
+                        <div className="p-2 bg-[#EFEAE2] border border-[#111111]">
+                          <div className="font-mono text-base font-bold text-[#111111] flex items-center justify-center gap-1">
+                            <Clock className="w-3.5 h-3.5 text-[#FF4D5A]" />
                             {camp.events_count}
                           </div>
-                          <div className="text-[10px] font-mono uppercase text-[#172e28]/70">
+                          <div className="text-[10px] font-mono uppercase text-[#111111]/70">
                             Eventos
                           </div>
                         </div>
                       </div>
 
-                      <div className="text-[11px] font-mono text-[#172e28]/70 flex items-center justify-between">
+                      <div className="text-[11px] font-mono text-[#111111]/70 flex items-center justify-between">
                         <span>ATUALIZADO EM:</span>
-                        <span className="font-bold text-[#172e28]">
+                        <span className="font-bold text-[#111111]">
                           {formatDateTime(camp.updated_at)}
                         </span>
                       </div>
@@ -303,7 +303,7 @@ export const UserDashboardPage: React.FC = () => {
                       <div className="flex items-center justify-between gap-2 pt-2">
                         <Link
                           to={`/campaigns/${camp.id}`}
-                          className="flex-1 inline-flex items-center justify-between px-3.5 py-2.5 bg-[#d8ff72] hover:bg-[#c8f550] text-[#172e28] border-2 border-[#172e28] shadow-[3px_3px_0_#172e28] font-display font-bold uppercase text-xs transition-all"
+                          className="flex-1 inline-flex items-center justify-between px-3.5 py-2.5 bg-[#FF4D5A] hover:bg-[#e63946] text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0_#111111] font-display font-bold uppercase text-xs transition-all"
                         >
                           <span>Acessar Campanha</span>
                           <ArrowUpRight className="w-4 h-4" />
@@ -315,7 +315,7 @@ export const UserDashboardPage: React.FC = () => {
                               to={`/campaigns/${camp.id}/settings`}
                               title="Editar configurações"
                               aria-label={`Configurações da campanha ${camp.name}`}
-                              className="p-2.5 bg-[#fffdf4] hover:bg-[#ffd2bb] text-[#172e28] border-2 border-[#172e28] shadow-[2px_2px_0_#172e28] transition-colors"
+                              className="p-2.5 bg-[#FFFFFF] hover:bg-[#EFEAE2] text-[#111111] border-2 border-[#111111] shadow-[2px_2px_0_#111111] transition-colors"
                             >
                               <Settings className="w-4 h-4" />
                             </Link>
@@ -337,7 +337,7 @@ export const UserDashboardPage: React.FC = () => {
                                   ? `Arquivar campanha ${camp.name}`
                                   : `Reativar campanha ${camp.name}`
                               }
-                              className="p-2.5 bg-[#fffdf4] hover:bg-[#d8ff72] text-[#172e28] border-2 border-[#172e28] shadow-[2px_2px_0_#172e28] transition-colors"
+                              className="p-2.5 bg-[#FFFFFF] hover:bg-[#EFEAE2] text-[#111111] border-2 border-[#111111] shadow-[2px_2px_0_#111111] transition-colors"
                             >
                               {camp.status === "active" ? (
                                 <Archive className="w-4 h-4" />
@@ -350,7 +350,7 @@ export const UserDashboardPage: React.FC = () => {
                               onClick={() => setCampaignToDelete(camp)}
                               title="Excluir campanha"
                               aria-label={`Excluir campanha ${camp.name}`}
-                              className="p-2.5 bg-[#fffdf4] hover:bg-[#fa775d] text-[#172e28] border-2 border-[#172e28] shadow-[2px_2px_0_#172e28] transition-colors"
+                              className="p-2.5 bg-[#FFFFFF] hover:bg-[#FF4D5A] text-[#111111] border-2 border-[#111111] shadow-[2px_2px_0_#111111] transition-colors"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>

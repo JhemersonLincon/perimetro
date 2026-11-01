@@ -7,7 +7,7 @@ export const LandingPage: React.FC = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className="min-h-screen bg-[#f6f1e4] text-[#172e28] flex flex-col">
+    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col">
       <Navbar />
 
       <main id="conteudo" className="flex-1">
@@ -15,7 +15,7 @@ export const LandingPage: React.FC = () => {
         <section className="ref-hero" aria-labelledby="hero-title">
           <div className="ref-hero-grid wrap">
             <div className="ref-hero-copy">
-              <div className="eyebrow text-[#d8ff72] flex items-center gap-2.5">
+              <div className="eyebrow text-[#FF4D5A] flex items-center gap-2.5">
                 <span className="pulse-dot" aria-hidden="true" />
                 PLATAFORMA DE GERENCIAMENTO NARRATIVO DE RPG
               </div>
@@ -25,10 +25,10 @@ export const LandingPage: React.FC = () => {
                 <br />
                 QUE <em>SAEM</em>
                 <br />
-                DO PAPEL
+                DO PAPEL<span className="text-[#FFFFFF]">.</span>
               </h1>
 
-              <p className="text-[18px] sm:text-[19px] leading-[1.45] max-w-[540px] text-[#e2e9d8]">
+              <p className="text-[18px] sm:text-[19px] leading-[1.45] max-w-[540px] text-[#EFEAE2]">
                 Um ambiente centralizado para transformar anotações dispersas em uma linha do tempo
                 interativa. Conecte acontecimentos, personagens, NPCs, localidades, organizações e
                 sessões de jogo.
@@ -58,7 +58,7 @@ export const LandingPage: React.FC = () => {
                     </Link>
                     <Link
                       to="/login"
-                      className="text-sm font-bold text-[#fffdf4] underline underline-offset-4 hover:text-[#d8ff72] transition-colors"
+                      className="text-sm font-bold text-[#FFFFFF] underline underline-offset-4 hover:text-[#FF4D5A] transition-colors"
                     >
                       Já possuo conta →
                     </Link>
@@ -66,7 +66,7 @@ export const LandingPage: React.FC = () => {
                 )}
                 <a
                   href="#proposito"
-                  className="text-sm font-bold text-[#fffdf4] underline underline-offset-4 hover:text-[#d8ff72] transition-colors"
+                  className="text-sm font-bold text-[#FFFFFF] underline underline-offset-4 hover:text-[#FF4D5A] transition-colors"
                 >
                   Conheça a plataforma <span aria-hidden="true">↓</span>
                 </a>
@@ -96,13 +96,13 @@ export const LandingPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="hero-bottom wrap border-t border-white/35 min-h-[58px] flex flex-wrap items-center gap-6 sm:gap-10 py-3 text-[#fffdf4]">
+          <div className="hero-bottom wrap border-t border-white/35 min-h-[58px] flex flex-wrap items-center gap-6 sm:gap-10 py-3 text-[#FFFFFF]">
             <span>MÚLTIPLAS CAMPANHAS</span>
             <span>CALENDÁRIO NARRATIVO</span>
             <span>CONTROLE DE VISIBILIDADE EM 3 NÍVEIS</span>
             <a
               href="#proposito"
-              className="ml-auto text-[#d8ff72] inline-flex items-center gap-2 hover:underline"
+              className="ml-auto text-[#FF4D5A] inline-flex items-center gap-2 hover:underline"
             >
               ROLE PARA EXPLORAR <span className="text-base">↓</span>
             </a>
@@ -127,12 +127,12 @@ export const LandingPage: React.FC = () => {
         {/* 01 / O PROPÓSITO — Seção Creme Editorial */}
         <section
           id="proposito"
-          className="bg-[#f6f1e4] text-[#172e28] py-20 sm:py-28"
+          className="bg-[#EFEAE2] text-[#111111] py-20 sm:py-28"
           aria-labelledby="proposito-title"
         >
           <div className="wrap grid grid-cols-1 lg:grid-cols-[25%_75%] gap-8 items-start">
-            <div className="section-index flex items-center gap-2.5 text-[#172e28] pt-2">
-              <span className="text-[#fa775d] text-lg leading-none">✳</span>
+            <div className="section-index flex items-center gap-2.5 text-[#111111] pt-2">
+              <span className="text-[#FF4D5A] text-lg leading-none">✳</span>
               <span>01 / O PROPÓSITO</span>
             </div>
 
@@ -143,19 +143,19 @@ export const LandingPage: React.FC = () => {
               >
                 HISTÓRIAS REAIS.
                 <br />
-                <span className="text-[#849687]">MUNDOS EM MOVIMENTO.</span>
+                <span className="text-[#FF4D5A]">MUNDOS EM MOVIMENTO.</span>
               </h2>
 
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
-                <p className="text-[19px] sm:text-[21px] leading-[1.45] max-w-[600px] text-[#172e28]">
+                <p className="text-[19px] sm:text-[21px] leading-[1.45] max-w-[600px] text-[#111111]">
                   Informações narrativas que normalmente ficam dispersas em anotações, planilhas e
                   documentos ganham uma estrutura organizada, visualmente acessível e
                   interconectada ao redor de uma linha do tempo viva.
                 </p>
 
                 <div className="idea-doodle" aria-hidden="true">
-                  <b className="text-[28px] text-[#fa775d] leading-none">✳</b>
-                  <strong className="text-[26px] text-[#172e28]">CRÔNICA</strong>
+                  <b className="text-[28px] text-[#FF4D5A] leading-none">✳</b>
+                  <strong className="text-[26px] text-[#111111]">CRÔNICA</strong>
                   <span className="font-mono text-[11px] tracking-widest uppercase">
                     ARQUIVO VIVO
                   </span>
@@ -168,7 +168,7 @@ export const LandingPage: React.FC = () => {
         {/* 02 / OS PILARES E MÓDULOS — Seção Paper com Cards Brutalistas */}
         <section
           id="modulos"
-          className="bg-[#fffdf4] text-[#172e28] border-t-2 border-[#172e28] py-20 sm:py-28"
+          className="bg-[#FFFFFF] text-[#111111] border-t-2 border-[#111111] py-20 sm:py-28"
           aria-labelledby="modulos-title"
         >
           <div className="wrap">
@@ -187,10 +187,10 @@ export const LandingPage: React.FC = () => {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <article className="pillar-card bg-[#f6f1e4] min-h-[320px] justify-between">
-                <div className="flex items-center justify-between border-b border-[#172e28] pb-3">
+              <article className="pillar-card bg-[#EFEAE2] min-h-[320px] justify-between">
+                <div className="flex items-center justify-between border-b border-[#111111] pb-3">
                   <span className="font-mono text-xs font-medium tracking-widest">01 / EIXO</span>
-                  <span className="font-mono text-xs uppercase bg-[#172e28] text-[#fffdf4] px-2 py-0.5">
+                  <span className="font-mono text-xs uppercase bg-[#16151A] text-[#FFFFFF] px-2 py-0.5">
                     CRONOLOGIA
                   </span>
                 </div>
@@ -199,17 +199,17 @@ export const LandingPage: React.FC = () => {
                   <h3 className="font-display text-2xl font-bold uppercase tracking-[-0.04em] mb-2">
                     LINHA DO TEMPO INTERATIVA
                   </h3>
-                  <p className="text-[15px] leading-[1.5] text-[#172e28]/90">
+                  <p className="text-[15px] leading-[1.5] text-[#111111]/90">
                     Ordene acontecimentos no calendário gregoriano ou em calendários fictícios
                     personalizados, com filtros combináveis instantâneos.
                   </p>
                 </div>
               </article>
 
-              <article className="pillar-card bg-[#d8ff72] min-h-[320px] justify-between">
-                <div className="flex items-center justify-between border-b border-[#172e28] pb-3">
+              <article className="pillar-card bg-[#FF4D5A] min-h-[320px] justify-between">
+                <div className="flex items-center justify-between border-b border-[#111111] pb-3">
                   <span className="font-mono text-xs font-medium tracking-widest">02 / REDE</span>
-                  <span className="font-mono text-xs uppercase bg-[#172e28] text-[#d8ff72] px-2 py-0.5">
+                  <span className="font-mono text-xs uppercase bg-[#16151A] text-[#FFFFFF] px-2 py-0.5">
                     4 CATEGORIAS
                   </span>
                 </div>
@@ -218,28 +218,28 @@ export const LandingPage: React.FC = () => {
                   <h3 className="font-display text-2xl font-bold uppercase tracking-[-0.04em] mb-2">
                     ENTIDADES &amp; SESSÕES
                   </h3>
-                  <p className="text-[15px] leading-[1.5] text-[#172e28]/90">
+                  <p className="text-[15px] leading-[1.5] text-[#111111]/90">
                     Vincule Personagens (PJ), NPCs, Localidades, Organizações e Sessões de Jogo a
                     cada evento e gere o histórico cronológico automaticamente.
                   </p>
                 </div>
               </article>
 
-              <article className="pillar-card bg-[#ffd2bb] min-h-[320px] justify-between">
-                <div className="flex items-center justify-between border-b border-[#172e28] pb-3">
-                  <span className="font-mono text-xs font-medium tracking-widest">
+              <article className="pillar-card bg-[#16151A] text-[#FFFFFF] min-h-[320px] justify-between">
+                <div className="flex items-center justify-between border-b border-white/30 pb-3">
+                  <span className="font-mono text-xs font-medium tracking-widest text-[#EFEAE2]">
                     03 / SEGURANÇA
                   </span>
-                  <span className="font-mono text-xs uppercase bg-[#172e28] text-[#ffd2bb] px-2 py-0.5">
+                  <span className="font-mono text-xs uppercase bg-[#FF4D5A] text-[#111111] px-2 py-0.5 font-bold">
                     PERMISSÕES
                   </span>
                 </div>
-                <div className="text-[54px] leading-none my-6 font-bold">⛨</div>
+                <div className="text-[54px] leading-none my-6 font-bold text-[#FF4D5A]">⛨</div>
                 <div>
-                  <h3 className="font-display text-2xl font-bold uppercase tracking-[-0.04em] mb-2">
+                  <h3 className="font-display text-2xl font-bold uppercase tracking-[-0.04em] mb-2 text-[#FFFFFF]">
                     VISIBILIDADE EM 3 NÍVEIS
                   </h3>
-                  <p className="text-[15px] leading-[1.5] text-[#172e28]/90">
+                  <p className="text-[15px] leading-[1.5] text-[#EFEAE2]/90">
                     Classifique registros como Públicos, Privados ao Mestre ou Restritos a jogadores
                     específicos, com proteção validada no servidor.
                   </p>
@@ -249,10 +249,10 @@ export const LandingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* 03 / EXEMPLO DE CRONOLOGIA — Seção Coral Brutalista */}
+        {/* 03 / EXEMPLO DE CRONOLOGIA — Seção Destaque Brutalista */}
         <section
           id="cronologia"
-          className="bg-[#fa775d] text-[#172e28] border-y-2 border-[#172e28] py-20 sm:py-28 overflow-hidden"
+          className="bg-[#FF4D5A] text-[#111111] border-y-2 border-[#111111] py-20 sm:py-28 overflow-hidden"
           aria-labelledby="cronologia-title"
         >
           <div className="wrap grid grid-cols-1 lg:grid-cols-[36%_64%] gap-10">
@@ -260,8 +260,8 @@ export const LandingPage: React.FC = () => {
               <span className="section-index">03 / DOSSIÊ EM AÇÃO</span>
               <div
                 aria-hidden="true"
-                className="hidden lg:block text-[260px] font-bold leading-[0.75] tracking-[-0.15em] -rotate-12 text-[#d8ff72] select-none"
-                style={{ textShadow: "10px 12px 0 #172e28" }}
+                className="hidden lg:block text-[260px] font-bold leading-[0.75] tracking-[-0.15em] -rotate-12 text-[#FFFFFF] select-none"
+                style={{ textShadow: "10px 12px 0 #111111" }}
               >
                 RPG
               </div>
@@ -270,9 +270,9 @@ export const LandingPage: React.FC = () => {
               </span>
             </div>
 
-            <div className="lg:border-l-2 lg:border-[#172e28] lg:pl-14">
-              <div className="status-chip inline-flex items-center gap-2.5 bg-[#172e28] text-[#fffdf4] px-3.5 py-2">
-                <span className="w-2 h-2 rounded-full bg-[#d8ff72]" />
+            <div className="lg:border-l-2 lg:border-[#111111] lg:pl-14">
+              <div className="status-chip inline-flex items-center gap-2.5 bg-[#16151A] text-[#FFFFFF] px-3.5 py-2">
+                <span className="w-2 h-2 rounded-full bg-[#FF4D5A]" />
                 EXEMPLO DE LINHA DO TEMPO COMPARTILHADA
               </div>
 
@@ -281,45 +281,49 @@ export const LandingPage: React.FC = () => {
                 className="font-display font-bold uppercase text-[clamp(42px,4.8vw,80px)] leading-[0.96] tracking-[-0.075em] my-7"
               >
                 O QUE O MESTRE CRIA,{" "}
-                <em className="not-italic text-[#d8ff72]">A MESA VIVE.</em>
+                <em className="not-italic text-[#FFFFFF]">A MESA VIVE.</em>
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-                <div className="bg-[#fffdf4] border-2 border-[#172e28] p-4 shadow-[5px_5px_0_#172e28]">
-                  <div className="font-mono text-[10px] uppercase tracking-wider flex justify-between border-b border-[#172e28] pb-2 mb-3">
+                <div className="bg-[#FFFFFF] border-2 border-[#111111] p-4 shadow-[5px_5px_0_#111111]">
+                  <div className="font-mono text-[10px] uppercase tracking-wider flex justify-between border-b border-[#111111] pb-2 mb-3">
                     <span>14 DE BRUMÁRIO, 412</span>
-                    <span className="bg-[#d8ff72] px-1.5 font-bold">PÚBLICO</span>
+                    <span className="bg-[#EFEAE2] border border-[#111111] px-1.5 font-bold">
+                      PÚBLICO
+                    </span>
                   </div>
                   <h3 className="font-bold text-base uppercase leading-tight">
                     O Selo da Biblioteca Subterrânea
                   </h3>
-                  <p className="text-xs mt-2 leading-relaxed text-[#172e28]/80">
+                  <p className="text-xs mt-2 leading-relaxed text-[#111111]/80">
                     Visível para todos os jogadores da campanha, conectado ao PJ Vance e à Sessão #04.
                   </p>
                 </div>
 
-                <div className="bg-[#f6f1e4] border-2 border-[#172e28] p-4 shadow-[5px_5px_0_#172e28]">
-                  <div className="font-mono text-[10px] uppercase tracking-wider flex justify-between border-b border-[#172e28] pb-2 mb-3">
+                <div className="bg-[#EFEAE2] border-2 border-[#111111] p-4 shadow-[5px_5px_0_#111111]">
+                  <div className="font-mono text-[10px] uppercase tracking-wider flex justify-between border-b border-[#111111] pb-2 mb-3">
                     <span>19 DE BRUMÁRIO, 412</span>
-                    <span className="bg-[#ffd2bb] px-1.5 font-bold">RESTRITO</span>
+                    <span className="bg-[#FFFFFF] border border-[#111111] px-1.5 font-bold">
+                      RESTRITO
+                    </span>
                   </div>
                   <h3 className="font-bold text-base uppercase leading-tight">
                     A Carta Cifrada do Inquisidor
                   </h3>
-                  <p className="text-xs mt-2 leading-relaxed text-[#172e28]/80">
+                  <p className="text-xs mt-2 leading-relaxed text-[#111111]/80">
                     Liberado pelo Mestre exclusivamente para o jogador que decifrou o pergaminho.
                   </p>
                 </div>
 
-                <div className="bg-[#16332c] text-[#fffdf4] border-2 border-[#172e28] p-4 shadow-[5px_5px_0_#172e28]">
+                <div className="bg-[#16151A] text-[#FFFFFF] border-2 border-[#111111] p-4 shadow-[5px_5px_0_#111111]">
                   <div className="font-mono text-[10px] uppercase tracking-wider flex justify-between border-b border-white/30 pb-2 mb-3">
-                    <span className="text-[#d8ff72]">22 DE BRUMÁRIO, 412</span>
-                    <span className="bg-[#fa775d] text-[#172e28] px-1.5 font-bold">PRIVADO GM</span>
+                    <span className="text-[#EFEAE2]">22 DE BRUMÁRIO, 412</span>
+                    <span className="bg-[#FF4D5A] text-[#111111] px-1.5 font-bold">PRIVADO GM</span>
                   </div>
                   <h3 className="font-bold text-base uppercase leading-tight">
                     Conspiração do Conclave
                   </h3>
-                  <p className="text-xs mt-2 leading-relaxed text-[#e2e9d8]">
+                  <p className="text-xs mt-2 leading-relaxed text-[#EFEAE2]">
                     Registrado na mesma linha do tempo para controle do Mestre, 100% oculto dos
                     jogadores.
                   </p>
@@ -329,16 +333,17 @@ export const LandingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* 04 / FLUXO EM 3 PASSOS — Seção Deep Forest */}
-        <section className="bg-[#16332c] text-[#fffdf4] py-20 sm:py-28">
+        {/* 04 / FLUXO EM 3 PASSOS — Seção Carvão */}
+        <section className="bg-[#16151A] text-[#FFFFFF] py-20 sm:py-28">
           <div className="wrap grid grid-cols-1 lg:grid-cols-[44%_56%] gap-12">
             <div>
-              <span className="section-index text-[#d8ff72]">04 / COMO PARTICIPAR</span>
+              <span className="section-index text-[#FF4D5A]">04 / COMO PARTICIPAR</span>
               <h2 className="font-display font-bold uppercase text-[clamp(42px,4.8vw,80px)] leading-[0.96] tracking-[-0.075em] my-8">
                 ORGANIZE SUA MESA EM{" "}
-                <em className="not-italic text-[#fa775d]">3 PASSOS.</em>
+                <em className="not-italic text-[#FF4D5A]">3 PASSOS</em>
+                <span className="text-[#FFFFFF]">.</span>
               </h2>
-              <p className="text-lg text-[#d8e4d5] max-w-md leading-relaxed">
+              <p className="text-lg text-[#EFEAE2] max-w-md leading-relaxed">
                 Crie múltiplas campanhas independentes, configure seu calendário narrativo e convide
                 seu grupo.
               </p>
@@ -346,45 +351,45 @@ export const LandingPage: React.FC = () => {
 
             <div className="divide-y divide-white/35 border-y border-white/35">
               <div className="grid grid-cols-[54px_1fr_28px] gap-4 py-8 items-start">
-                <span className="font-mono text-[#d8ff72] text-base">01</span>
+                <span className="font-mono text-[#FF4D5A] text-base">01</span>
                 <div>
                   <h3 className="font-display text-2xl font-bold uppercase tracking-[-0.04em] mb-2">
                     CONFIGURE A CAMPANHA E O CALENDÁRIO
                   </h3>
-                  <p className="text-[#d8e4d5] text-sm sm:text-base leading-relaxed">
+                  <p className="text-[#EFEAE2] text-sm sm:text-base leading-relaxed">
                     Defina o sistema de RPG e escolha entre o calendário gregoriano ou um calendário
                     fictício com nomes e durações de meses personalizados.
                   </p>
                 </div>
-                <b className="text-[#d8ff72] text-2xl font-normal">✳</b>
+                <b className="text-[#FF4D5A] text-2xl font-normal">✳</b>
               </div>
 
               <div className="grid grid-cols-[54px_1fr_28px] gap-4 py-8 items-start">
-                <span className="font-mono text-[#d8ff72] text-base">02</span>
+                <span className="font-mono text-[#FF4D5A] text-base">02</span>
                 <div>
                   <h3 className="font-display text-2xl font-bold uppercase tracking-[-0.04em] mb-2">
                     CADASTRE ENTIDADES, SESSÕES E EVENTOS
                   </h3>
-                  <p className="text-[#d8e4d5] text-sm sm:text-base leading-relaxed">
+                  <p className="text-[#EFEAE2] text-sm sm:text-base leading-relaxed">
                     Registre personagens, NPCs, localidades e organizações e conecte-os aos
                     acontecimentos da linha do tempo com papéis narrativos.
                   </p>
                 </div>
-                <b className="text-[#d8ff72] text-2xl font-normal">✳</b>
+                <b className="text-[#FF4D5A] text-2xl font-normal">✳</b>
               </div>
 
               <div className="grid grid-cols-[54px_1fr_28px] gap-4 py-8 items-start">
-                <span className="font-mono text-[#d8ff72] text-base">03</span>
+                <span className="font-mono text-[#FF4D5A] text-base">03</span>
                 <div>
                   <h3 className="font-display text-2xl font-bold uppercase tracking-[-0.04em] mb-2">
                     CONVIDE JOGADORES E CONTROLE SEGREDO E REVELAÇÃO
                   </h3>
-                  <p className="text-[#d8e4d5] text-sm sm:text-base leading-relaxed">
+                  <p className="text-[#EFEAE2] text-sm sm:text-base leading-relaxed">
                     Compartilhe códigos de convite com os jogadores e libere mistérios na linha do
                     tempo conforme a história avança na mesa.
                   </p>
                 </div>
-                <b className="text-[#d8ff72] text-2xl font-normal">✳</b>
+                <b className="text-[#FF4D5A] text-2xl font-normal">✳</b>
               </div>
             </div>
           </div>
@@ -393,7 +398,7 @@ export const LandingPage: React.FC = () => {
         {/* 05 / PERGUNTAS FREQUENTES — Seção Creme com Accordion */}
         <section
           id="perguntas"
-          className="bg-[#f6f1e4] text-[#172e28] border-t-2 border-[#172e28] py-20 sm:py-28"
+          className="bg-[#EFEAE2] text-[#111111] border-t-2 border-[#111111] py-20 sm:py-28"
           aria-labelledby="faq-title"
         >
           <div className="wrap grid grid-cols-1 lg:grid-cols-[42%_58%] gap-12">
@@ -405,19 +410,19 @@ export const LandingPage: React.FC = () => {
               >
                 AINDA TEM
                 <br />
-                <em className="not-italic text-[#fa775d]">DÚVIDAS?</em>
+                <em className="not-italic text-[#FF4D5A]">DÚVIDAS?</em>
               </h2>
             </div>
 
-            <div className="divide-y-2 divide-[#172e28] border-y-2 border-[#172e28]">
+            <div className="divide-y-2 divide-[#111111] border-y-2 border-[#111111]">
               <details className="group py-5">
                 <summary className="list-none cursor-pointer flex items-center justify-between gap-4 font-bold text-xl tracking-[-0.03em]">
                   <span>Posso usar calendários fictícios criados para o meu cenário?</span>
-                  <span className="w-8 h-8 rounded-full border-2 border-[#172e28] grid place-items-center text-xl group-open:rotate-45 group-open:bg-[#d8ff72] transition-transform">
+                  <span className="w-8 h-8 rounded-full border-2 border-[#111111] bg-[#FFFFFF] grid place-items-center text-xl group-open:rotate-45 group-open:bg-[#FF4D5A] transition-transform">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 text-[#4b6158] leading-relaxed">
+                <p className="mt-3 text-[#111111]/80 leading-relaxed">
                   Sim! Ao criar ou configurar uma campanha, você pode escolher entre o calendário
                   gregoriano ou definir os nomes e a quantidade de dias de cada mês do seu mundo,
                   além de cadastrar acontecimentos com data desconhecida.
@@ -427,11 +432,11 @@ export const LandingPage: React.FC = () => {
               <details className="group py-5">
                 <summary className="list-none cursor-pointer flex items-center justify-between gap-4 font-bold text-xl tracking-[-0.03em]">
                   <span>Os jogadores conseguem ver anotações privadas do Mestre?</span>
-                  <span className="w-8 h-8 rounded-full border-2 border-[#172e28] grid place-items-center text-xl group-open:rotate-45 group-open:bg-[#d8ff72] transition-transform">
+                  <span className="w-8 h-8 rounded-full border-2 border-[#111111] bg-[#FFFFFF] grid place-items-center text-xl group-open:rotate-45 group-open:bg-[#FF4D5A] transition-transform">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 text-[#4b6158] leading-relaxed">
+                <p className="mt-3 text-[#111111]/80 leading-relaxed">
                   Não. A filtragem de visibilidade (Público, Privado e Restrito) é executada
                   diretamente no servidor. Eventos e entidades privados jamais são trafegados para
                   contas com papel de Jogador.
@@ -441,11 +446,11 @@ export const LandingPage: React.FC = () => {
               <details className="group py-5">
                 <summary className="list-none cursor-pointer flex items-center justify-between gap-4 font-bold text-xl tracking-[-0.03em]">
                   <span>Como funcionam os convites para jogadores?</span>
-                  <span className="w-8 h-8 rounded-full border-2 border-[#172e28] grid place-items-center text-xl group-open:rotate-45 group-open:bg-[#d8ff72] transition-transform">
+                  <span className="w-8 h-8 rounded-full border-2 border-[#111111] bg-[#FFFFFF] grid place-items-center text-xl group-open:rotate-45 group-open:bg-[#FF4D5A] transition-transform">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 text-[#4b6158] leading-relaxed">
+                <p className="mt-3 text-[#111111]/80 leading-relaxed">
                   Na aba Participantes da campanha, o Mestre gera um token/link de convite. Basta o
                   jogador acessar o link ou colar o código em seu painel para ingressar na campanha.
                 </p>
@@ -454,16 +459,16 @@ export const LandingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* CLOSING CTA BANNER — Lime Brutalista */}
-        <section className="bg-[#d8ff72] text-[#172e28] border-y-2 border-[#172e28] py-20 relative overflow-hidden">
+        {/* CLOSING CTA BANNER — Vermelho Sangue Brutalista */}
+        <section className="bg-[#FF4D5A] text-[#111111] border-y-2 border-[#111111] py-20 relative overflow-hidden">
           <div className="wrap grid grid-cols-1 lg:grid-cols-[65%_35%] gap-8 items-end relative z-10">
             <div>
               <span className="section-index">06 / COMECE AGORA</span>
               <h2 className="font-display font-bold uppercase text-[clamp(48px,5.8vw,96px)] leading-[0.94] tracking-[-0.08em] mt-5">
                 TIRE SUA CAMPANHA{" "}
                 <em
-                  className="not-italic text-[#fa775d]"
-                  style={{ textShadow: "3px 3px 0 #172e28" }}
+                  className="not-italic text-[#FFFFFF]"
+                  style={{ textShadow: "3px 3px 0 #111111" }}
                 >
                   DO PAPEL.
                 </em>
@@ -489,8 +494,8 @@ export const LandingPage: React.FC = () => {
         </section>
       </main>
 
-      {/* RODAPÉ DEEP FOREST */}
-      <footer className="bg-[#16332c] text-[#fffdf4]">
+      {/* RODAPÉ CARVÃO */}
+      <footer className="bg-[#16151A] text-[#FFFFFF]">
         <div className="wrap py-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-b border-white/25">
           <div className="brand">
             <span className="brand-mark" aria-hidden="true">
@@ -499,20 +504,20 @@ export const LandingPage: React.FC = () => {
               <span></span>
               <span></span>
             </span>
-            <span className="brand-text !text-[#fffdf4]">
+            <span className="brand-text !text-[#FFFFFF]">
               CRÔNICA
-              <strong className="text-[#d8ff72]">ARQUIVO RPG</strong>
+              <strong className="text-[#FF4D5A]">ARQUIVO RPG</strong>
             </span>
           </div>
 
-          <div className="font-mono text-xs uppercase tracking-widest text-[#d8e4d5]">
+          <div className="font-mono text-xs uppercase tracking-widest text-[#EFEAE2]">
             SISTEMA WEB DE GERENCIAMENTO DE CAMPANHAS E LINHA DO TEMPO INTERATIVA
           </div>
         </div>
 
-        <div className="wrap py-5 flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-wider text-[#d8e4d5]">
+        <div className="wrap py-5 flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-wider text-[#EFEAE2]">
           <span>MVP v1.0 · PLATAFORMA CRÔNICA</span>
-          <a href="#conteudo" className="text-[#d8ff72] hover:underline">
+          <a href="#conteudo" className="text-[#FF4D5A] hover:underline">
             VOLTAR AO TOPO ↑
           </a>
         </div>

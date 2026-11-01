@@ -41,38 +41,38 @@ export const EVENT_CATEGORY_META: Record<
 > = {
   investigacao: {
     label: "Investigação",
-    badgeClass: "bg-[#fffdf4] text-[#172e28] border-[#172e28]",
-    dotClass: "bg-[#d8ff72]",
+    badgeClass: "bg-[#FFFFFF] text-[#111111] border-[#111111]",
+    dotClass: "bg-[#FF4D5A]",
   },
   descoberta: {
     label: "Descoberta",
-    badgeClass: "bg-[#d8ff72] text-[#172e28] border-[#172e28]",
-    dotClass: "bg-[#d8ff72]",
+    badgeClass: "bg-[#FF4D5A] text-[#111111] border-[#111111]",
+    dotClass: "bg-[#FF4D5A]",
   },
   encontro: {
     label: "Encontro",
-    badgeClass: "bg-[#f6f1e4] text-[#172e28] border-[#172e28]",
-    dotClass: "bg-[#fffdf4]",
+    badgeClass: "bg-[#EFEAE2] text-[#111111] border-[#111111]",
+    dotClass: "bg-[#FFFFFF]",
   },
   revelacao: {
     label: "Revelação",
-    badgeClass: "bg-[#ffd2bb] text-[#172e28] border-[#172e28]",
-    dotClass: "bg-[#fa775d]",
+    badgeClass: "bg-[#FF4D5A] text-[#111111] border-[#111111]",
+    dotClass: "bg-[#FF4D5A]",
   },
   desaparecimento: {
     label: "Desaparecimento",
-    badgeClass: "bg-[#fa775d] text-[#172e28] border-[#172e28]",
-    dotClass: "bg-[#fa775d]",
+    badgeClass: "bg-[#16151A] text-[#FFFFFF] border-[#111111]",
+    dotClass: "bg-[#FF4D5A]",
   },
   historico: {
     label: "Histórico",
-    badgeClass: "bg-[#ffd2bb] text-[#172e28] border-[#172e28]",
-    dotClass: "bg-[#ffd2bb]",
+    badgeClass: "bg-[#EFEAE2] text-[#111111] border-[#111111]",
+    dotClass: "bg-[#EFEAE2]",
   },
   outro: {
     label: "Outro",
-    badgeClass: "bg-[#f6f1e4] text-[#172e28] border-[#172e28]",
-    dotClass: "bg-[#f6f1e4]",
+    badgeClass: "bg-[#EFEAE2] text-[#111111] border-[#111111]",
+    dotClass: "bg-[#EFEAE2]",
   },
 };
 
@@ -85,27 +85,27 @@ export const VISIBILITY_LABELS: Record<VisibilityLevel, string> = {
 export const SESSION_STATUS_LABELS: Record<string, { label: string; className: string }> = {
   planejada: {
     label: "Planejada",
-    className: "bg-[#fffdf4] text-[#172e28] border-[#172e28]",
+    className: "bg-[#FFFFFF] text-[#111111] border-[#111111]",
   },
   realizada: {
     label: "Realizada",
-    className: "bg-[#d8ff72] text-[#172e28] border-[#172e28]",
+    className: "bg-[#FF4D5A] text-[#111111] border-[#111111]",
   },
   cancelada: {
     label: "Cancelada",
-    className: "bg-[#fa775d] text-[#172e28] border-[#172e28]",
+    className: "bg-[#EFEAE2] text-[#111111] border-[#111111]",
   },
   planned: {
     label: "Planejada",
-    className: "bg-[#fffdf4] text-[#172e28] border-[#172e28]",
+    className: "bg-[#FFFFFF] text-[#111111] border-[#111111]",
   },
   completed: {
     label: "Realizada",
-    className: "bg-[#d8ff72] text-[#172e28] border-[#172e28]",
+    className: "bg-[#FF4D5A] text-[#111111] border-[#111111]",
   },
   cancelled: {
     label: "Cancelada",
-    className: "bg-[#fa775d] text-[#172e28] border-[#172e28]",
+    className: "bg-[#EFEAE2] text-[#111111] border-[#111111]",
   },
 };
 
