@@ -1,0 +1,542 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* modern-web-guidance: dark-mode — Apply color-scheme to :root for viewport-wide theming */
+:root {
+  color-scheme: dark light;
+  --ink: #172e28;
+  --deep: #16332c;
+  --cream: #f6f1e4;
+  --paper: #fffdf4;
+  --lime: #d8ff72;
+  --coral: #fa775d;
+  --peach: #ffd2bb;
+  --sage: #849687;
+  --line: rgba(22, 51, 44, 0.22);
+  --color-accent-dark: #d8ff72;
+  --color-accent-light: #16332c;
+  --color-scrollbar-thumb: #172e28;
+  --color-scrollbar-track: #f6f1e4;
+  accent-color: var(--color-accent-dark);
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Space Grotesk", Arial, sans-serif;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+/* modern-web-guidance: improve-text-layout-and-legibility */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+  letter-spacing: -0.045em;
+}
+
+p,
+blockquote,
+li,
+.pretty-text {
+  text-wrap: pretty;
+}
+
+/* modern-web-guidance: dialog — Stop scroll gestures in modal or backdrop from chaining to the page */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(18, 41, 35, 0.84);
+  backdrop-filter: blur(3px);
+}
+
+/* modern-web-guidance: defer-rendering-heavy-content */
+.timeline-node-deferred,
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 220px;
+}
+
+/* ==========================================================================
+   SISTEMA VISUAL DE REFERÊNCIA (Hacktoberfest Unimontes Editorial / Brutalist)
+   ========================================================================== */
+
+.wrap {
+  width: min(100% - 48px, 1320px);
+  margin-inline: auto;
+}
+
+/* Marca Geométrica 4 Pétalas */
+.brand {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3px;
+  transform: rotate(-12deg);
+  transition: transform 0.2s ease;
+}
+
+.brand:hover .brand-mark {
+  transform: rotate(-4deg) scale(1.04);
+}
+
+.brand-mark span {
+  background: var(--coral);
+  border: 2px solid var(--ink);
+  border-radius: 45% 10% 45% 10%;
+}
+
+.brand-mark span:nth-child(2),
+.brand-mark span:nth-child(3) {
+  background: var(--lime);
+  border-radius: 10% 45% 10% 45%;
+}
+
+.brand-text {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+
+.brand-text strong {
+  font-size: 18px;
+  display: block;
+}
+
+/* Tipografia Técnica DM Mono */
+.header-note,
+.eyebrow,
+.section-index,
+.hero-bottom,
+.art-label,
+.status-chip {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.header-note {
+  border: 1.5px solid var(--ink);
+  border-radius: 50px;
+  padding: 8px 14px;
+  white-space: nowrap;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--coral);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px rgba(250, 119, 93, 0.22);
+}
+
+/* Botões Neo-Brutalistas da Referência */
+.ref-button {
+  border: 2px solid var(--ink);
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 11px 18px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  position: relative;
+  box-shadow: 5px 5px 0 var(--ink);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.ref-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.ref-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.ref-button-lime {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.ref-button-paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.ref-button-coral {
+  background: var(--coral);
+  color: var(--ink);
+}
+
+.ref-button-dark {
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: 5px 5px 0 var(--coral);
+}
+
+/* Hero Section e Ilustração Geométrica da Referência */
+.ref-hero {
+  background: var(--deep);
+  color: var(--paper);
+  overflow: hidden;
+  border-bottom: 2px solid var(--ink);
+}
+
+.ref-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(380px, 0.88fr);
+  min-height: 640px;
+  align-items: center;
+}
+
+.ref-hero-copy {
+  padding: 72px 0 64px;
+  position: relative;
+  z-index: 2;
+}
+
+.ref-hero h1 {
+  font-size: clamp(58px, 6.8vw, 114px);
+  line-height: 0.9;
+  letter-spacing: -0.085em;
+  margin: 26px 0 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.ref-hero h1 em,
+.em-lime {
+  font-style: normal;
+  color: var(--lime);
+}
+
+.em-coral {
+  font-style: normal;
+  color: var(--coral);
+}
+
+.accent-period {
+  color: var(--coral);
+}
+
+.hero-art {
+  position: relative;
+  min-height: 560px;
+  isolation: isolate;
+}
+
+.hero-art::before {
+  content: "";
+  position: absolute;
+  width: 680px;
+  height: 680px;
+  top: -10px;
+  left: 4%;
+  border-radius: 50%;
+  background: var(--coral);
+  clip-path: circle(46% at 50% 50%);
+  transform: rotate(-16deg);
+}
+
+.hero-art::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  background-image: radial-gradient(rgba(22, 51, 44, 0.65) 1.25px, transparent 1.25px);
+  background-size: 15px 15px;
+  mask-image: radial-gradient(ellipse at 55% 50%, black, transparent 72%);
+}
+
+.orbit {
+  position: absolute;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  left: 52%;
+  top: 49%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.orbit-one {
+  width: 340px;
+  height: 340px;
+}
+
+.orbit-two {
+  width: 465px;
+  height: 465px;
+}
+
+.orbit-three {
+  width: 590px;
+  height: 590px;
+  border-style: dashed;
+}
+
+.art-core {
+  position: absolute;
+  left: 52%;
+  top: 49%;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  width: 220px;
+  height: 220px;
+  background: var(--lime);
+  border: 4px solid var(--ink);
+  border-radius: 24% 76% 29% 71% / 64% 27% 73% 36%;
+  display: grid;
+  place-items: center;
+  z-index: 4;
+  box-shadow: 15px 17px 0 var(--ink);
+}
+
+.art-core span {
+  font-size: 148px;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.12em;
+  margin-left: -8px;
+}
+
+.art-core i {
+  font-size: 42px;
+  position: absolute;
+  right: -14px;
+  top: -26px;
+  color: var(--paper);
+  font-style: normal;
+}
+
+.art-stamp {
+  position: absolute;
+  top: 9%;
+  left: 2%;
+  z-index: 5;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+  padding: 16px 20px;
+  border: 3px solid var(--ink);
+  transform: rotate(-9deg);
+  box-shadow: 8px 8px 0 var(--ink);
+  text-transform: uppercase;
+}
+
+.art-stamp span {
+  color: var(--coral);
+  margin-left: 6px;
+}
+
+.art-label {
+  position: absolute;
+  z-index: 5;
+  background: var(--deep);
+  border: 1.5px solid var(--lime);
+  color: var(--lime);
+  padding: 8px 12px;
+}
+
+.art-label-one {
+  right: 0;
+  top: 21%;
+  transform: rotate(8deg);
+}
+
+.art-label-two {
+  bottom: 16%;
+  left: 4%;
+  transform: rotate(-7deg);
+}
+
+.art-spark {
+  position: absolute;
+  z-index: 4;
+  color: var(--lime);
+  font-size: 64px;
+  line-height: 1;
+}
+
+.art-spark-one {
+  right: 7%;
+  bottom: 8%;
+}
+
+.art-spark-two {
+  left: 13%;
+  bottom: 24%;
+  font-size: 34px;
+  color: var(--paper);
+}
+
+/* Faixa Ticker Animada */
+.ticker {
+  overflow: hidden;
+  background: var(--lime);
+  color: var(--ink);
+  border-block: 2px solid var(--ink);
+  height: 68px;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-track {
+  white-space: nowrap;
+  display: flex;
+  gap: 28px;
+  animation: marquee 28s linear infinite;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+.ticker-track b {
+  font-weight: 400;
+  color: var(--coral);
+  padding-inline: 14px;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Cards Brutalistas / Editoriais */
+.pillar-card {
+  background: var(--cream);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 26px;
+  box-shadow: 8px 8px 0 var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+
+.idea-doodle {
+  width: 210px;
+  height: 150px;
+  border: 2px dashed var(--ink);
+  border-radius: 50%;
+  transform: rotate(-11deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* Padronização do Tema da Referência nas Views Internas */
+.bg-dossier-grid {
+  background-color: var(--deep);
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(216, 255, 114, 0.09) 1px, transparent 1px);
+}
+
+/* Elevação Neo-Brutalista nos containers e cartões internos */
+main section.rounded-2xl,
+main article.rounded-2xl,
+main div.rounded-2xl,
+dialog.rounded-xl {
+  border-width: 2px !important;
+  border-color: #0b1c17 !important;
+  box-shadow: 6px 6px 0 #0b1c17 !important;
+  border-radius: 4px !important;
+}
+
+main a.rounded-xl,
+main button.rounded-xl,
+main div.rounded-xl {
+  border-radius: 4px !important;
+}
+
+@media (max-width: 960px) {
+  .ref-hero-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero-art {
+    min-height: 420px;
+    height: 420px;
+  }
+  .hero-art::before {
+    width: 520px;
+    height: 520px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .orbit-one {
+    width: 260px;
+    height: 260px;
+  }
+  .orbit-two {
+    width: 350px;
+    height: 350px;
+  }
+  .orbit-three {
+    width: 440px;
+    height: 440px;
+  }
+  .art-core {
+    width: 175px;
+    height: 175px;
+  }
+  .art-core span {
+    font-size: 118px;
+  }
+}

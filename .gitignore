@@ -1,0 +1,18 @@
+# Variaveis de ambiente
+.env
+
+# Backend (Python)
+backend/.venv/
+backend/.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+
+# Frontend (Node)
+frontend/node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
+
+# Sistema e Editores
+.vscode/
+.DS_Store
