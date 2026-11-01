@@ -74,52 +74,52 @@ export const ProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-zinc-100 flex flex-col bg-dossier-grid">
+    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col bg-dossier-grid">
       <Navbar />
       <main className="flex-1 max-w-3xl w-full mx-auto px-4 sm:px-6 py-10">
-        <div className="mb-8">
-          <span className="font-mono text-xs uppercase tracking-widest text-amber-400">
+        <div className="mb-8 pb-4 border-b-2 border-[#111111]">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D5A]">
             CREDENCIAL DO USUÁRIO
           </span>
-          <h1 className="font-display text-3xl font-bold text-zinc-100 mt-1">
+          <h1 className="font-display text-3xl font-bold uppercase text-[#111111] mt-1">
             Meu Perfil
           </h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-[#111111]/75 mt-1">
             Visualize e gerencie suas informações de identificação na plataforma.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="p-4 rounded-xl bg-obsidian-900 border border-zinc-800 flex items-center gap-3">
+          <div className="p-4 rounded-xl bg-obsidian-900 border-2 border-[#111111] shadow-[4px_4px_0_#FF4D5A] flex items-center gap-3">
             <Hash className="w-5 h-5 text-amber-400 shrink-0" />
             <div className="min-w-0">
-              <div className="text-[10px] font-mono uppercase text-zinc-500">ID Único</div>
-              <div className="text-xs font-mono text-zinc-200 truncate" title={user.id}>
+              <div className="text-[10px] font-mono uppercase text-zinc-400">ID Único</div>
+              <div className="text-xs font-mono text-zinc-100 truncate" title={user.id}>
                 {user.id}
               </div>
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-obsidian-900 border border-zinc-800 flex items-center gap-3">
+          <div className="p-4 rounded-xl bg-obsidian-900 border-2 border-[#111111] shadow-[4px_4px_0_#FF4D5A] flex items-center gap-3">
             <Mail className="w-5 h-5 text-amber-400 shrink-0" />
             <div className="min-w-0">
-              <div className="text-[10px] font-mono uppercase text-zinc-500">E-mail</div>
-              <div className="text-xs font-mono text-zinc-200 truncate">{user.email}</div>
+              <div className="text-[10px] font-mono uppercase text-zinc-400">E-mail</div>
+              <div className="text-xs font-mono text-zinc-100 truncate">{user.email}</div>
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-obsidian-900 border border-zinc-800 flex items-center gap-3">
+          <div className="p-4 rounded-xl bg-obsidian-900 border-2 border-[#111111] shadow-[4px_4px_0_#FF4D5A] flex items-center gap-3">
             <Calendar className="w-5 h-5 text-amber-400 shrink-0" />
             <div className="min-w-0">
-              <div className="text-[10px] font-mono uppercase text-zinc-500">Conta criada em</div>
-              <div className="text-xs font-mono text-zinc-200">
+              <div className="text-[10px] font-mono uppercase text-zinc-400">Conta criada em</div>
+              <div className="text-xs font-mono text-zinc-100">
                 {formatDateTime(user.created_at)}
               </div>
             </div>
           </div>
         </div>
 
-        <div className="rounded-2xl bg-obsidian-900 border border-zinc-800 p-6 sm:p-8">
+        <div className="rounded-2xl bg-obsidian-900 text-zinc-100 border-2 border-[#111111] shadow-[6px_6px_0_#FF4D5A] p-6 sm:p-8">
           {serverError && (
             <div
               role="alert"

@@ -68,26 +68,26 @@ export const ForgotPasswordPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-zinc-100 flex flex-col justify-center items-center px-4 py-12 bg-dossier-grid">
+    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col justify-center items-center px-4 py-12 bg-dossier-grid">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2.5 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/40 flex items-center justify-center text-amber-400">
+            <div className="w-10 h-10 rounded bg-[#16151A] border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] flex items-center justify-center text-[#FF4D5A]">
               <Compass className="w-5 h-5" />
             </div>
-            <span className="font-display font-bold text-2xl text-zinc-100 tracking-tight">
+            <span className="font-display font-bold text-2xl text-[#111111] tracking-tight">
               CRÔNICA
             </span>
           </Link>
-          <h1 className="font-display text-2xl font-bold text-zinc-100">
+          <h1 className="font-display text-2xl font-bold uppercase text-[#111111]">
             Recuperação de Credencial
           </h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-[#111111]/75 mt-1">
             Redefina sua senha de acesso à plataforma.
           </p>
         </div>
 
-        <div className="rounded-2xl bg-obsidian-900 border border-zinc-800/90 p-6 sm:p-8 shadow-2xl">
+        <div className="rounded bg-obsidian-900 text-zinc-100 border-2 border-[#111111] p-6 sm:p-8 shadow-[8px_8px_0_#FF4D5A]">
           {error && (
             <div
               role="alert"

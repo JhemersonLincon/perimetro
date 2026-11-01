@@ -20,7 +20,7 @@ export const LoadingState: React.FC<{ message?: string }> = ({
     className="flex flex-col items-center justify-center py-16 px-4 text-center"
   >
     <Loader2 className="w-8 h-8 text-[#FF4D5A] animate-spin mb-3" />
-    <p className="text-xs font-mono font-bold uppercase tracking-widest text-[#FF4D5A]">
+    <p className="text-xs font-mono font-bold uppercase tracking-widest text-[#111111]">
       {message}
     </p>
   </div>

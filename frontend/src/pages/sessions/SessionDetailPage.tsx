@@ -139,9 +139,9 @@ export const SessionDetailPage: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           to={`/campaigns/${campaign.id}/sessions`}
-          className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-amber-400"
+          className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#111111] hover:text-[#FF4D5A]"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="w-4 h-4 text-[#FF4D5A]" />
           Voltar para Sessões
         </Link>
 
@@ -150,7 +150,7 @@ export const SessionDetailPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setEditModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-obsidian-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs font-medium"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-obsidian-900 hover:bg-zinc-800 text-zinc-100 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono font-bold uppercase"
             >
               <Edit3 className="w-3.5 h-3.5 text-amber-400" />
               Editar Sessão
@@ -158,7 +158,7 @@ export const SessionDetailPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setConfirmDeleteOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-obsidian-900 hover:bg-rose-950/40 text-rose-300 border border-zinc-800 text-xs font-medium"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-obsidian-900 hover:bg-rose-950/60 text-rose-300 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono font-bold uppercase"
             >
               <Trash2 className="w-3.5 h-3.5" />
               Excluir

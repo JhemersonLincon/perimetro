@@ -98,15 +98,15 @@ export const EntitiesListPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-zinc-800">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b-2 border-[#111111]">
         <div>
-          <span className="font-mono text-xs uppercase tracking-widest text-amber-400">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D5A]">
             CATÁLOGO DE ELEMENTOS NARRATIVOS
           </span>
-          <h1 className="font-display text-3xl font-bold text-zinc-100 mt-1">
+          <h1 className="font-display text-3xl font-bold uppercase text-[#111111] mt-1">
             Entidades da Campanha
           </h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-[#111111]/75 mt-1">
             Personagens, NPCs, Localidades e Organizações que participam ou influenciam os
             acontecimentos.
           </p>
@@ -120,7 +120,7 @@ export const EntitiesListPage: React.FC = () => {
               setInitialCategory((category as EntityCategory) || "character");
               setModalOpen(true);
             }}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-obsidian-950 font-display font-semibold text-sm transition-colors shadow-lg shadow-amber-500/10"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0_#111111] font-display font-bold uppercase text-xs transition-colors"
           >
             <Plus className="w-4 h-4" />
             Nova Entidade

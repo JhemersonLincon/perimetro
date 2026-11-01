@@ -29,10 +29,10 @@ export const AcceptInvitationPage: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-zinc-100 flex flex-col bg-dossier-grid">
+    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col bg-dossier-grid">
       <Navbar />
       <main className="flex-1 flex items-center justify-center p-4">
-        <div className="max-w-md w-full rounded-2xl bg-obsidian-900 border border-zinc-800 p-8 text-center shadow-2xl space-y-5">
+        <div className="max-w-md w-full rounded-2xl bg-obsidian-900 text-zinc-100 border-2 border-[#111111] p-8 text-center shadow-[6px_6px_0_#FF4D5A] space-y-5">
           <div className="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 mx-auto">
             <Ticket className="w-6 h-6" />
           </div>

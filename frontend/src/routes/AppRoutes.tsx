@@ -27,7 +27,7 @@ const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const { isAuthenticated, isLoading } = useAuth();
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-obsidian-950 flex items-center justify-center">
+      <div className="min-h-screen bg-[#EFEAE2] bg-dossier-grid flex items-center justify-center">
         <LoadingState message="Verificando sessão de autenticação..." />
       </div>
     );
@@ -42,7 +42,7 @@ const GuestRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-obsidian-950 flex items-center justify-center">
+      <div className="min-h-screen bg-[#EFEAE2] bg-dossier-grid flex items-center justify-center">
         <LoadingState message="Carregando..." />
       </div>
     );

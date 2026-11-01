@@ -41,12 +41,12 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           <div
             key={t.id}
             role="status"
-            className={`pointer-events-auto flex items-start gap-3 px-4 py-3.5 rounded-lg border shadow-2xl backdrop-blur-md transition-all ${
+            className={`pointer-events-auto flex items-start gap-3 px-4 py-3.5 rounded border-2 border-[#111111] shadow-[4px_4px_0_#FF4D5A] transition-all ${
               t.type === "success"
-                ? "bg-obsidian-900/95 border-emerald-500/40 text-emerald-200"
+                ? "bg-obsidian-900 text-emerald-200"
                 : t.type === "error"
-                ? "bg-obsidian-900/95 border-rose-500/40 text-rose-200"
-                : "bg-obsidian-900/95 border-amber-500/40 text-amber-200"
+                ? "bg-obsidian-900 text-rose-200"
+                : "bg-obsidian-900 text-amber-200"
             }`}
           >
             {t.type === "success" && <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />}

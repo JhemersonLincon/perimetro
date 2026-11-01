@@ -195,18 +195,18 @@ export const TimelinePage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Cabeçalho da Linha do Tempo */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-zinc-800">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b-2 border-[#111111]">
         <div>
-          <span className="font-mono text-xs uppercase tracking-widest text-amber-400">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D5A]">
             CRONOLOGIA INTERATIVA //{" "}
             {campaign.calendar_config?.type === "fictional"
               ? `CALENDÁRIO FICTÍCIO (${campaign.calendar_config.era_name || "ERA"})`
               : "CALENDÁRIO GREGORIANO"}
           </span>
-          <h1 className="font-display text-3xl font-bold text-zinc-100 mt-1">
+          <h1 className="font-display text-3xl font-bold uppercase text-[#111111] mt-1">
             Linha do Tempo da Campanha
           </h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-[#111111]/75 mt-1">
             Explore a sequência cronológica de acontecimentos e suas conexões com personagens,
             NPCs, localidades, organizações e sessões.
           </p>
@@ -216,7 +216,7 @@ export const TimelinePage: React.FC = () => {
           <button
             type="button"
             onClick={() => setOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
-            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-obsidian-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs font-mono uppercase tracking-wider transition-colors"
+            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded bg-obsidian-900 hover:bg-zinc-800 text-zinc-100 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono font-bold uppercase tracking-wider transition-colors"
           >
             <ArrowUpDown className="w-4 h-4 text-amber-400" />
             Ordem: {order === "asc" ? "Crescente" : "Decrescente"}
@@ -225,10 +225,10 @@ export const TimelinePage: React.FC = () => {
           <button
             type="button"
             onClick={() => setShowFilters((v) => !v)}
-            className={`inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl border text-xs font-mono uppercase tracking-wider transition-colors ${
+            className={`inline-flex items-center gap-2 px-3.5 py-2.5 rounded border-2 border-[#111111] text-xs font-mono font-bold uppercase tracking-wider transition-colors ${
               showFilters || hasActiveFilters
-                ? "bg-amber-500/15 text-amber-300 border-amber-500/40"
-                : "bg-obsidian-900 text-zinc-300 border-zinc-800"
+                ? "bg-[#FF4D5A] text-[#111111] shadow-[3px_3px_0_#111111]"
+                : "bg-obsidian-900 text-zinc-100 shadow-[3px_3px_0_#FF4D5A]"
             }`}
           >
             <Filter className="w-4 h-4" />
@@ -242,7 +242,7 @@ export const TimelinePage: React.FC = () => {
                 setEditingEvent(null);
                 setModalOpen(true);
               }}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-obsidian-950 font-display font-semibold text-sm transition-colors shadow-lg shadow-amber-500/10"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0_#111111] font-display font-bold uppercase text-xs transition-colors"
             >
               <Plus className="w-4 h-4" />
               Novo Acontecimento
@@ -435,8 +435,8 @@ export const TimelinePage: React.FC = () => {
 
       {/* Barra de Navegação Temporal por Períodos/Anos */}
       {availableYears.length > 1 && (
-        <div className="flex items-center gap-2 overflow-x-auto py-2 px-3 rounded-xl bg-obsidian-900/70 border border-zinc-800/80">
-          <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 shrink-0 flex items-center gap-1">
+        <div className="flex items-center gap-2 overflow-x-auto py-2.5 px-3.5 rounded-xl bg-obsidian-900 border-2 border-[#111111] shadow-[4px_4px_0_#FF4D5A]">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-300 shrink-0 flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5 text-amber-400" />
             Saltar para período:
           </span>
@@ -507,7 +507,7 @@ export const TimelinePage: React.FC = () => {
 
       {/* Eixo Cronológico Principal */}
       {!isLoading && !isError && datedEvents.length > 0 && (
-        <div className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-gradient-to-b before:from-amber-500/60 before:via-zinc-700 before:to-zinc-800 space-y-6">
+        <div className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-gradient-to-b before:from-[#FF4D5A] before:via-[#111111] before:to-[#111111] space-y-6">
           {datedEvents.map((evt, index) => {
             const catMeta = EVENT_CATEGORY_META[evt.category] || EVENT_CATEGORY_META.outro;
             const prevYear = index > 0 ? datedEvents[index - 1].narrative_year : null;
@@ -520,24 +520,24 @@ export const TimelinePage: React.FC = () => {
                     id={`year-marker-${evt.narrative_year}`}
                     className="relative -ml-6 sm:-ml-10 flex items-center gap-3 pt-4 pb-1"
                   >
-                    <div className="w-5 sm:w-8 h-5 sm:h-8 rounded-lg bg-amber-500 text-obsidian-950 font-mono text-xs font-bold flex items-center justify-center shadow-lg shadow-amber-500/20">
+                    <div className="w-6 sm:w-8 h-6 sm:h-8 rounded bg-[#16151A] text-[#FF4D5A] border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] font-mono text-xs font-bold flex items-center justify-center">
                       #
                     </div>
-                    <span className="font-display text-lg font-bold text-amber-400 tracking-wide">
+                    <span className="font-display text-lg font-bold uppercase text-[#111111] tracking-wide">
                       Ano {evt.narrative_year} {campaign.calendar_config?.era_name || ""}
                     </span>
-                    <div className="flex-1 h-px bg-zinc-800" />
+                    <div className="flex-1 h-0.5 bg-[#111111]/25" />
                   </div>
                 )}
 
                 <article
-                  className={`relative rounded-2xl bg-obsidian-900/95 border border-zinc-800/90 hover:border-zinc-700 p-5 sm:p-6 shadow-xl transition-all ${
+                  className={`relative rounded-2xl bg-obsidian-900 text-zinc-100 border-2 border-[#111111] p-5 sm:p-6 shadow-[6px_6px_0_#FF4D5A] transition-all ${
                     index >= 4 ? "timeline-node-deferred" : ""
                   }`}
                 >
                   {/* Marcador no eixo vertical */}
                   <span
-                    className={`absolute -left-[19px] sm:-left-[29px] top-6 w-3.5 h-3.5 rounded-full ring-4 ring-obsidian-950 ${catMeta.dotClass}`}
+                    className={`absolute -left-[21px] sm:-left-[31px] top-6 w-3.5 h-3.5 rounded-full border-2 border-[#111111] ring-4 ring-[#EFEAE2] ${catMeta.dotClass}`}
                   />
 
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
@@ -645,15 +645,15 @@ export const TimelinePage: React.FC = () => {
       {!isLoading && !isError && undatedEvents.length > 0 && (
         <section
           id="undated-events-section"
-          className="pt-8 border-t border-zinc-800 space-y-4"
+          className="pt-8 border-t-2 border-[#111111] space-y-4"
         >
           <div className="flex items-center gap-2.5">
-            <HelpCircle className="w-5 h-5 text-amber-400" />
+            <HelpCircle className="w-5 h-5 text-[#FF4D5A]" />
             <div>
-              <h2 className="font-display text-xl font-bold text-zinc-100">
+              <h2 className="font-display text-xl font-bold uppercase text-[#111111]">
                 Acontecimentos sem Data Definida
               </h2>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-[#111111]/75">
                 Registros cuja data narrativa exata é desconhecida ou anterior aos registros
                 datados.
               </p>
@@ -666,7 +666,7 @@ export const TimelinePage: React.FC = () => {
               return (
                 <article
                   key={evt.id}
-                  className="rounded-2xl bg-obsidian-900/90 border border-dashed border-zinc-700/80 p-5 flex flex-col justify-between gap-4"
+                  className="rounded-2xl bg-obsidian-900 text-zinc-100 border-2 border-[#111111] shadow-[6px_6px_0_#FF4D5A] p-5 flex flex-col justify-between gap-4"
                 >
                   <div>
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-2">

@@ -56,7 +56,7 @@ export const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#16151A] text-[#FFFFFF] flex flex-col justify-center items-center px-4 py-12 bg-dossier-grid">
+    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col justify-center items-center px-4 py-12 bg-dossier-grid">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="brand justify-center mb-5">
@@ -66,18 +66,18 @@ export const RegisterPage: React.FC = () => {
               <span></span>
               <span></span>
             </span>
-            <span className="brand-text !text-[#FFFFFF] text-left">
+            <span className="brand-text !text-[#111111] text-left">
               CRÔNICA
               <strong className="text-[#FF4D5A]">ARQUIVO RPG</strong>
             </span>
           </Link>
-          <div className="eyebrow text-[#FF4D5A] flex items-center justify-center gap-2 mb-2">
+          <div className="eyebrow text-[#111111] flex items-center justify-center gap-2 mb-2">
             <span className="pulse-dot" aria-hidden="true" />
             NOVO CADASTRO NA PLATAFORMA
           </div>
-          <h1 className="font-display text-3xl sm:text-4xl font-bold uppercase tracking-[-0.06em] text-[#FFFFFF]">
+          <h1 className="font-display text-3xl sm:text-4xl font-bold uppercase tracking-[-0.06em] text-[#111111]">
             CRIAR <em className="not-italic text-[#FF4D5A]">CONTA</em>
-            <span className="text-[#FFFFFF]">.</span>
+            <span className="text-[#111111]">.</span>
           </h1>
         </div>
 

@@ -105,15 +105,15 @@ export const SessionsListPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-zinc-800">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b-2 border-[#111111]">
         <div>
-          <span className="font-mono text-xs uppercase tracking-widest text-amber-400">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D5A]">
             DIÁRIO DE ENCONTROS DE JOGO
           </span>
-          <h1 className="font-display text-3xl font-bold text-zinc-100 mt-1">
+          <h1 className="font-display text-3xl font-bold uppercase text-[#111111] mt-1">
             Sessões da Campanha
           </h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-[#111111]/75 mt-1">
             Acompanhe as sessões planejadas e realizadas, e consulte os acontecimentos narrativos
             associados a cada encontro.
           </p>
@@ -123,7 +123,7 @@ export const SessionsListPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
-            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-obsidian-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs font-mono uppercase tracking-wider"
+            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded bg-obsidian-900 hover:bg-zinc-800 text-zinc-100 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono font-bold uppercase tracking-wider"
           >
             <ArrowUpDown className="w-4 h-4 text-amber-400" />
             {order === "asc" ? "Sessão #01 → #N" : "Mais recentes"}
@@ -136,7 +136,7 @@ export const SessionsListPage: React.FC = () => {
                 setEditingSession(null);
                 setModalOpen(true);
               }}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-obsidian-950 font-display font-semibold text-sm transition-colors shadow-lg shadow-amber-500/10"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0_#111111] font-display font-bold uppercase text-xs transition-colors"
             >
               <Plus className="w-4 h-4" />
               Registrar Sessão
@@ -159,10 +159,10 @@ export const SessionsListPage: React.FC = () => {
             key={tab.value}
             type="button"
             onClick={() => setStatusFilter(tab.value)}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider transition-colors ${
+            className={`px-3.5 py-1.5 rounded text-xs font-mono font-bold uppercase tracking-wider border-2 border-[#111111] transition-colors ${
               statusFilter === tab.value
-                ? "bg-amber-500/15 text-amber-300 border border-amber-500/40"
-                : "bg-obsidian-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800"
+                ? "bg-[#FF4D5A] text-[#111111] shadow-[3px_3px_0_#111111]"
+                : "bg-obsidian-900 text-zinc-100 hover:bg-zinc-800 shadow-[3px_3px_0_#FF4D5A]"
             }`}
           >
             {tab.label}

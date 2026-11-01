@@ -520,18 +520,26 @@ dialog::backdrop {
 .bg-dossier-grid {
   background-color: var(--cream);
   background-size: 24px 24px;
-  background-image: radial-gradient(rgba(255, 77, 90, 0.14) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(17, 17, 17, 0.14) 1px, transparent 1px);
 }
 
-/* Elevação Neo-Brutalista nos containers e cartões internos */
+/* Elevação Neo-Brutalista nas caixas pretas (carvão) com sombra vermelha */
 main section.rounded-2xl,
 main article.rounded-2xl,
 main div.rounded-2xl,
+main form.rounded-2xl,
 dialog.rounded-xl {
   border-width: 2px !important;
   border-color: #111111 !important;
-  box-shadow: 6px 6px 0 #111111 !important;
+  box-shadow: 6px 6px 0 #FF4D5A !important;
   border-radius: 4px !important;
+}
+
+main a.rounded-xl.bg-obsidian-900,
+main div.rounded-xl.bg-obsidian-900 {
+  border-width: 2px !important;
+  border-color: #111111 !important;
+  box-shadow: 4px 4px 0 #FF4D5A !important;
 }
 
 main a.rounded-xl,

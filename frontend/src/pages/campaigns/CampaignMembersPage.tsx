@@ -116,14 +116,14 @@ export const CampaignMembersPage: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <div className="pb-6 border-b border-zinc-800">
-        <span className="font-mono text-xs uppercase tracking-widest text-amber-400">
+      <div className="pb-6 border-b-2 border-[#111111]">
+        <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D5A]">
           CONTROLE DE ACESSO E MESA
         </span>
-        <h1 className="font-display text-3xl font-bold text-zinc-100 mt-1">
+        <h1 className="font-display text-3xl font-bold uppercase text-[#111111] mt-1">
           Participantes da Campanha
         </h1>
-        <p className="text-sm text-zinc-400 mt-1">
+        <p className="text-sm text-[#111111]/75 mt-1">
           Veja quem participa desta campanha e seu respectivo papel de acesso.
         </p>
       </div>

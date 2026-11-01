@@ -119,14 +119,14 @@ export const CampaignSettingsPage: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <div className="pb-6 border-b border-zinc-800">
-        <span className="font-mono text-xs uppercase tracking-widest text-amber-400">
+      <div className="pb-6 border-b-2 border-[#111111]">
+        <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D5A]">
           ADMINISTRAÇÃO DO DOSSIÊ
         </span>
-        <h1 className="font-display text-3xl font-bold text-zinc-100 mt-1">
+        <h1 className="font-display text-3xl font-bold uppercase text-[#111111] mt-1">
           Configurações da Campanha
         </h1>
-        <p className="text-sm text-zinc-400 mt-1">
+        <p className="text-sm text-[#111111]/75 mt-1">
           Altere metadados, sistema de RPG, estrutura do calendário narrativo ou status de
           arquivamento.
         </p>
@@ -339,7 +339,7 @@ export const CampaignSettingsPage: React.FC = () => {
       </form>
 
       {/* Zona de Exclusão */}
-      <section className="rounded-2xl bg-rose-950/15 border border-rose-500/30 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <section className="rounded-2xl bg-obsidian-900 border-2 border-[#111111] shadow-[6px_6px_0_#FF4D5A] p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start gap-3.5">
           <AlertTriangle className="w-6 h-6 text-rose-400 shrink-0 mt-0.5" />
           <div>
@@ -355,7 +355,7 @@ export const CampaignSettingsPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setConfirmDeleteOpen(true)}
-          className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-display font-semibold text-xs shrink-0 transition-colors"
+          className="px-4 py-2.5 rounded bg-rose-600 hover:bg-rose-500 text-white border-2 border-[#111111] font-display font-semibold text-xs shrink-0 transition-colors"
         >
           Excluir Campanha
         </button>

@@ -42,7 +42,7 @@ export const CampaignLayout: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#16151A] text-[#FFFFFF] flex flex-col">
+      <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col bg-dossier-grid">
         <Navbar />
         <LoadingState message="Carregando dossiê da campanha..." />
       </div>
@@ -51,7 +51,7 @@ export const CampaignLayout: React.FC = () => {
 
   if (isError || !campaign) {
     return (
-      <div className="min-h-screen bg-[#16151A] text-[#FFFFFF] flex flex-col">
+      <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col bg-dossier-grid">
         <Navbar />
         <div className="p-6">
           <ErrorState
@@ -61,7 +61,7 @@ export const CampaignLayout: React.FC = () => {
           <div className="text-center mt-4">
             <Link
               to="/dashboard"
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#FF4D5A] hover:underline"
+              className="inline-flex items-center gap-2 text-sm font-bold text-[#111111] hover:text-[#FF4D5A] underline"
             >
               <ChevronLeft className="w-4 h-4" />
               Voltar para Minhas Campanhas
@@ -118,7 +118,7 @@ export const CampaignLayout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#16151A] text-[#FFFFFF] flex flex-col">
+    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col">
       <Navbar />
 
       <div className="flex-1 flex flex-col lg:flex-row">
@@ -217,7 +217,7 @@ export const CampaignLayout: React.FC = () => {
               </nav>
             </div>
 
-            <div className="hidden lg:block p-4 bg-[#16151A] text-[#FFFFFF] border-2 border-[#111111] shadow-[5px_5px_0_#111111] text-xs space-y-1.5">
+            <div className="hidden lg:block p-4 bg-[#16151A] text-[#FFFFFF] border-2 border-[#111111] shadow-[5px_5px_0_#FF4D5A] text-xs space-y-1.5">
               <div className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#FF4D5A] border-b border-white/25 pb-1.5 mb-2 flex justify-between">
                 <span>RESUMO DO ARQUIVO</span>
                 <span className="text-[#FFFFFF]">✳</span>

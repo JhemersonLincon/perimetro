@@ -125,26 +125,26 @@ export const CampaignFormPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-zinc-100 flex flex-col bg-dossier-grid">
+    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col bg-dossier-grid">
       <Navbar />
 
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-8 py-10">
         <Link
           to="/dashboard"
-          className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-amber-400 mb-6"
+          className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#111111] hover:text-[#FF4D5A] mb-6"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="w-4 h-4 text-[#FF4D5A]" />
           Voltar para Minhas Campanhas
         </Link>
 
-        <div className="mb-8">
-          <span className="font-mono text-xs uppercase tracking-widest text-amber-400">
+        <div className="mb-8 pb-4 border-b-2 border-[#111111]">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D5A]">
             NOVO DOSSIÊ NARRATIVO
           </span>
-          <h1 className="font-display text-3xl font-bold text-zinc-100 mt-1">
+          <h1 className="font-display text-3xl font-bold uppercase text-[#111111] mt-1">
             Cadastrar Nova Campanha
           </h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-[#111111]/75 mt-1">
             Defina as informações básicas e o calendário que regerá a ordenação cronológica dos
             acontecimentos.
           </p>
@@ -153,7 +153,7 @@ export const CampaignFormPage: React.FC = () => {
         <form
           onSubmit={handleSubmit(onSubmit)}
           noValidate
-          className="space-y-8 rounded-2xl bg-obsidian-900 border border-zinc-800 p-6 sm:p-8 shadow-2xl"
+          className="space-y-8 rounded-2xl bg-obsidian-900 text-zinc-100 border-2 border-[#111111] p-6 sm:p-8 shadow-[6px_6px_0_#FF4D5A]"
         >
           {serverError && (
             <div

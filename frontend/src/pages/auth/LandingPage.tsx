@@ -225,7 +225,7 @@ export const LandingPage: React.FC = () => {
                 </div>
               </article>
 
-              <article className="pillar-card bg-[#16151A] text-[#FFFFFF] min-h-[320px] justify-between">
+              <article className="pillar-card bg-[#16151A] text-[#FFFFFF] !shadow-[8px_8px_0_#FF4D5A] min-h-[320px] justify-between">
                 <div className="flex items-center justify-between border-b border-white/30 pb-3">
                   <span className="font-mono text-xs font-medium tracking-widest text-[#EFEAE2]">
                     03 / SEGURANÇA
