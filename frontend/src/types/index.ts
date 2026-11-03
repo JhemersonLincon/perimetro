@@ -9,6 +9,9 @@ export type EventCategory =
   | "historico"
   | "outro";
 
+export type EventType = "canonical" | "diary" | "backstory" | "hypothesis";
+export type TimelineZoomLevel = "macro" | "medium" | "micro";
+
 export interface User {
   id: string;
   name: string;
@@ -186,6 +189,19 @@ export interface TimelineEvent {
   title: string;
   description: string;
   calendar_type: "gregorian" | "fictional";
+  year?: number | null;
+  month?: number | null;
+  day?: number | null;
+  time_label?: string | null;
+  sort_order?: number;
+  event_type?: EventType;
+  created_by_id?: string | null;
+  created_by?: {
+    id: string;
+    name: string;
+    username: string;
+    avatar_url?: string | null;
+  } | null;
   narrative_date?: string | null;
   narrative_year?: number | null;
   narrative_month?: number | null;
@@ -203,9 +219,35 @@ export interface TimelineEvent {
   updated_at: string;
 }
 
+export interface TimelineDayGroup {
+  day: number;
+  day_label: string;
+  total_events: number;
+  events: TimelineEvent[];
+}
+
+export interface TimelineMonthGroup {
+  month: number;
+  month_name: string;
+  total_events: number;
+  month_level_events: TimelineEvent[];
+  days: TimelineDayGroup[];
+}
+
+export interface TimelineYearGroup {
+  year: number;
+  year_label: string;
+  total_events: number;
+  canonical_count: number;
+  player_count: number;
+  year_level_events: TimelineEvent[];
+  months: TimelineMonthGroup[];
+}
+
 export interface PaginatedEvents {
   items: TimelineEvent[];
   undated_items: TimelineEvent[];
+  timeline_tree?: TimelineYearGroup[];
   total: number;
   page: number;
   page_size: number;

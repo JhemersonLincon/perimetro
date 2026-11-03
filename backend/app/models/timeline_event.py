@@ -1,9 +1,12 @@
 from datetime import datetime
-from typing import Optional
-from sqlalchemy import String, Text, Integer, BigInteger, Boolean, DateTime, ForeignKey, UniqueConstraint
+from typing import Optional, TYPE_CHECKING
+from sqlalchemy import String, Text, Integer, BigInteger, Float, Boolean, DateTime, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base, generate_uuid, utc_now
+
+if TYPE_CHECKING:
+    from app.models.user import User
 
 
 class TimelineEvent(Base):
@@ -19,6 +22,15 @@ class TimelineEvent(Base):
     title: Mapped[str] = mapped_column(String(200), nullable=False, index=True)
     description: Mapped[str] = mapped_column(Text, nullable=False, default="")
     calendar_type: Mapped[str] = mapped_column(String(30), nullable=False, default="gregorian")
+
+    # Campos temporais granulares (Estratégia de Granularidade Multinível)
+    year: Mapped[Optional[int]] = mapped_column(Integer, nullable=True, index=True)
+    month: Mapped[Optional[int]] = mapped_column(Integer, nullable=True, index=True)
+    day: Mapped[Optional[int]] = mapped_column(Integer, nullable=True, index=True)
+    time_label: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    sort_order: Mapped[float] = mapped_column(Float, nullable=False, default=0.0, index=True)
+
+    # Campos legados mantidos sincronizados para retrocompatibilidade
     narrative_date: Mapped[Optional[str]] = mapped_column(String(120), nullable=True)
     narrative_year: Mapped[Optional[int]] = mapped_column(Integer, nullable=True, index=True)
     narrative_month: Mapped[Optional[int]] = mapped_column(Integer, nullable=True, index=True)
@@ -26,6 +38,16 @@ class TimelineEvent(Base):
     narrative_time: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     sort_key: Mapped[Optional[int]] = mapped_column(BigInteger, nullable=True, index=True)
     date_is_unknown: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, index=True)
+
+    # Autoria e tipo de registro colaborativo
+    event_type: Mapped[str] = mapped_column(String(30), nullable=False, default="canonical", index=True)
+    created_by_id: Mapped[Optional[str]] = mapped_column(
+        String(36),
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+
     category: Mapped[str] = mapped_column(String(50), nullable=False, default="investigacao", index=True)
     session_id: Mapped[Optional[str]] = mapped_column(
         String(36),
@@ -44,6 +66,7 @@ class TimelineEvent(Base):
 
     campaign = relationship("Campaign", back_populates="events")
     session = relationship("GameSession", back_populates="events")
+    created_by = relationship("User", foreign_keys=[created_by_id])
     entity_links = relationship(
         "EventEntity",
         back_populates="event",

@@ -15,17 +15,38 @@ EventCategory = Literal[
     "outro",
 ]
 VisibilityLevel = Literal["private", "public", "restricted"]
+EventType = Literal["canonical", "diary", "backstory", "hypothesis"]
+
+
+class UserSummary(BaseModel):
+    id: str
+    name: str
+    username: str
+    avatar_url: Optional[str] = None
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class EventCreate(BaseModel):
     title: str = Field(..., min_length=1, max_length=200)
     description: str = Field(default="", max_length=30000)
     calendar_type: Optional[Literal["gregorian", "fictional"]] = None
-    narrative_date: Optional[str] = Field(default=None, max_length=120)
+
+    # Estrutura Temporal Granular e Flexível
+    year: Optional[int] = Field(default=None, ge=-999999, le=999999)
+    month: Optional[int] = Field(default=None, ge=1, le=200)
+    day: Optional[int] = Field(default=None, ge=1, le=1000)
+    time_label: Optional[str] = Field(default=None, max_length=50)
+    sort_order: float = Field(default=0.0)
+
+    # Campos retrocompatíveis
     narrative_year: Optional[int] = Field(default=None, ge=-999999, le=999999)
     narrative_month: Optional[int] = Field(default=None, ge=1, le=200)
     narrative_day: Optional[int] = Field(default=None, ge=1, le=1000)
     narrative_time: Optional[str] = Field(default=None, max_length=50)
+    narrative_date: Optional[str] = Field(default=None, max_length=120)
+
+    event_type: EventType = "canonical"
     date_is_unknown: bool = False
     category: EventCategory = "investigacao"
     session_id: Optional[str] = None
@@ -38,11 +59,20 @@ class EventUpdate(BaseModel):
     title: Optional[str] = Field(default=None, min_length=1, max_length=200)
     description: Optional[str] = Field(default=None, max_length=30000)
     calendar_type: Optional[Literal["gregorian", "fictional"]] = None
-    narrative_date: Optional[str] = Field(default=None, max_length=120)
+
+    year: Optional[int] = Field(default=None, ge=-999999, le=999999)
+    month: Optional[int] = Field(default=None, ge=1, le=200)
+    day: Optional[int] = Field(default=None, ge=1, le=1000)
+    time_label: Optional[str] = Field(default=None, max_length=50)
+    sort_order: Optional[float] = None
+
     narrative_year: Optional[int] = Field(default=None, ge=-999999, le=999999)
     narrative_month: Optional[int] = Field(default=None, ge=1, le=200)
     narrative_day: Optional[int] = Field(default=None, ge=1, le=1000)
     narrative_time: Optional[str] = Field(default=None, max_length=50)
+    narrative_date: Optional[str] = Field(default=None, max_length=120)
+
+    event_type: Optional[EventType] = None
     date_is_unknown: Optional[bool] = None
     category: Optional[EventCategory] = None
     session_id: Optional[str] = None
@@ -57,12 +87,27 @@ class EventResponse(BaseModel):
     title: str
     description: str
     calendar_type: str
+
+    # Granularidade Temporal
+    year: Optional[int] = None
+    month: Optional[int] = None
+    day: Optional[int] = None
+    time_label: Optional[str] = None
+    sort_order: float = 0.0
+
+    # Retrocompatibilidade
     narrative_date: Optional[str] = None
     narrative_year: Optional[int] = None
     narrative_month: Optional[int] = None
     narrative_day: Optional[int] = None
     narrative_time: Optional[str] = None
     sort_key: Optional[int] = None
+
+    # Autoria e classificação
+    event_type: str = "canonical"
+    created_by_id: Optional[str] = None
+    created_by: Optional[UserSummary] = None
+
     date_is_unknown: bool
     category: str
     session_id: Optional[str] = None
@@ -76,9 +121,35 @@ class EventResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class TimelineDayGroup(BaseModel):
+    day: int
+    day_label: str
+    total_events: int
+    events: List[EventResponse]
+
+
+class TimelineMonthGroup(BaseModel):
+    month: int
+    month_name: str
+    total_events: int
+    month_level_events: List[EventResponse]
+    days: List[TimelineDayGroup]
+
+
+class TimelineYearGroup(BaseModel):
+    year: int
+    year_label: str
+    total_events: int
+    canonical_count: int
+    player_count: int
+    year_level_events: List[EventResponse]
+    months: List[TimelineMonthGroup]
+
+
 class PaginatedEventsResponse(BaseModel):
     items: List[EventResponse]
     undated_items: List[EventResponse] = Field(default_factory=list)
+    timeline_tree: List[TimelineYearGroup] = Field(default_factory=list)
     total: int
     page: int
     page_size: int

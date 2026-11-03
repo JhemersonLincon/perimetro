@@ -1,4 +1,34 @@
-import { EntityCategory, EventCategory, VisibilityLevel } from "../types";
+import { EntityCategory, EventCategory, EventType, VisibilityLevel } from "../types";
+
+export const EVENT_TYPE_META: Record<
+  EventType,
+  { label: string; badgeClass: string; borderClass: string; roleLabel: string }
+> = {
+  canonical: {
+    label: "Fato Canônico do Mundo",
+    badgeClass: "bg-amber-400/20 text-amber-300 border-amber-500/40",
+    borderClass: "border-amber-500/50 shadow-[4px_4px_0_#d97706]",
+    roleLabel: "Mestre",
+  },
+  diary: {
+    label: "Registro de Diário",
+    badgeClass: "bg-sky-400/20 text-sky-300 border-sky-500/40",
+    borderClass: "border-sky-500/50 shadow-[4px_4px_0_#0284c7]",
+    roleLabel: "Jogador",
+  },
+  backstory: {
+    label: "Antecedente / Passado",
+    badgeClass: "bg-emerald-400/20 text-emerald-300 border-emerald-500/40",
+    borderClass: "border-emerald-500/50 shadow-[4px_4px_0_#059669]",
+    roleLabel: "Jogador",
+  },
+  hypothesis: {
+    label: "Hipótese de Investigação",
+    badgeClass: "bg-purple-400/20 text-purple-300 border-purple-500/40",
+    borderClass: "border-purple-500/50 shadow-[4px_4px_0_#7c3aed]",
+    roleLabel: "Jogador",
+  },
+};
 
 export const ENTITY_CATEGORY_LABELS: Record<EntityCategory, string> = {
   character: "Personagem (PJ)",

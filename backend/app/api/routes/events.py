@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.orm import Session
 
@@ -10,6 +10,7 @@ from app.schemas.timeline_event import (
     EventResponse,
     EventUpdate,
     PaginatedEventsResponse,
+    TimelineYearGroup,
 )
 from app.services.event_service import EventService
 
@@ -36,7 +37,10 @@ def list_events(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Lista acontecimentos da linha do tempo com suporte a filtros combináveis, ordenação e permissões."""
+    """
+    Lista acontecimentos da linha do tempo com suporte a granularidade multinível,
+    ordenação cronológica determinística, controle de permissões e árvore de zoom semântico.
+    """
     campaign, member = get_campaign_and_member(campaign_id, current_user, db, require_gm=False)
     return EventService(db).list_events(
         campaign=campaign,
@@ -58,6 +62,26 @@ def list_events(
     )
 
 
+@router.get("/campaigns/{campaign_id}/timeline-tree", response_model=List[TimelineYearGroup])
+def get_timeline_tree(
+    campaign_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Retorna a hierarquia semântica otimizada de eventos agrupados por Ano -> Mês -> Dia
+    para renderização fluida com Zoom Semântico (Macro, Médio, Micro).
+    """
+    campaign, member = get_campaign_and_member(campaign_id, current_user, db, require_gm=False)
+    resp = EventService(db).list_events(
+        campaign=campaign,
+        member=member,
+        page=1,
+        page_size=500,
+    )
+    return resp.timeline_tree
+
+
 @router.post(
     "/campaigns/{campaign_id}/events",
     response_model=EventResponse,
@@ -69,8 +93,11 @@ def create_event(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Cadastra um novo acontecimento na linha do tempo da campanha (exclusivo para o Mestre)."""
-    campaign, member = get_campaign_and_member(campaign_id, current_user, db, require_gm=True)
+    """
+    Cadastra um novo acontecimento na linha do tempo colaborativa.
+    Permite criação pelo Mestre (fatos canônicos) e por Jogadores (diários, antecedentes, hipóteses).
+    """
+    campaign, member = get_campaign_and_member(campaign_id, current_user, db, require_gm=False)
     return EventService(db).create_event(campaign, member, data)
 
 
@@ -91,7 +118,7 @@ def update_event(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Edita um acontecimento e seus relacionamentos (exclusivo para o Mestre)."""
+    """Edita um acontecimento e seus relacionamentos (autor ou Mestre da campanha)."""
     return EventService(db).update_event(event_id, current_user.id, data)
 
 
@@ -101,6 +128,6 @@ def delete_event(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Exclui um acontecimento da linha do tempo (exclusivo para o Mestre)."""
+    """Exclui um acontecimento da linha do tempo (autor ou Mestre da campanha)."""
     EventService(db).delete_event(event_id, current_user.id)
     return None

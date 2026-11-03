@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Save } from "lucide-react";
+import { Save, Calendar, Clock, Crown, BookOpen, Scroll, HelpCircle } from "lucide-react";
 import { DialogModal } from "../ui/DialogModal";
 import { apiRequest } from "../../services/api";
 import {
@@ -8,11 +8,12 @@ import {
   CampaignMember,
   Entity,
   EventCategory,
+  EventType,
   GameSession,
   TimelineEvent,
   VisibilityLevel,
 } from "../../types";
-import { EVENT_CATEGORY_META, ENTITY_CATEGORY_LABELS } from "../../utils/formatters";
+import { EVENT_CATEGORY_META, ENTITY_CATEGORY_LABELS, EVENT_TYPE_META } from "../../utils/formatters";
 import { useToast } from "../../contexts/ToastContext";
 
 interface EventFormModalProps {
@@ -22,7 +23,9 @@ interface EventFormModalProps {
   entities: Entity[];
   sessions: GameSession[];
   members: CampaignMember[];
+  isGM?: boolean;
   editingEvent?: TimelineEvent | null;
+  initialDate?: { year?: number; month?: number | null; day?: number | null } | null;
 }
 
 export const EventFormModal: React.FC<EventFormModalProps> = ({
@@ -32,7 +35,9 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
   entities,
   sessions,
   members,
+  isGM = false,
   editingEvent,
+  initialDate,
 }) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
@@ -42,13 +47,20 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState<EventCategory>("investigacao");
+  const [eventType, setEventType] = useState<EventType>(isGM ? "canonical" : "diary");
   const [dateIsUnknown, setDateIsUnknown] = useState(false);
-  const [narrativeYear, setNarrativeYear] = useState<number>(
-    campaign.calendar_config?.type === "fictional" ? 412 : 1928
+
+  // Granularidade Temporal
+  const [year, setYear] = useState<number>(
+    campaign.calendar_config?.type === "fictional" ? 412 : 1924
   );
-  const [narrativeMonth, setNarrativeMonth] = useState<number>(1);
-  const [narrativeDay, setNarrativeDay] = useState<number>(1);
-  const [narrativeTime, setNarrativeTime] = useState<string>("");
+  const [hasMonth, setHasMonth] = useState<boolean>(true);
+  const [month, setMonth] = useState<number>(1);
+  const [hasDay, setHasDay] = useState<boolean>(true);
+  const [day, setDay] = useState<number>(1);
+  const [timeLabel, setTimeLabel] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<number>(0);
+
   const [sessionId, setSessionId] = useState<string>("");
   const [visibility, setVisibility] = useState<VisibilityLevel>("public");
   const [selectedEntityIds, setSelectedEntityIds] = useState<string[]>([]);
@@ -60,14 +72,32 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
       setTitle(editingEvent.title);
       setDescription(editingEvent.description);
       setCategory(editingEvent.category);
+      setEventType(editingEvent.event_type || (isGM ? "canonical" : "diary"));
       setDateIsUnknown(editingEvent.date_is_unknown);
-      setNarrativeYear(
-        editingEvent.narrative_year ??
-          (campaign.calendar_config?.type === "fictional" ? 412 : 1928)
-      );
-      setNarrativeMonth(editingEvent.narrative_month ?? 1);
-      setNarrativeDay(editingEvent.narrative_day ?? 1);
-      setNarrativeTime(editingEvent.narrative_time || "");
+
+      const evtYear = editingEvent.year ?? editingEvent.narrative_year ?? (campaign.calendar_config?.type === "fictional" ? 412 : 1924);
+      setYear(evtYear);
+
+      const evtMonth = editingEvent.month ?? editingEvent.narrative_month;
+      if (evtMonth !== null && evtMonth !== undefined) {
+        setHasMonth(true);
+        setMonth(evtMonth);
+      } else {
+        setHasMonth(false);
+        setMonth(1);
+      }
+
+      const evtDay = editingEvent.day ?? editingEvent.narrative_day;
+      if (evtDay !== null && evtDay !== undefined) {
+        setHasDay(true);
+        setDay(evtDay);
+      } else {
+        setHasDay(false);
+        setDay(1);
+      }
+
+      setTimeLabel(editingEvent.time_label ?? editingEvent.narrative_time ?? "");
+      setSortOrder(editingEvent.sort_order ?? 0);
       setSessionId(editingEvent.session_id || "");
       setVisibility(editingEvent.visibility);
       setSelectedEntityIds(editingEvent.entities.map((e) => e.id));
@@ -76,18 +106,43 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
       setTitle("");
       setDescription("");
       setCategory("investigacao");
+      setEventType(isGM ? "canonical" : "diary");
       setDateIsUnknown(false);
-      setNarrativeYear(campaign.calendar_config?.type === "fictional" ? 412 : 1928);
-      setNarrativeMonth(1);
-      setNarrativeDay(1);
-      setNarrativeTime("");
+
+      const initialYr = initialDate?.year ?? (campaign.calendar_config?.type === "fictional" ? 412 : 1924);
+      setYear(initialYr);
+
+      if (initialDate?.month !== undefined && initialDate?.month !== null) {
+        setHasMonth(true);
+        setMonth(initialDate.month);
+      } else if (initialDate?.year !== undefined && initialDate?.month === null) {
+        setHasMonth(false);
+        setMonth(1);
+      } else {
+        setHasMonth(true);
+        setMonth(1);
+      }
+
+      if (initialDate?.day !== undefined && initialDate?.day !== null) {
+        setHasDay(true);
+        setDay(initialDate.day);
+      } else if (initialDate?.month !== undefined && initialDate?.day === null) {
+        setHasDay(false);
+        setDay(1);
+      } else {
+        setHasDay(true);
+        setDay(1);
+      }
+
+      setTimeLabel("");
+      setSortOrder(0);
       setSessionId("");
       setVisibility("public");
       setSelectedEntityIds([]);
       setAllowedUserIds([]);
     }
     setFormError(null);
-  }, [editingEvent, isOpen, campaign]);
+  }, [editingEvent, isOpen, campaign, initialDate, isGM]);
 
   const toggleEntity = (id: string) => {
     setSelectedEntityIds((prev) =>
@@ -109,16 +164,29 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
       if (!description.trim()) {
         throw new Error("Informe a descrição completa do acontecimento.");
       }
+      if (!dateIsUnknown && (year === null || isNaN(year))) {
+        throw new Error("Informe o ano do acontecimento.");
+      }
+
+      const effectiveMonth = dateIsUnknown || !hasMonth ? null : Number(month);
+      const effectiveDay = dateIsUnknown || !hasMonth || !hasDay ? null : Number(day);
+
       const payload = {
         title: title.trim(),
         description: description.trim(),
         category,
+        event_type: eventType,
         date_is_unknown: dateIsUnknown,
         calendar_type: campaign.calendar_config?.type || "gregorian",
-        narrative_year: dateIsUnknown ? null : Number(narrativeYear),
-        narrative_month: dateIsUnknown ? null : Number(narrativeMonth),
-        narrative_day: dateIsUnknown ? null : Number(narrativeDay),
-        narrative_time: dateIsUnknown ? null : narrativeTime.trim() || null,
+        year: dateIsUnknown ? null : Number(year),
+        month: effectiveMonth,
+        day: effectiveDay,
+        time_label: dateIsUnknown ? null : timeLabel.trim() || null,
+        sort_order: Number(sortOrder) || 0.0,
+        narrative_year: dateIsUnknown ? null : Number(year),
+        narrative_month: effectiveMonth,
+        narrative_day: effectiveDay,
+        narrative_time: dateIsUnknown ? null : timeLabel.trim() || null,
         session_id: sessionId || null,
         visibility,
         entity_ids: selectedEntityIds,
@@ -138,6 +206,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["events", campaign.id] });
+      queryClient.invalidateQueries({ queryKey: ["timeline-tree", campaign.id] });
       queryClient.invalidateQueries({ queryKey: ["campaign-dashboard", campaign.id] });
       queryClient.invalidateQueries({ queryKey: ["campaign", campaign.id] });
       if (editingEvent) {
@@ -146,7 +215,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
       showToast(
         editingEvent
           ? "Acontecimento atualizado com sucesso!"
-          : "Acontecimento registrado na linha do tempo!",
+          : "Acontecimento registrado na linha do tempo compartilhada!",
         "success"
       );
       onClose();
@@ -157,7 +226,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
   });
 
   const maxDaysInSelectedMonth =
-    months[Math.max(0, Math.min(months.length - 1, narrativeMonth - 1))]?.days || 31;
+    months[Math.max(0, Math.min(months.length - 1, (month || 1) - 1))]?.days || 31;
 
   const groupedEntities = {
     character: entities.filter((e) => e.category === "character"),
@@ -172,8 +241,8 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
     <DialogModal
       isOpen={isOpen}
       onClose={onClose}
-      title={editingEvent ? "Editar Acontecimento" : "Registrar Novo Acontecimento"}
-      subtitle="Conecte fatos cronológicos a personagens, NPCs, localidades, organizações e sessões."
+      title={editingEvent ? "Editar Acontecimento" : "Novo Acontecimento na Linha do Tempo"}
+      subtitle="Colabore no eixo cronológico com precisão flexível de ano, mês, dia e momento."
       maxWidthClass="max-w-3xl"
     >
       <form
@@ -192,6 +261,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
           </div>
         )}
 
+        {/* Título e Categoria */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="sm:col-span-2">
             <label
@@ -233,11 +303,86 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
           </div>
         </div>
 
-        {/* Data Narrativa */}
+        {/* Tipo de Registro e Autoria Colaborativa */}
+        <div className="p-4 rounded-xl bg-obsidian-950 border border-zinc-800 space-y-3">
+          <label className="block text-xs font-mono uppercase tracking-wider text-amber-400">
+            Tipo de Registro Colaborativo
+          </label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+            {isGM && (
+              <button
+                type="button"
+                onClick={() => setEventType("canonical")}
+                className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
+                  eventType === "canonical"
+                    ? "bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/30"
+                    : "bg-obsidian-900 border-zinc-800 text-zinc-400 hover:text-zinc-200"
+                }`}
+              >
+                <Crown className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
+                <div>
+                  <div className="text-xs font-bold">Fato Canônico</div>
+                  <div className="text-[10px] text-zinc-400 leading-tight mt-0.5">História oficial do mundo</div>
+                </div>
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setEventType("diary")}
+              className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
+                eventType === "diary"
+                  ? "bg-sky-500/15 border-sky-500 text-sky-300 ring-2 ring-sky-500/30"
+                  : "bg-obsidian-900 border-zinc-800 text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              <BookOpen className="w-4 h-4 shrink-0 mt-0.5 text-sky-400" />
+              <div>
+                <div className="text-xs font-bold">Registro de Diário</div>
+                <div className="text-[10px] text-zinc-400 leading-tight mt-0.5">Notas do personagem</div>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setEventType("backstory")}
+              className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
+                eventType === "backstory"
+                  ? "bg-emerald-500/15 border-emerald-500 text-emerald-300 ring-2 ring-emerald-500/30"
+                  : "bg-obsidian-900 border-zinc-800 text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              <Scroll className="w-4 h-4 shrink-0 mt-0.5 text-emerald-400" />
+              <div>
+                <div className="text-xs font-bold">Antecedente</div>
+                <div className="text-[10px] text-zinc-400 leading-tight mt-0.5">Passado e memórias</div>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setEventType("hypothesis")}
+              className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
+                eventType === "hypothesis"
+                  ? "bg-purple-500/15 border-purple-500 text-purple-300 ring-2 ring-purple-500/30"
+                  : "bg-obsidian-900 border-zinc-800 text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              <HelpCircle className="w-4 h-4 shrink-0 mt-0.5 text-purple-400" />
+              <div>
+                <div className="text-xs font-bold">Hipótese / Teoria</div>
+                <div className="text-[10px] text-zinc-400 leading-tight mt-0.5">Dedução investigativa</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* Granularidade Temporal Flexível */}
         <div className="p-4 rounded-xl bg-obsidian-950 border border-zinc-800 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="font-mono text-xs uppercase tracking-wider text-amber-400">
-              Data Narrativa ({campaign.calendar_config?.type === "fictional" ? "Calendário Fictício" : "Calendário Gregoriano"})
+            <span className="font-mono text-xs uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5" />
+              Eixo Temporal Granular ({campaign.calendar_config?.type === "fictional" ? "Calendário Fictício" : "Calendário Gregoriano"})
             </span>
 
             <label className="inline-flex items-center gap-2 text-xs text-zinc-300 cursor-pointer">
@@ -245,84 +390,150 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                 type="checkbox"
                 checked={dateIsUnknown}
                 onChange={(e) => setDateIsUnknown(e.target.checked)}
-                className="rounded border-zinc-700"
+                className="rounded border-zinc-700 bg-obsidian-900 text-amber-500 focus:ring-0"
               />
               Data exata desconhecida / indefinida
             </label>
           </div>
 
           {!dateIsUnknown && (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div>
-                <label
-                  htmlFor="evt-day"
-                  className="block text-[11px] font-mono uppercase text-zinc-400 mb-1"
-                >
-                  Dia (1–{maxDaysInSelectedMonth})
-                </label>
-                <input
-                  id="evt-day"
-                  type="number"
-                  min={1}
-                  max={maxDaysInSelectedMonth}
-                  value={narrativeDay}
-                  onChange={(e) => setNarrativeDay(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-900 border border-zinc-800 text-zinc-100 text-sm font-mono"
-                />
+            <div className="space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {/* Ano (Obrigatório, suporta valores negativos) */}
+                <div>
+                  <label
+                    htmlFor="evt-year"
+                    className="block text-[11px] font-mono uppercase text-zinc-400 mb-1"
+                  >
+                    Ano <span className="text-amber-400">*</span> (Ex: 1924 ou -450 a.C.)
+                  </label>
+                  <input
+                    id="evt-year"
+                    type="number"
+                    required
+                    value={year}
+                    onChange={(e) => setYear(Number(e.target.value))}
+                    className="w-full px-3 py-2 rounded-lg bg-obsidian-900 border border-zinc-800 text-zinc-100 text-sm font-mono focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+
+                {/* Mês (Opcional) */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label
+                      htmlFor="evt-month"
+                      className="block text-[11px] font-mono uppercase text-zinc-400"
+                    >
+                      Mês (Opcional)
+                    </label>
+                    <label className="text-[10px] text-zinc-400 inline-flex items-center gap-1 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={!hasMonth}
+                        onChange={(e) => {
+                          setHasMonth(!e.target.checked);
+                          if (e.target.checked) setHasDay(false);
+                        }}
+                        className="rounded border-zinc-700"
+                      />
+                      Sem mês (Geral do Ano)
+                    </label>
+                  </div>
+                  <select
+                    id="evt-month"
+                    disabled={!hasMonth}
+                    value={month}
+                    onChange={(e) => setMonth(Number(e.target.value))}
+                    className={`w-full px-3 py-2 rounded-lg border text-sm transition-colors ${
+                      hasMonth
+                        ? "bg-obsidian-900 border-zinc-800 text-zinc-100 focus:outline-none focus:border-amber-500"
+                        : "bg-obsidian-950 border-zinc-800/50 text-zinc-600 cursor-not-allowed"
+                    }`}
+                  >
+                    {months.map((m, idx) => (
+                      <option key={idx} value={idx + 1}>
+                        {idx + 1}. {m.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Dia (Opcional) */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label
+                      htmlFor="evt-day"
+                      className="block text-[11px] font-mono uppercase text-zinc-400"
+                    >
+                      Dia (Opcional, 1–{maxDaysInSelectedMonth})
+                    </label>
+                    <label className="text-[10px] text-zinc-400 inline-flex items-center gap-1 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        disabled={!hasMonth}
+                        checked={!hasDay || !hasMonth}
+                        onChange={(e) => setHasDay(!e.target.checked)}
+                        className="rounded border-zinc-700"
+                      />
+                      Sem dia (Geral do Mês)
+                    </label>
+                  </div>
+                  <input
+                    id="evt-day"
+                    type="number"
+                    min={1}
+                    max={maxDaysInSelectedMonth}
+                    disabled={!hasMonth || !hasDay}
+                    value={day}
+                    onChange={(e) => setDay(Number(e.target.value))}
+                    className={`w-full px-3 py-2 rounded-lg border text-sm font-mono transition-colors ${
+                      hasMonth && hasDay
+                        ? "bg-obsidian-900 border-zinc-800 text-zinc-100 focus:outline-none focus:border-amber-500"
+                        : "bg-obsidian-950 border-zinc-800/50 text-zinc-600 cursor-not-allowed"
+                    }`}
+                  />
+                </div>
               </div>
 
-              <div>
-                <label
-                  htmlFor="evt-month"
-                  className="block text-[11px] font-mono uppercase text-zinc-400 mb-1"
-                >
-                  Mês
-                </label>
-                <select
-                  id="evt-month"
-                  value={narrativeMonth}
-                  onChange={(e) => setNarrativeMonth(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-900 border border-zinc-800 text-zinc-100 text-sm"
-                >
-                  {months.map((m, idx) => (
-                    <option key={idx} value={idx + 1}>
-                      {idx + 1}. {m.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Precisão no Dia e Desempate Manual */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-zinc-800/60">
+                <div>
+                  <label
+                    htmlFor="evt-time"
+                    className="block text-[11px] font-mono uppercase text-zinc-400 mb-1 flex items-center gap-1"
+                  >
+                    <Clock className="w-3 h-3 text-amber-400" />
+                    Momento / Horário (Opcional)
+                  </label>
+                  <input
+                    id="evt-time"
+                    type="text"
+                    placeholder="Ex: Madrugada, 14h30, Pôr do sol"
+                    value={timeLabel}
+                    onChange={(e) => setTimeLabel(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg bg-obsidian-900 border border-zinc-800 text-zinc-100 text-sm font-mono focus:outline-none focus:border-amber-500"
+                  />
+                </div>
 
-              <div>
-                <label
-                  htmlFor="evt-year"
-                  className="block text-[11px] font-mono uppercase text-zinc-400 mb-1"
-                >
-                  Ano ({campaign.calendar_config?.era_name || "d.C."})
-                </label>
-                <input
-                  id="evt-year"
-                  type="number"
-                  value={narrativeYear}
-                  onChange={(e) => setNarrativeYear(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-900 border border-zinc-800 text-zinc-100 text-sm font-mono"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="evt-time"
-                  className="block text-[11px] font-mono uppercase text-zinc-400 mb-1"
-                >
-                  Horário (Opcional)
-                </label>
-                <input
-                  id="evt-time"
-                  type="text"
-                  placeholder="Ex: 22:30 ou Madrugada"
-                  value={narrativeTime}
-                  onChange={(e) => setNarrativeTime(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-900 border border-zinc-800 text-zinc-100 text-sm font-mono"
-                />
+                <div>
+                  <label
+                    htmlFor="evt-sort-order"
+                    className="block text-[11px] font-mono uppercase text-zinc-400 mb-1"
+                  >
+                    Desempate Cronológico (sort_order)
+                  </label>
+                  <input
+                    id="evt-sort-order"
+                    type="number"
+                    step="0.5"
+                    value={sortOrder}
+                    onChange={(e) => setSortOrder(Number(e.target.value))}
+                    className="w-full px-3 py-2 rounded-lg bg-obsidian-900 border border-zinc-800 text-zinc-100 text-sm font-mono focus:outline-none focus:border-amber-500"
+                  />
+                  <span className="text-[10px] text-zinc-500">
+                    Menores valores aparecem primeiro quando na mesma data/hora.
+                  </span>
+                </div>
               </div>
             </div>
           )}
@@ -337,28 +548,27 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
             Descrição Completa <span className="text-amber-400">*</span>
           </label>
           <p className="text-[11px] text-zinc-500 mb-2">
-            Suporta parágrafos, listas iniciadas por <code>- </code> e destaques com{" "}
-            <code>**texto**</code>.
+            Suporta parágrafos, listas iniciadas por <code>- </code> e destaques com <code>**texto**</code>.
           </p>
           <textarea
             id="evt-description"
-            rows={5}
+            rows={4}
             required
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Descreva os detalhes do acontecimento, pistas encontradas e consequências narrativas..."
+            placeholder="Descreva os acontecimentos, pistas descobertas ou fatos narrados..."
             className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500 leading-relaxed"
           />
         </div>
 
-        {/* Sessão Associada e Visibilidade */}
+        {/* Vínculo com Sessão e Visibilidade */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label
               htmlFor="evt-session"
               className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
             >
-              Sessão Associada (Opcional)
+              Vincular à Sessão de Jogo (Opcional)
             </label>
             <select
               id="evt-session"
@@ -366,7 +576,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
               onChange={(e) => setSessionId(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
             >
-              <option value="">Sem sessão vinculada (Evento histórico / Entre sessões)</option>
+              <option value="">Nenhuma Sessão</option>
               {sessions.map((s) => (
                 <option key={s.id} value={s.id}>
                   Sessão #{String(s.session_number).padStart(2, "0")} — {s.title}
@@ -380,7 +590,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
               htmlFor="evt-visibility"
               className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
             >
-              Nível de Visibilidade <span className="text-amber-400">*</span>
+              Nível de Sigilo / Visibilidade
             </label>
             <select
               id="evt-visibility"
@@ -388,44 +598,39 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
               onChange={(e) => setVisibility(e.target.value as VisibilityLevel)}
               className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
             >
-              <option value="public">Público (Todos os participantes)</option>
-              <option value="private">Privado (Somente o Mestre)</option>
-              <option value="restricted">Restrito (Jogadores selecionados)</option>
+              <option value="public">Público (Visível para toda a mesa)</option>
+              <option value="restricted">Restrito (Permissão de descoberta a jogadores específicos)</option>
+              <option value="private">{isGM ? "Privado do Mestre (Segredo Oculto)" : "Privado (Visível apenas para você e o Mestre)"}</option>
             </select>
           </div>
         </div>
 
+        {/* Jogadores autorizados se restrito */}
         {visibility === "restricted" && (
-          <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 space-y-2">
-            <div className="text-xs font-mono uppercase tracking-wider text-amber-300">
-              Jogadores Autorizados a Visualizar este Registro
-            </div>
+          <div className="p-3.5 rounded-xl bg-obsidian-950 border border-zinc-800 space-y-2">
+            <span className="text-xs font-mono uppercase text-amber-400">
+              Jogadores com Acesso a este Acontecimento
+            </span>
             {playerMembers.length === 0 ? (
-              <p className="text-xs text-zinc-400">
-                Ainda não há jogadores na campanha. Apenas o Mestre verá este registro por enquanto.
-              </p>
+              <p className="text-xs text-zinc-500">Nenhum jogador na campanha ainda.</p>
             ) : (
-              <div className="flex flex-wrap gap-2 pt-1">
-                {playerMembers.map((pm) => {
-                  const checked = allowedUserIds.includes(pm.user_id);
+              <div className="flex flex-wrap gap-2">
+                {playerMembers.map((m) => {
+                  const selected = allowedUserIds.includes(m.user_id);
                   return (
-                    <label
-                      key={pm.user_id}
-                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs cursor-pointer transition-colors ${
-                        checked
-                          ? "bg-amber-500/20 border-amber-500/50 text-amber-200"
-                          : "bg-obsidian-950 border-zinc-800 text-zinc-400"
+                    <button
+                      key={m.id}
+                      type="button"
+                      onClick={() => toggleAllowedUser(m.user_id)}
+                      className={`px-2.5 py-1 rounded-md text-xs font-mono border transition-colors ${
+                        selected
+                          ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
+                          : "bg-obsidian-900 text-zinc-400 border-zinc-800 hover:text-zinc-200"
                       }`}
                     >
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={() => toggleAllowedUser(pm.user_id)}
-                      />
-                      <span>
-                        {pm.user.name} (@{pm.user.username})
-                      </span>
-                    </label>
+                      {selected ? "✓ " : "+ "}
+                      {m.user.name} ({m.user.username})
+                    </button>
                   );
                 })}
               </div>
@@ -433,77 +638,64 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
           </div>
         )}
 
-        {/* Entidades Relacionadas por Categoria */}
-        <div className="space-y-3 pt-2 border-t border-zinc-800">
-          <div className="text-xs font-mono uppercase tracking-wider text-zinc-300">
-            Entidades Relacionadas ({selectedEntityIds.length} selecionadas)
-          </div>
-
-          {entities.length === 0 ? (
-            <p className="text-xs text-zinc-500">
-              Nenhuma entidade cadastrada na campanha até o momento.
-            </p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {(["character", "npc", "location", "organization"] as const).map((catKey) => {
-                const list = groupedEntities[catKey];
+        {/* Conexões com Entidades */}
+        {entities.length > 0 && (
+          <div className="space-y-2 pt-2 border-t border-zinc-800">
+            <span className="text-xs font-mono uppercase tracking-wider text-zinc-300">
+              Conectar Entidades do Mundo
+            </span>
+            <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+              {(["character", "npc", "location", "organization"] as const).map((cat) => {
+                const list = groupedEntities[cat];
+                if (list.length === 0) return null;
                 return (
-                  <div
-                    key={catKey}
-                    className="p-3 rounded-xl bg-obsidian-950 border border-zinc-800/80"
-                  >
-                    <div className="text-[11px] font-mono uppercase tracking-wider text-amber-400 mb-2">
-                      {ENTITY_CATEGORY_LABELS[catKey]} ({list.length})
+                  <div key={cat} className="space-y-1">
+                    <span className="text-[10px] font-mono uppercase text-zinc-500">
+                      {ENTITY_CATEGORY_LABELS[cat]}:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {list.map((ent) => {
+                        const sel = selectedEntityIds.includes(ent.id);
+                        return (
+                          <button
+                            key={ent.id}
+                            type="button"
+                            onClick={() => toggleEntity(ent.id)}
+                            className={`px-2.5 py-1 rounded-md text-xs border transition-colors ${
+                              sel
+                                ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
+                                : "bg-obsidian-950 text-zinc-400 border-zinc-800 hover:text-zinc-200"
+                            }`}
+                          >
+                            {sel ? "✓ " : "+ "}
+                            {ent.name}
+                          </button>
+                        );
+                      })}
                     </div>
-                    {list.length === 0 ? (
-                      <p className="text-xs text-zinc-600">Nenhum registro nesta categoria.</p>
-                    ) : (
-                      <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto">
-                        {list.map((ent) => {
-                          const isSelected = selectedEntityIds.includes(ent.id);
-                          return (
-                            <button
-                              key={ent.id}
-                              type="button"
-                              onClick={() => toggleEntity(ent.id)}
-                              className={`px-2.5 py-1 rounded-md text-xs font-medium border transition-colors ${
-                                isSelected
-                                  ? "bg-amber-500/20 border-amber-500/50 text-amber-200"
-                                  : "bg-obsidian-900 border-zinc-800 text-zinc-400 hover:text-zinc-200"
-                              }`}
-                            >
-                              {ent.name}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
                   </div>
                 );
               })}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
-        <div className="pt-4 border-t border-zinc-800 flex items-center justify-end gap-3">
+        {/* Botões de Ação */}
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-800">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-lg text-xs font-medium bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
+            className="px-4 py-2 rounded-lg bg-obsidian-950 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 text-xs font-mono uppercase tracking-wider transition-colors"
           >
             Cancelar
           </button>
           <button
             type="submit"
             disabled={mutation.isPending}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-obsidian-950 font-display font-semibold text-xs transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] font-display font-bold uppercase text-xs border-2 border-[#111111] shadow-[3px_3px_0_#111111] transition-all disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
-            {mutation.isPending
-              ? "Salvando..."
-              : editingEvent
-              ? "Salvar Alterações"
-              : "Registrar Acontecimento"}
+            {mutation.isPending ? "Salvando..." : editingEvent ? "Salvar Alterações" : "Registrar Acontecimento"}
           </button>
         </div>
       </form>
