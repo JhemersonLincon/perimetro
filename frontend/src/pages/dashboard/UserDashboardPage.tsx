@@ -105,59 +105,45 @@ export const UserDashboardPage: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col">
+    <div className="min-h-screen bg-[#FAFAFB] text-[#16151A] flex flex-col antialiased">
       <Navbar />
 
-      {/* Hero Editorial do Painel */}
-      <section className="dark-hero bg-[#16151A] text-[#FFFFFF] border-b-2 border-[#111111] py-12 sm:py-16">
-        <div className="wrap flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+      {/* Header Moderno do Painel de Campanhas */}
+      <section className="bg-white border-b border-[#E6E6EA] py-8 sm:py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
-            <div className="eyebrow text-[#FF4D5A] flex items-center gap-2.5 mb-3">
-              <span className="pulse-dot" aria-hidden="true" />
-              01 / PAINEL CENTRAL DO USUÁRIO
-            </div>
-            <h1 className="font-display text-4xl sm:text-6xl font-bold uppercase tracking-[-0.07em] leading-[0.94] text-[#FFFFFF]">
-              MINHAS <em className="not-italic text-[#FF4D5A]">CAMPANHAS</em>
-              <span className="text-[#FFFFFF]">.</span>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#16151A]">
+              Minhas Campanhas
             </h1>
-            <p className="text-base sm:text-lg text-[#EFEAE2] mt-3 max-w-2xl">
-              Gerencie os arquivos narrativos que você mestra ou acompanhe as linhas do tempo em que
-              atua como jogador.
+            <p className="text-sm text-zinc-500 mt-1 max-w-xl">
+              Gerencie seus arquivos narrativos ou acompanhe as linhas do tempo em que participa.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
               onClick={() => setInviteModalOpen(true)}
-              className="ref-button ref-button-paper"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white border border-[#E6E6EA] text-zinc-700 hover:bg-[#FAFAFB] hover:border-zinc-300 text-xs font-semibold shadow-sm transition-all"
             >
-              <span className="inline-flex items-center gap-2">
-                <Ticket className="w-4 h-4 text-[#FF4D5A]" />
-                Aceitar Convite
-              </span>
-              <span aria-hidden="true">✳</span>
+              <Ticket className="w-4 h-4 text-[#FF4D5A]" />
+              Aceitar Convite
             </button>
-            <Link to="/campaigns/new" className="ref-button ref-button-lime">
-              <span className="inline-flex items-center gap-2">
-                <Plus className="w-4 h-4" />
-                Nova Campanha
-              </span>
-              <span aria-hidden="true">↗</span>
+            <Link
+              to="/campaigns/new"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#FF4D5A] hover:bg-[#C42A3C] text-white text-xs font-semibold shadow-[0_4px_14px_rgba(255,77,90,0.35)] transition-all"
+            >
+              <Plus className="w-4 h-4" />
+              Nova Campanha
             </Link>
           </div>
         </div>
       </section>
 
-      <main className="flex-1 wrap py-10">
-        {/* Filtros de Status Brutalistas */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b-2 border-[#111111]">
-          <span className="section-index flex items-center gap-2 text-[#111111]">
-            <span className="text-[#FF4D5A] text-base">✳</span>
-            02 / ARQUIVOS REGISTRADOS
-          </span>
-
-          <div className="flex items-center gap-2">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        {/* Filtros em Abas Pills */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div className="flex items-center gap-1.5 p-1 bg-white border border-[#E6E6EA] rounded-2xl">
             {(
               [
                 { key: "all", label: "Todas" },
@@ -169,16 +155,22 @@ export const UserDashboardPage: React.FC = () => {
                 key={tab.key}
                 type="button"
                 onClick={() => setStatusFilter(tab.key)}
-                className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider border-2 border-[#111111] transition-all ${
+                className={`px-4 py-1.5 text-xs rounded-xl font-medium transition-all ${
                   statusFilter === tab.key
-                    ? "bg-[#FF4D5A] text-[#111111] shadow-[3px_3px_0_#111111]"
-                    : "bg-[#FFFFFF] text-[#111111] hover:bg-[#EFEAE2]"
+                    ? "bg-[#FF4D5A]/10 text-[#C42A3C] font-semibold"
+                    : "text-zinc-500 hover:text-[#16151A]"
                 }`}
               >
                 {tab.label}
               </button>
             ))}
           </div>
+
+          {campaigns && (
+            <span className="text-xs text-zinc-400 font-medium">
+              {campaigns.length} {campaigns.length === 1 ? "campanha encontrada" : "campanhas encontradas"}
+            </span>
+          )}
         </div>
 
         {isLoading && <LoadingState message="Carregando suas campanhas..." />}
@@ -201,45 +193,37 @@ export const UserDashboardPage: React.FC = () => {
         )}
 
         {!isLoading && !isError && campaigns && campaigns.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-            {campaigns.map((camp, idx) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {campaigns.map((camp) => {
               const isGM = camp.user_role === "gm";
-              const headerBg = "bg-[#FF4D5A]";
 
               return (
                 <article
                   key={camp.id}
-                  className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[8px_8px_0_#111111] flex flex-col overflow-hidden transition-transform hover:-translate-y-1"
+                  className="bg-white border border-[#E6E6EA] rounded-2xl shadow-sm hover:shadow-md hover:border-zinc-300 flex flex-col overflow-hidden transition-all group"
                 >
                   {/* Cabeçalho/Capa da Campanha */}
-                  <div
-                    className={`relative h-36 ${headerBg} border-b-2 border-[#111111] overflow-hidden`}
-                  >
+                  <div className="relative h-32 bg-[#FAFAFB] border-b border-[#E6E6EA] overflow-hidden">
                     {camp.cover_url ? (
                       <img
                         src={camp.cover_url}
                         alt={`Capa da campanha ${camp.name}`}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-end justify-between p-4">
-                        <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#111111]">
-                          DOSSIÊ #{String(idx + 1).padStart(2, "0")}
-                        </span>
-                        <span
-                          aria-hidden="true"
-                          className="font-display text-7xl font-bold leading-none tracking-tighter text-[#111111]/15 select-none"
-                        >
-                          RPG
+                      <div className="w-full h-full flex items-center justify-center p-4 bg-gradient-to-br from-[#FAFAFB] to-zinc-100">
+                        <span className="text-4xl font-black text-zinc-200 select-none tracking-tight">
+                          {camp.rpg_system.slice(0, 3).toUpperCase()}
                         </span>
                       </div>
                     )}
-                    <div className="absolute top-3 left-3 flex items-center gap-2">
-                      <span className="px-2.5 py-1 text-[11px] font-mono font-bold uppercase tracking-wider bg-[#16151A] text-[#FFFFFF] border border-[#111111]">
+
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                      <span className="px-2.5 py-1 text-[11px] font-semibold rounded-full bg-white/90 backdrop-blur-sm text-[#C42A3C] border border-[#E6E6EA]">
                         {camp.rpg_system}
                       </span>
                       {camp.status === "archived" && (
-                        <span className="px-2 py-1 text-[10px] font-mono font-bold uppercase bg-[#FFFFFF] text-[#111111] border border-[#111111]">
+                        <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-zinc-100 text-zinc-600 border border-[#E6E6EA]">
                           Arquivada
                         </span>
                       )}
@@ -250,72 +234,73 @@ export const UserDashboardPage: React.FC = () => {
                   </div>
 
                   {/* Corpo do Card */}
-                  <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                     <div>
-                      <h2 className="font-display text-2xl font-bold uppercase tracking-[-0.04em] text-[#111111] hover:underline">
+                      <h2 className="text-xl font-bold tracking-tight text-[#16151A] group-hover:text-[#C42A3C] transition-colors">
                         <Link to={`/campaigns/${camp.id}`}>{camp.name}</Link>
                       </h2>
-                      <p className="text-sm text-[#111111]/80 mt-2 line-clamp-3 leading-relaxed">
+                      <p className="text-sm text-zinc-500 mt-1 line-clamp-2 leading-relaxed">
                         {camp.description || "Sem descrição cadastrada."}
                       </p>
                     </div>
 
-                    <div className="mt-5 pt-4 border-t-2 border-[#111111] space-y-3">
-                      <div className="grid grid-cols-3 gap-2 text-center">
-                        <div className="p-2 bg-[#EFEAE2] border border-[#111111]">
-                          <div className="font-mono text-base font-bold text-[#111111] flex items-center justify-center gap-1">
+                    <div className="space-y-3 pt-3 border-t border-[#E6E6EA]">
+                      {/* Métricas Rápidas */}
+                      <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                        <div className="p-2 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA]">
+                          <div className="font-bold text-[#16151A] flex items-center justify-center gap-1">
                             <Users className="w-3.5 h-3.5 text-[#FF4D5A]" />
                             {camp.entities_count}
                           </div>
-                          <div className="text-[10px] font-mono uppercase text-[#111111]/70">
+                          <div className="text-[10px] text-zinc-400 mt-0.5">
                             Entidades
                           </div>
                         </div>
 
-                        <div className="p-2 bg-[#EFEAE2] border border-[#111111]">
-                          <div className="font-mono text-base font-bold text-[#111111] flex items-center justify-center gap-1">
+                        <div className="p-2 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA]">
+                          <div className="font-bold text-[#16151A] flex items-center justify-center gap-1">
                             <BookOpen className="w-3.5 h-3.5 text-[#FF4D5A]" />
                             {camp.sessions_count}
                           </div>
-                          <div className="text-[10px] font-mono uppercase text-[#111111]/70">
+                          <div className="text-[10px] text-zinc-400 mt-0.5">
                             Sessões
                           </div>
                         </div>
 
-                        <div className="p-2 bg-[#EFEAE2] border border-[#111111]">
-                          <div className="font-mono text-base font-bold text-[#111111] flex items-center justify-center gap-1">
+                        <div className="p-2 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA]">
+                          <div className="font-bold text-[#FF4D5A] flex items-center justify-center gap-1">
                             <Clock className="w-3.5 h-3.5 text-[#FF4D5A]" />
                             {camp.events_count}
                           </div>
-                          <div className="text-[10px] font-mono uppercase text-[#111111]/70">
+                          <div className="text-[10px] text-zinc-400 mt-0.5">
                             Eventos
                           </div>
                         </div>
                       </div>
 
-                      <div className="text-[11px] font-mono text-[#111111]/70 flex items-center justify-between">
-                        <span>ATUALIZADO EM:</span>
-                        <span className="font-bold text-[#111111]">
+                      <div className="text-[11px] text-zinc-400 flex items-center justify-between">
+                        <span>Atualizado em:</span>
+                        <span className="font-medium text-zinc-600">
                           {formatDateTime(camp.updated_at)}
                         </span>
                       </div>
 
-                      <div className="flex items-center justify-between gap-2 pt-2">
+                      {/* Botões de Ação */}
+                      <div className="flex items-center justify-between gap-2 pt-1">
                         <Link
                           to={`/campaigns/${camp.id}`}
-                          className="flex-1 inline-flex items-center justify-between px-3.5 py-2.5 bg-[#FF4D5A] hover:bg-[#e63946] text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0_#111111] font-display font-bold uppercase text-xs transition-all"
+                          className="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#FF4D5A] hover:bg-[#C42A3C] text-white text-xs font-semibold shadow-sm transition-all"
                         >
                           <span>Acessar Campanha</span>
-                          <ArrowUpRight className="w-4 h-4" />
+                          <ArrowUpRight className="w-3.5 h-3.5" />
                         </Link>
 
                         {isGM && (
-                          <div className="flex items-center gap-1.5">
+                          <div className="flex items-center gap-1">
                             <Link
                               to={`/campaigns/${camp.id}/settings`}
-                              title="Editar configurações"
-                              aria-label={`Configurações da campanha ${camp.name}`}
-                              className="p-2.5 bg-[#FFFFFF] hover:bg-[#EFEAE2] text-[#111111] border-2 border-[#111111] shadow-[2px_2px_0_#111111] transition-colors"
+                              title="Configurações da campanha"
+                              className="p-2 rounded-xl border border-[#E6E6EA] bg-white hover:bg-[#FAFAFB] text-zinc-600 hover:text-[#16151A] transition-colors"
                             >
                               <Settings className="w-4 h-4" />
                             </Link>
@@ -323,21 +308,12 @@ export const UserDashboardPage: React.FC = () => {
                               type="button"
                               onClick={() =>
                                 archiveMutation.mutate({
-                                  id: camp.id,
-                                  newStatus: camp.status === "active" ? "archived" : "active",
+                                   id: camp.id,
+                                   newStatus: camp.status === "active" ? "archived" : "active",
                                 })
                               }
-                              title={
-                                camp.status === "active"
-                                  ? "Arquivar campanha"
-                                  : "Reativar campanha"
-                              }
-                              aria-label={
-                                camp.status === "active"
-                                  ? `Arquivar campanha ${camp.name}`
-                                  : `Reativar campanha ${camp.name}`
-                              }
-                              className="p-2.5 bg-[#FFFFFF] hover:bg-[#EFEAE2] text-[#111111] border-2 border-[#111111] shadow-[2px_2px_0_#111111] transition-colors"
+                              title={camp.status === "active" ? "Arquivar campanha" : "Reativar campanha"}
+                              className="p-2 rounded-xl border border-[#E6E6EA] bg-white hover:bg-[#FAFAFB] text-zinc-600 hover:text-[#16151A] transition-colors"
                             >
                               {camp.status === "active" ? (
                                 <Archive className="w-4 h-4" />
@@ -349,8 +325,7 @@ export const UserDashboardPage: React.FC = () => {
                               type="button"
                               onClick={() => setCampaignToDelete(camp)}
                               title="Excluir campanha"
-                              aria-label={`Excluir campanha ${camp.name}`}
-                              className="p-2.5 bg-[#FFFFFF] hover:bg-[#FF4D5A] text-[#111111] border-2 border-[#111111] shadow-[2px_2px_0_#111111] transition-colors"
+                              className="p-2 rounded-xl border border-[#E6E6EA] bg-white hover:bg-rose-50 text-zinc-600 hover:text-rose-600 transition-colors"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
@@ -386,9 +361,9 @@ export const UserDashboardPage: React.FC = () => {
           <div>
             <label
               htmlFor="invite-token-input"
-              className="block text-xs font-mono uppercase tracking-wider text-zinc-200 mb-1.5"
+              className="block text-xs uppercase tracking-wider font-semibold text-zinc-600 mb-1.5"
             >
-              Token do Convite <span className="text-amber-400">*</span>
+              Token do Convite <span className="text-[#FF4D5A]">*</span>
             </label>
             <input
               id="invite-token-input"
@@ -398,43 +373,38 @@ export const UserDashboardPage: React.FC = () => {
               value={inviteToken}
               onChange={(e) => setInviteToken(e.target.value)}
               placeholder="Cole aqui o token recebido..."
-              className="w-full px-3.5 py-2.5 bg-obsidian-950 border-2 border-zinc-700 text-zinc-100 font-mono text-xs focus:outline-none focus:border-amber-400"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm focus:outline-none focus:border-[#FF4D5A]"
             />
           </div>
-          <div className="flex justify-end gap-2 pt-2">
+
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#E6E6EA]">
             <button
               type="button"
               onClick={() => setInviteModalOpen(false)}
-              className="px-4 py-2 text-xs font-bold uppercase bg-obsidian-800 text-zinc-200 border-2 border-zinc-700"
+              className="px-4 py-2 rounded-xl text-xs font-semibold text-zinc-600 hover:bg-zinc-100 transition-colors"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              disabled={acceptInviteMutation.isPending || !inviteToken.trim()}
-              className="px-4 py-2 text-xs font-bold uppercase bg-amber-500 text-ink border-2 border-ink shadow-neo-sm disabled:opacity-50"
+              disabled={acceptInviteMutation.isPending}
+              className="px-5 py-2.5 rounded-xl bg-[#FF4D5A] hover:bg-[#C42A3C] text-white text-xs font-semibold shadow-sm transition-all disabled:opacity-50"
             >
-              {acceptInviteMutation.isPending ? "Validando..." : "Aceitar Convite"}
+              {acceptInviteMutation.isPending ? "Ingressando..." : "Ingressar na Campanha"}
             </button>
           </div>
         </form>
       </DialogModal>
 
-      {/* Confirmação de exclusão de campanha */}
+      {/* Confirmação de exclusão */}
       <ConfirmDialog
-        isOpen={!!campaignToDelete}
+        isOpen={Boolean(campaignToDelete)}
         title="Excluir Campanha Permanentemente?"
-        description={
-          campaignToDelete
-            ? `Tem certeza que deseja excluir a campanha "${campaignToDelete.name}"? Todos os acontecimentos da linha do tempo, entidades, sessões e participantes associados serão permanentemente removidos.`
-            : ""
-        }
-        confirmLabel="Sim, Excluir Campanha"
+        description={`Esta ação excluirá permanentemente a campanha "${campaignToDelete?.name}" e todos os seus acontecimentos, personagens e sessões vinculadas.`}
         isLoading={deleteMutation.isPending}
+        confirmLabel="Sim, Excluir Campanha"
         onConfirm={() => {
-          if (campaignToDelete) {
-            deleteMutation.mutate(campaignToDelete.id);
-          }
+          if (campaignToDelete) deleteMutation.mutate(campaignToDelete.id);
         }}
         onCancel={() => setCampaignToDelete(null)}
       />

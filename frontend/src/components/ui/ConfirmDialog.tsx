@@ -62,17 +62,17 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     <dialog
       ref={dialogRef}
       aria-labelledby={titleId}
-      className="w-full max-w-md rounded-xl bg-obsidian-900 border border-rose-500/30 text-zinc-100 shadow-2xl p-6"
+      className="w-full max-w-md rounded-2xl bg-white border border-[#E6E6EA] text-[#16151A] shadow-2xl p-6"
     >
       <div className="flex items-start gap-4">
-        <div className="p-2.5 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-400 shrink-0">
+        <div className="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 shrink-0">
           <AlertTriangle className="w-6 h-6" />
         </div>
         <div className="flex-1">
-          <h2 id={titleId} className="font-display text-lg font-semibold text-zinc-100">
+          <h2 id={titleId} className="text-xl font-bold tracking-tight text-[#16151A]">
             {title}
           </h2>
-          <p className="text-sm text-zinc-400 mt-1.5 leading-relaxed">{description}</p>
+          <p className="text-sm text-zinc-600 mt-1.5 leading-relaxed">{description}</p>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
           value="cancel"
           autoFocus
           disabled={isLoading}
-          className="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition-colors"
+          className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#FAFAFB] hover:bg-zinc-100 text-zinc-700 border border-[#E6E6EA] transition-colors"
         >
           {cancelLabel}
         </button>
@@ -90,7 +90,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
           type="submit"
           value="confirm"
           disabled={isLoading}
-          className="px-4 py-2 rounded-lg text-sm font-semibold bg-rose-600 hover:bg-rose-500 text-white transition-colors disabled:opacity-50"
+          className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#FF4D5A] hover:bg-[#ff3b49] text-white shadow-[0_2px_8px_rgba(255,77,90,0.3)] transition-colors disabled:opacity-50"
         >
           {isLoading ? "Processando..." : confirmLabel}
         </button>

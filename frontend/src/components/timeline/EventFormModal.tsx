@@ -255,7 +255,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
         {formError && (
           <div
             role="alert"
-            className="p-3.5 rounded-lg bg-rose-950/40 border border-rose-500/40 text-xs text-rose-200"
+            className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium"
           >
             {formError}
           </div>
@@ -266,7 +266,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
           <div className="sm:col-span-2">
             <label
               htmlFor="evt-title"
-              className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+              className="block text-xs font-semibold text-zinc-700 mb-1.5"
             >
               Título do Acontecimento <span className="text-amber-400">*</span>
             </label>
@@ -277,14 +277,14 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Ex: Abertura do Cofre Subterrâneo"
-              className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A]"
             />
           </div>
 
           <div>
             <label
               htmlFor="evt-category"
-              className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+              className="block text-xs font-semibold text-zinc-700 mb-1.5"
             >
               Categoria <span className="text-amber-400">*</span>
             </label>
@@ -292,7 +292,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
               id="evt-category"
               value={category}
               onChange={(e) => setCategory(e.target.value as EventCategory)}
-              className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A]"
             >
               {(Object.keys(EVENT_CATEGORY_META) as EventCategory[]).map((catKey) => (
                 <option key={catKey} value={catKey}>
@@ -304,8 +304,8 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
         </div>
 
         {/* Tipo de Registro e Autoria Colaborativa */}
-        <div className="p-4 rounded-xl bg-obsidian-950 border border-zinc-800 space-y-3">
-          <label className="block text-xs font-mono uppercase tracking-wider text-amber-400">
+        <div className="p-4 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA] space-y-3">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-600">
             Tipo de Registro Colaborativo
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
@@ -315,14 +315,14 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                 onClick={() => setEventType("canonical")}
                 className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
                   eventType === "canonical"
-                    ? "bg-amber-500/15 border-amber-500 text-amber-300 ring-2 ring-amber-500/30"
-                    : "bg-obsidian-900 border-zinc-800 text-zinc-400 hover:text-zinc-200"
+                    ? "bg-amber-50 border-amber-300 text-amber-900 ring-2 ring-amber-200"
+                    : "bg-white border-[#E6E6EA] text-zinc-600 hover:border-zinc-300 shadow-sm"
                 }`}
               >
-                <Crown className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
+                <Crown className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
                 <div>
                   <div className="text-xs font-bold">Fato Canônico</div>
-                  <div className="text-[10px] text-zinc-400 leading-tight mt-0.5">História oficial do mundo</div>
+                  <div className="text-[10px] text-zinc-500 leading-tight mt-0.5">História oficial do mundo</div>
                 </div>
               </button>
             )}
@@ -332,14 +332,14 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
               onClick={() => setEventType("diary")}
               className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
                 eventType === "diary"
-                  ? "bg-sky-500/15 border-sky-500 text-sky-300 ring-2 ring-sky-500/30"
-                  : "bg-obsidian-900 border-zinc-800 text-zinc-400 hover:text-zinc-200"
+                  ? "bg-sky-50 border-sky-300 text-sky-900 ring-2 ring-sky-200"
+                  : "bg-white border-[#E6E6EA] text-zinc-600 hover:border-zinc-300 shadow-sm"
               }`}
             >
-              <BookOpen className="w-4 h-4 shrink-0 mt-0.5 text-sky-400" />
+              <BookOpen className="w-4 h-4 shrink-0 mt-0.5 text-sky-600" />
               <div>
                 <div className="text-xs font-bold">Registro de Diário</div>
-                <div className="text-[10px] text-zinc-400 leading-tight mt-0.5">Notas do personagem</div>
+                <div className="text-[10px] text-zinc-500 leading-tight mt-0.5">Notas do personagem</div>
               </div>
             </button>
 
@@ -348,14 +348,14 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
               onClick={() => setEventType("backstory")}
               className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
                 eventType === "backstory"
-                  ? "bg-emerald-500/15 border-emerald-500 text-emerald-300 ring-2 ring-emerald-500/30"
-                  : "bg-obsidian-900 border-zinc-800 text-zinc-400 hover:text-zinc-200"
+                  ? "bg-emerald-50 border-emerald-300 text-emerald-900 ring-2 ring-emerald-200"
+                  : "bg-white border-[#E6E6EA] text-zinc-600 hover:border-zinc-300 shadow-sm"
               }`}
             >
-              <Scroll className="w-4 h-4 shrink-0 mt-0.5 text-emerald-400" />
+              <Scroll className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
               <div>
                 <div className="text-xs font-bold">Antecedente</div>
-                <div className="text-[10px] text-zinc-400 leading-tight mt-0.5">Passado e memórias</div>
+                <div className="text-[10px] text-zinc-500 leading-tight mt-0.5">Passado e memórias</div>
               </div>
             </button>
 
@@ -364,33 +364,33 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
               onClick={() => setEventType("hypothesis")}
               className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
                 eventType === "hypothesis"
-                  ? "bg-purple-500/15 border-purple-500 text-purple-300 ring-2 ring-purple-500/30"
-                  : "bg-obsidian-900 border-zinc-800 text-zinc-400 hover:text-zinc-200"
+                  ? "bg-purple-50 border-purple-300 text-purple-900 ring-2 ring-purple-200"
+                  : "bg-white border-[#E6E6EA] text-zinc-600 hover:border-zinc-300 shadow-sm"
               }`}
             >
-              <HelpCircle className="w-4 h-4 shrink-0 mt-0.5 text-purple-400" />
+              <HelpCircle className="w-4 h-4 shrink-0 mt-0.5 text-purple-600" />
               <div>
                 <div className="text-xs font-bold">Hipótese / Teoria</div>
-                <div className="text-[10px] text-zinc-400 leading-tight mt-0.5">Dedução investigativa</div>
+                <div className="text-[10px] text-zinc-500 leading-tight mt-0.5">Dedução investigativa</div>
               </div>
             </button>
           </div>
         </div>
 
         {/* Granularidade Temporal Flexível */}
-        <div className="p-4 rounded-xl bg-obsidian-950 border border-zinc-800 space-y-4">
+        <div className="p-4 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA] space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="font-mono text-xs uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" />
+            <span className="text-xs font-semibold text-[#16151A] flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-[#FF4D5A]" />
               Eixo Temporal Granular ({campaign.calendar_config?.type === "fictional" ? "Calendário Fictício" : "Calendário Gregoriano"})
             </span>
 
-            <label className="inline-flex items-center gap-2 text-xs text-zinc-300 cursor-pointer">
+            <label className="inline-flex items-center gap-2 text-xs text-zinc-600 cursor-pointer">
               <input
                 type="checkbox"
                 checked={dateIsUnknown}
                 onChange={(e) => setDateIsUnknown(e.target.checked)}
-                className="rounded border-zinc-700 bg-obsidian-900 text-amber-500 focus:ring-0"
+                className="rounded border-[#E6E6EA] text-[#FF4D5A] focus:ring-0"
               />
               Data exata desconhecida / indefinida
             </label>
@@ -403,9 +403,9 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                 <div>
                   <label
                     htmlFor="evt-year"
-                    className="block text-[11px] font-mono uppercase text-zinc-400 mb-1"
+                    className="block text-[11px] font-semibold text-zinc-600 mb-1"
                   >
-                    Ano <span className="text-amber-400">*</span> (Ex: 1924 ou -450 a.C.)
+                    Ano <span className="text-[#FF4D5A]">*</span> (Ex: 1924 ou -450 a.C.)
                   </label>
                   <input
                     id="evt-year"
@@ -413,7 +413,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                     required
                     value={year}
                     onChange={(e) => setYear(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-obsidian-900 border border-zinc-800 text-zinc-100 text-sm font-mono focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-[#E6E6EA] text-[#16151A] text-sm focus:outline-none focus:border-[#FF4D5A]"
                   />
                 </div>
 
@@ -422,11 +422,11 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                   <div className="flex items-center justify-between mb-1">
                     <label
                       htmlFor="evt-month"
-                      className="block text-[11px] font-mono uppercase text-zinc-400"
+                      className="block text-[11px] font-semibold text-zinc-600"
                     >
                       Mês (Opcional)
                     </label>
-                    <label className="text-[10px] text-zinc-400 inline-flex items-center gap-1 cursor-pointer">
+                    <label className="text-[10px] text-zinc-500 inline-flex items-center gap-1 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={!hasMonth}
@@ -434,7 +434,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                           setHasMonth(!e.target.checked);
                           if (e.target.checked) setHasDay(false);
                         }}
-                        className="rounded border-zinc-700"
+                        className="rounded border-[#E6E6EA]"
                       />
                       Sem mês (Geral do Ano)
                     </label>
@@ -444,10 +444,10 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                     disabled={!hasMonth}
                     value={month}
                     onChange={(e) => setMonth(Number(e.target.value))}
-                    className={`w-full px-3 py-2 rounded-lg border text-sm transition-colors ${
+                    className={`w-full px-3 py-2 rounded-xl border text-sm transition-colors ${
                       hasMonth
-                        ? "bg-obsidian-900 border-zinc-800 text-zinc-100 focus:outline-none focus:border-amber-500"
-                        : "bg-obsidian-950 border-zinc-800/50 text-zinc-600 cursor-not-allowed"
+                        ? "bg-white border-[#E6E6EA] text-[#16151A] focus:outline-none focus:border-[#FF4D5A]"
+                        : "bg-zinc-100 border-[#E6E6EA] text-zinc-400 cursor-not-allowed"
                     }`}
                   >
                     {months.map((m, idx) => (
@@ -463,17 +463,17 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                   <div className="flex items-center justify-between mb-1">
                     <label
                       htmlFor="evt-day"
-                      className="block text-[11px] font-mono uppercase text-zinc-400"
+                      className="block text-[11px] font-semibold text-zinc-600"
                     >
                       Dia (Opcional, 1–{maxDaysInSelectedMonth})
                     </label>
-                    <label className="text-[10px] text-zinc-400 inline-flex items-center gap-1 cursor-pointer">
+                    <label className="text-[10px] text-zinc-500 inline-flex items-center gap-1 cursor-pointer">
                       <input
                         type="checkbox"
                         disabled={!hasMonth}
                         checked={!hasDay || !hasMonth}
                         onChange={(e) => setHasDay(!e.target.checked)}
-                        className="rounded border-zinc-700"
+                        className="rounded border-[#E6E6EA]"
                       />
                       Sem dia (Geral do Mês)
                     </label>
@@ -486,23 +486,23 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                     disabled={!hasMonth || !hasDay}
                     value={day}
                     onChange={(e) => setDay(Number(e.target.value))}
-                    className={`w-full px-3 py-2 rounded-lg border text-sm font-mono transition-colors ${
+                    className={`w-full px-3 py-2 rounded-xl border text-sm transition-colors ${
                       hasMonth && hasDay
-                        ? "bg-obsidian-900 border-zinc-800 text-zinc-100 focus:outline-none focus:border-amber-500"
-                        : "bg-obsidian-950 border-zinc-800/50 text-zinc-600 cursor-not-allowed"
+                        ? "bg-white border-[#E6E6EA] text-[#16151A] focus:outline-none focus:border-[#FF4D5A]"
+                        : "bg-zinc-100 border-[#E6E6EA] text-zinc-400 cursor-not-allowed"
                     }`}
                   />
                 </div>
               </div>
 
               {/* Precisão no Dia e Desempate Manual */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-zinc-800/60">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-[#E6E6EA]">
                 <div>
                   <label
                     htmlFor="evt-time"
-                    className="block text-[11px] font-mono uppercase text-zinc-400 mb-1 flex items-center gap-1"
+                    className="block text-[11px] font-semibold text-zinc-600 mb-1 flex items-center gap-1"
                   >
-                    <Clock className="w-3 h-3 text-amber-400" />
+                    <Clock className="w-3 h-3 text-[#FF4D5A]" />
                     Momento / Horário (Opcional)
                   </label>
                   <input
@@ -511,14 +511,14 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                     placeholder="Ex: Madrugada, 14h30, Pôr do sol"
                     value={timeLabel}
                     onChange={(e) => setTimeLabel(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-obsidian-900 border border-zinc-800 text-zinc-100 text-sm font-mono focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-[#E6E6EA] text-[#16151A] text-sm focus:outline-none focus:border-[#FF4D5A]"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="evt-sort-order"
-                    className="block text-[11px] font-mono uppercase text-zinc-400 mb-1"
+                    className="block text-[11px] font-semibold text-zinc-600 mb-1"
                   >
                     Desempate Cronológico (sort_order)
                   </label>
@@ -528,7 +528,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                     step="0.5"
                     value={sortOrder}
                     onChange={(e) => setSortOrder(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-obsidian-900 border border-zinc-800 text-zinc-100 text-sm font-mono focus:outline-none focus:border-amber-500"
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-[#E6E6EA] text-[#16151A] text-sm focus:outline-none focus:border-[#FF4D5A]"
                   />
                   <span className="text-[10px] text-zinc-500">
                     Menores valores aparecem primeiro quando na mesma data/hora.
@@ -543,7 +543,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
         <div>
           <label
             htmlFor="evt-description"
-            className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+            className="block text-xs font-semibold text-zinc-700 mb-1.5"
           >
             Descrição Completa <span className="text-amber-400">*</span>
           </label>
@@ -557,7 +557,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Descreva os acontecimentos, pistas descobertas ou fatos narrados..."
-            className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500 leading-relaxed"
+            className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A] leading-relaxed"
           />
         </div>
 
@@ -566,7 +566,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
           <div>
             <label
               htmlFor="evt-session"
-              className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+              className="block text-xs font-semibold text-zinc-700 mb-1.5"
             >
               Vincular à Sessão de Jogo (Opcional)
             </label>
@@ -574,7 +574,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
               id="evt-session"
               value={sessionId}
               onChange={(e) => setSessionId(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A]"
             >
               <option value="">Nenhuma Sessão</option>
               {sessions.map((s) => (
@@ -588,7 +588,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
           <div>
             <label
               htmlFor="evt-visibility"
-              className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+              className="block text-xs font-semibold text-zinc-700 mb-1.5"
             >
               Nível de Sigilo / Visibilidade
             </label>
@@ -596,7 +596,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
               id="evt-visibility"
               value={visibility}
               onChange={(e) => setVisibility(e.target.value as VisibilityLevel)}
-              className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A]"
             >
               <option value="public">Público (Visível para toda a mesa)</option>
               <option value="restricted">Restrito (Permissão de descoberta a jogadores específicos)</option>
@@ -607,8 +607,8 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
 
         {/* Jogadores autorizados se restrito */}
         {visibility === "restricted" && (
-          <div className="p-3.5 rounded-xl bg-obsidian-950 border border-zinc-800 space-y-2">
-            <span className="text-xs font-mono uppercase text-amber-400">
+          <div className="p-4 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA] space-y-2">
+            <span className="text-xs font-semibold text-[#16151A]">
               Jogadores com Acesso a este Acontecimento
             </span>
             {playerMembers.length === 0 ? (
@@ -624,8 +624,8 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                       onClick={() => toggleAllowedUser(m.user_id)}
                       className={`px-2.5 py-1 rounded-md text-xs font-mono border transition-colors ${
                         selected
-                          ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
-                          : "bg-obsidian-900 text-zinc-400 border-zinc-800 hover:text-zinc-200"
+                          ? "bg-[#FF4D5A]/10 text-[#C42A3C] border-[#FF4D5A]/30 font-semibold"
+                          : "bg-white text-zinc-600 border-[#E6E6EA] hover:border-zinc-300"
                       }`}
                     >
                       {selected ? "✓ " : "+ "}
@@ -640,7 +640,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
 
         {/* Conexões com Entidades */}
         {entities.length > 0 && (
-          <div className="space-y-2 pt-2 border-t border-zinc-800">
+          <div className="space-y-2 pt-2 border-t border-[#E6E6EA]">
             <span className="text-xs font-mono uppercase tracking-wider text-zinc-300">
               Conectar Entidades do Mundo
             </span>
@@ -663,8 +663,8 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
                             onClick={() => toggleEntity(ent.id)}
                             className={`px-2.5 py-1 rounded-md text-xs border transition-colors ${
                               sel
-                                ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
-                                : "bg-obsidian-950 text-zinc-400 border-zinc-800 hover:text-zinc-200"
+                                ? "bg-[#FF4D5A]/10 text-[#C42A3C] border-[#FF4D5A]/30 font-semibold"
+                                : "bg-white text-zinc-600 border-[#E6E6EA] hover:border-zinc-300"
                             }`}
                           >
                             {sel ? "✓ " : "+ "}
@@ -681,7 +681,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
         )}
 
         {/* Botões de Ação */}
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-zinc-800">
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#E6E6EA]">
           <button
             type="button"
             onClick={onClose}

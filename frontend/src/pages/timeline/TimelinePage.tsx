@@ -13,7 +13,6 @@ import {
   Edit3,
   Trash2,
   ExternalLink,
-  Calendar,
   Layers,
   ZoomIn,
   ZoomOut,
@@ -23,7 +22,6 @@ import {
   Scroll,
   User as UserIcon,
   ChevronRight,
-  Sparkles,
 } from "lucide-react";
 import { CampaignOutletContext } from "../../components/layout/CampaignLayout";
 import { apiRequest } from "../../services/api";
@@ -31,7 +29,6 @@ import {
   CampaignMember,
   Entity,
   EventCategory,
-  EventType,
   GameSession,
   PaginatedEntities,
   PaginatedEvents,
@@ -336,9 +333,9 @@ export const TimelinePage: React.FC = () => {
     return (
       <article
         key={evt.id}
-        className={`relative rounded-2xl bg-obsidian-900 text-zinc-100 border-2 transition-all p-5 sm:p-6 ${
+        className={`relative rounded-2xl bg-white text-[#16151A] border transition-all p-5 sm:p-6 shadow-sm hover:border-zinc-300 ${
           isCanonical
-            ? "border-amber-500/80 shadow-[6px_6px_0_#d97706] ring-1 ring-amber-500/30"
+            ? "border-amber-300 ring-1 ring-amber-200/60 shadow-[0_2px_12px_rgba(245,158,11,0.08)]"
             : `${typeMeta.borderClass}`
         }`}
       >
@@ -347,65 +344,65 @@ export const TimelinePage: React.FC = () => {
           <div className="flex flex-wrap items-center gap-2">
             {/* Badge de Autoria & Tipo de Evento */}
             <span
-              className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider border ${typeMeta.badgeClass}`}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border ${typeMeta.badgeClass}`}
             >
               {isCanonical ? (
-                <Crown className="w-3.5 h-3.5 text-amber-400" />
+                <Crown className="w-3.5 h-3.5 text-amber-600" />
               ) : evt.event_type === "diary" ? (
-                <BookOpen className="w-3.5 h-3.5 text-sky-400" />
+                <BookOpen className="w-3.5 h-3.5 text-sky-600" />
               ) : evt.event_type === "backstory" ? (
-                <Scroll className="w-3.5 h-3.5 text-emerald-400" />
+                <Scroll className="w-3.5 h-3.5 text-emerald-600" />
               ) : (
-                <HelpCircle className="w-3.5 h-3.5 text-purple-400" />
+                <HelpCircle className="w-3.5 h-3.5 text-purple-600" />
               )}
               {typeMeta.label}
             </span>
 
             {/* Identificação de quem criou */}
             {evt.created_by && (
-              <span className="inline-flex items-center gap-1 text-[11px] font-mono text-zinc-400 bg-obsidian-950 px-2 py-0.5 rounded border border-zinc-800">
-                <UserIcon className="w-3 h-3 text-zinc-500" />
+              <span className="inline-flex items-center gap-1.5 text-xs text-zinc-600 bg-[#FAFAFB] px-2.5 py-1 rounded-lg border border-[#E6E6EA]">
+                <UserIcon className="w-3.5 h-3.5 text-zinc-400" />
                 {evt.created_by.name || evt.created_by.username}
               </span>
             )}
 
             {/* Categoria Narrativa */}
             <span
-              className={`px-2 py-0.5 rounded text-xs font-mono border ${catMeta.badgeClass}`}
+              className={`px-2.5 py-1 rounded-lg text-xs font-medium border ${catMeta.badgeClass}`}
             >
               {catMeta.label}
             </span>
 
             {/* Indicador Claro de Visibilidade e Sigilo */}
             {evt.visibility === "private" && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40">
-                <Lock className="w-3 h-3 text-rose-400" />
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                <Lock className="w-3 h-3 text-rose-500" />
                 Secreto do Mestre
               </span>
             )}
             {evt.visibility === "restricted" && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-mono font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                <Eye className="w-3 h-3 text-amber-400" />
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+                <Eye className="w-3 h-3 text-amber-600" />
                 Descoberta Restrita
               </span>
             )}
             {evt.visibility === "public" && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono text-zinc-400 bg-zinc-800/80 border border-zinc-700">
-                <Eye className="w-3 h-3 text-emerald-400" />
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs text-zinc-600 bg-zinc-100 border border-zinc-200">
+                <Eye className="w-3 h-3 text-emerald-600" />
                 Público
               </span>
             )}
 
             {/* Precisão Temporal: Horário / Momento e Desempate */}
             {(evt.time_label || evt.narrative_time) && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-mono text-amber-300 bg-obsidian-950 border border-zinc-800">
-                <Clock className="w-3 h-3 text-amber-400" />
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium text-[#C42A3C] bg-[#FF4D5A]/10 border border-[#FF4D5A]/20">
+                <Clock className="w-3.5 h-3.5 text-[#FF4D5A]" />
                 {evt.time_label || evt.narrative_time}
               </span>
             )}
 
             {evt.sort_order !== undefined && evt.sort_order !== 0 && (
-              <span className="text-[10px] font-mono text-zinc-500 bg-obsidian-950 px-1.5 py-0.5 rounded">
+              <span className="text-[11px] font-mono text-zinc-400 bg-[#FAFAFB] px-2 py-0.5 rounded border border-[#E6E6EA]">
                 ord: {evt.sort_order}
               </span>
             )}
@@ -415,7 +412,7 @@ export const TimelinePage: React.FC = () => {
           <div className="flex items-center gap-1.5">
             <Link
               to={`/campaigns/${campaign.id}/events/${evt.id}`}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono text-zinc-300 hover:text-amber-300 bg-obsidian-950 hover:bg-zinc-800 border border-zinc-800 transition-colors"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-medium text-zinc-600 hover:text-[#16151A] bg-[#FAFAFB] hover:bg-zinc-100 border border-[#E6E6EA] transition-colors"
             >
               Detalhes
               <ExternalLink className="w-3 h-3" />
@@ -432,7 +429,7 @@ export const TimelinePage: React.FC = () => {
                   }}
                   title="Editar acontecimento"
                   aria-label={`Editar acontecimento ${evt.title}`}
-                  className="p-1.5 rounded-lg bg-obsidian-950 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-100 border border-zinc-800"
+                  className="p-1.5 rounded-xl bg-[#FAFAFB] hover:bg-zinc-100 text-zinc-500 hover:text-[#16151A] border border-[#E6E6EA] transition-colors"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
                 </button>
@@ -441,7 +438,7 @@ export const TimelinePage: React.FC = () => {
                   onClick={() => setEventToDelete(evt)}
                   title="Excluir acontecimento"
                   aria-label={`Excluir acontecimento ${evt.title}`}
-                  className="p-1.5 rounded-lg bg-obsidian-950 hover:bg-rose-950/40 text-zinc-400 hover:text-rose-400 border border-zinc-800"
+                  className="p-1.5 rounded-xl bg-[#FAFAFB] hover:bg-rose-50 text-zinc-500 hover:text-rose-600 border border-[#E6E6EA] transition-colors"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
@@ -451,31 +448,31 @@ export const TimelinePage: React.FC = () => {
         </div>
 
         {/* Título do Acontecimento */}
-        <h3 className="font-display text-xl font-bold text-zinc-100">
+        <h3 className="text-xl font-bold tracking-tight text-[#16151A]">
           <Link
             to={`/campaigns/${campaign.id}/events/${evt.id}`}
-            className="hover:text-amber-400 transition-colors"
+            className="hover:text-[#FF4D5A] transition-colors"
           >
             {evt.title}
           </Link>
         </h3>
 
         {/* Descrição */}
-        <p className="text-sm text-zinc-300 mt-2 leading-relaxed whitespace-pre-line line-clamp-4">
+        <p className="text-sm text-zinc-600 mt-2 leading-relaxed whitespace-pre-line line-clamp-4">
           {evt.description}
         </p>
 
         {/* Vínculo de Sessão e Entidades */}
         {(evt.session || evt.entities.length > 0) && (
-          <div className="mt-4 pt-3 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-2">
+          <div className="mt-4 pt-3.5 border-t border-[#E6E6EA] flex flex-wrap items-center justify-between gap-2">
             <div className="flex flex-wrap items-center gap-1.5">
               {evt.entities.map((ent) => (
                 <Link
                   key={ent.id}
                   to={`/campaigns/${campaign.id}/entities/${ent.id}`}
-                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-obsidian-950 hover:bg-amber-500/15 text-zinc-300 hover:text-amber-300 border border-zinc-800 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs bg-[#FAFAFB] hover:bg-zinc-100 text-zinc-700 hover:text-[#16151A] border border-[#E6E6EA] transition-colors"
                 >
-                  <span className="font-mono text-[10px] uppercase text-amber-400/90">
+                  <span className="font-semibold text-[10px] uppercase text-[#FF4D5A]">
                     {ENTITY_CATEGORY_LABELS[ent.category].split(" ")[0]}:
                   </span>
                   <span className="font-medium">{ent.name}</span>
@@ -486,9 +483,9 @@ export const TimelinePage: React.FC = () => {
             {evt.session && (
               <Link
                 to={`/campaigns/${campaign.id}/sessions/${evt.session.id}`}
-                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-xs font-mono bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-[#FAFAFB] hover:bg-zinc-100 text-zinc-700 border border-[#E6E6EA] transition-colors"
               >
-                <BookOpen className="w-3 h-3 text-amber-400" />
+                <BookOpen className="w-3.5 h-3.5 text-[#FF4D5A]" />
                 Sessão #{String(evt.session.session_number).padStart(2, "0")}
               </Link>
             )}
@@ -501,17 +498,17 @@ export const TimelinePage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Cabeçalho da Linha do Tempo e Controle de Zoom Semântico */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b-2 border-[#111111]">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-[#E6E6EA]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D5A]">
-              EIXO CRONOLÓGICO DINÂMICO // ZOOM SEMÂNTICO
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FF4D5A]/10 text-[#C42A3C] border border-[#FF4D5A]/20">
+              EIXO CRONOLÓGICO DINÂMICO
             </span>
           </div>
-          <h1 className="font-display text-3xl font-bold uppercase text-[#111111] mt-1">
+          <h1 className="text-3xl font-bold tracking-tight text-[#16151A] mt-2">
             Linha do Tempo da Campanha
           </h1>
-          <p className="text-sm text-[#111111]/75 mt-1">
+          <p className="text-sm text-zinc-500 mt-1">
             Eixo compartilhado com granularidade multinível. Mestre e jogadores colaboram
             inserindo fatos no mesmo período.
           </p>
@@ -520,7 +517,7 @@ export const TimelinePage: React.FC = () => {
         {/* Controles: Zoom Semântico, Ordem, Filtros e Novo Evento */}
         <div className="flex flex-wrap items-center gap-2.5">
           {/* Seletor de Zoom Semântico (Macro, Médio, Micro) */}
-          <div className="inline-flex items-center p-1 rounded-xl bg-obsidian-900 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A]">
+          <div className="inline-flex items-center p-1 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA]">
             <button
               type="button"
               onClick={() => {
@@ -528,10 +525,10 @@ export const TimelinePage: React.FC = () => {
                 setFocusedMonth(null);
               }}
               title="Visão Macro: Blocos Anuais e Décadas"
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 zoomLevel === "macro"
-                  ? "bg-[#FF4D5A] text-[#111111]"
-                  : "text-zinc-300 hover:text-white"
+                  ? "bg-[#FF4D5A] text-white shadow-[0_2px_8px_rgba(255,77,90,0.3)]"
+                  : "text-zinc-600 hover:text-[#16151A]"
               }`}
             >
               <ZoomOut className="w-3.5 h-3.5" />
@@ -541,10 +538,10 @@ export const TimelinePage: React.FC = () => {
               type="button"
               onClick={() => setZoomLevel("medium")}
               title="Visão Média: Subdivisão em Meses"
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 zoomLevel === "medium"
-                  ? "bg-[#FF4D5A] text-[#111111]"
-                  : "text-zinc-300 hover:text-white"
+                  ? "bg-[#FF4D5A] text-white shadow-[0_2px_8px_rgba(255,77,90,0.3)]"
+                  : "text-zinc-600 hover:text-[#16151A]"
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
@@ -554,10 +551,10 @@ export const TimelinePage: React.FC = () => {
               type="button"
               onClick={() => setZoomLevel("micro")}
               title="Visão Micro: Sequência de Dias e Horários"
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 zoomLevel === "micro"
-                  ? "bg-[#FF4D5A] text-[#111111]"
-                  : "text-zinc-300 hover:text-white"
+                  ? "bg-[#FF4D5A] text-white shadow-[0_2px_8px_rgba(255,77,90,0.3)]"
+                  : "text-zinc-600 hover:text-[#16151A]"
               }`}
             >
               <ZoomIn className="w-3.5 h-3.5" />
@@ -568,26 +565,26 @@ export const TimelinePage: React.FC = () => {
           <button
             type="button"
             onClick={() => setOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-obsidian-900 hover:bg-zinc-800 text-zinc-100 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono font-bold uppercase tracking-wider transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
           >
-            <ArrowUpDown className="w-3.5 h-3.5 text-amber-400" />
+            <ArrowUpDown className="w-3.5 h-3.5 text-zinc-400" />
             {order === "asc" ? "Crescente" : "Decrescente"}
           </button>
 
           <button
             type="button"
             onClick={() => setShowFilters((v) => !v)}
-            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 border-[#111111] text-xs font-mono font-bold uppercase tracking-wider transition-colors ${
+            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl border text-xs font-semibold transition-colors shadow-sm ${
               showFilters || hasActiveFilters
-                ? "bg-[#FF4D5A] text-[#111111] shadow-[3px_3px_0_#111111]"
-                : "bg-obsidian-900 text-zinc-100 shadow-[3px_3px_0_#FF4D5A]"
+                ? "bg-[#FF4D5A]/10 text-[#C42A3C] border-[#FF4D5A]/30"
+                : "bg-white hover:bg-[#FAFAFB] text-zinc-700 border-[#E6E6EA]"
             }`}
           >
             <Filter className="w-3.5 h-3.5" />
             Filtros
           </button>
 
-          {/* Botão Novo Acontecimento (Acessível tanto para o Mestre quanto para Jogadores) */}
+          {/* Botão Novo Acontecimento (Estilo Destaque Coral) */}
           <button
             type="button"
             onClick={() => {
@@ -595,19 +592,19 @@ export const TimelinePage: React.FC = () => {
               setCreationContext(null);
               setModalOpen(true);
             }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0_#111111] font-display font-bold uppercase text-xs transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#FF4D5A] hover:bg-[#ff3b49] text-white font-semibold text-xs shadow-[0_4px_14px_rgba(255,77,90,0.35)] transition-all"
           >
             <Plus className="w-4 h-4" />
-            {isGM ? "Novo Acontecimento" : "Adicionar Registro"}
+            {isGM ? "Novo acontecimento" : "Adicionar registro"}
           </button>
         </div>
       </div>
 
       {/* Breadcrumb de foco por período */}
       {focusedYear !== null && (
-        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-obsidian-900 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono">
-          <span className="text-zinc-400">Visualizando foco:</span>
-          <span className="font-bold text-amber-400">
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white border border-[#E6E6EA] shadow-sm text-xs">
+          <span className="text-zinc-500">Visualizando foco:</span>
+          <span className="font-semibold text-[#16151A]">
             Ano {focusedYear}
             {focusedMonth ? ` > Mês ${focusedMonth}` : ""}
           </span>
@@ -617,7 +614,7 @@ export const TimelinePage: React.FC = () => {
               setFocusedYear(null);
               setFocusedMonth(null);
             }}
-            className="ml-auto px-2 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[11px] transition-colors"
+            className="ml-auto px-2.5 py-1 rounded-lg bg-[#FAFAFB] hover:bg-zinc-100 text-zinc-600 border border-[#E6E6EA] text-xs transition-colors"
           >
             ✕ Limpar Foco (Ver todos os anos)
           </button>
@@ -628,17 +625,17 @@ export const TimelinePage: React.FC = () => {
       {showFilters && (
         <section
           aria-label="Filtros da linha do tempo"
-          className="rounded-2xl bg-obsidian-900 border border-zinc-800 p-5 space-y-4 shadow-lg"
+          className="rounded-2xl bg-white border border-[#E6E6EA] p-5 space-y-4 shadow-sm"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <div className="sm:col-span-2 relative">
-              <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Pesquisar acontecimentos, diários ou hipóteses..."
-                className="w-full pl-10 pr-3.5 py-2 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full pl-10 pr-3.5 py-2 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-xs focus:outline-none focus:border-[#FF4D5A]"
               />
             </div>
 
@@ -646,7 +643,7 @@ export const TimelinePage: React.FC = () => {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-200 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full px-3 py-2 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-xs focus:outline-none focus:border-[#FF4D5A]"
               >
                 <option value="">Todas as Categorias</option>
                 {(Object.keys(EVENT_CATEGORY_META) as EventCategory[]).map((k) => (
@@ -661,7 +658,7 @@ export const TimelinePage: React.FC = () => {
               <select
                 value={sessionId}
                 onChange={(e) => setSessionId(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-200 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full px-3 py-2 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-xs focus:outline-none focus:border-[#FF4D5A]"
               >
                 <option value="">Todas as Sessões</option>
                 <option value="none">Sem sessão associada</option>
@@ -674,30 +671,30 @@ export const TimelinePage: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-zinc-800/80">
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#E6E6EA]">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[11px] font-mono uppercase text-zinc-400">Ano:</span>
+              <span className="text-xs text-zinc-500 font-medium">Ano:</span>
               <input
                 type="number"
                 placeholder="Ano de"
                 value={yearFrom}
                 onChange={(e) => setYearFrom(e.target.value)}
-                className="w-24 px-2 py-1 rounded bg-obsidian-950 border border-zinc-800 text-zinc-200 text-xs font-mono"
+                className="w-24 px-3 py-1.5 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-xs"
               />
-              <span className="text-zinc-500 text-xs">até</span>
+              <span className="text-zinc-400 text-xs">até</span>
               <input
                 type="number"
                 placeholder="Ano até"
                 value={yearTo}
                 onChange={(e) => setYearTo(e.target.value)}
-                className="w-24 px-2 py-1 rounded bg-obsidian-950 border border-zinc-800 text-zinc-200 text-xs font-mono"
+                className="w-24 px-3 py-1.5 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-xs"
               />
 
               {isGM && (
                 <select
                   value={visibility}
                   onChange={(e) => setVisibility(e.target.value)}
-                  className="px-2.5 py-1 rounded bg-obsidian-950 border border-zinc-800 text-zinc-200 text-xs"
+                  className="px-3 py-1.5 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-xs"
                 >
                   <option value="">Visibilidade (Todas)</option>
                   <option value="public">Apenas Públicos</option>
@@ -711,9 +708,9 @@ export const TimelinePage: React.FC = () => {
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 text-xs font-mono uppercase tracking-wider transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-medium transition-colors"
               >
-                <RotateCcw className="w-3 h-3" />
+                <RotateCcw className="w-3.5 h-3.5" />
                 Limpar Filtros
               </button>
             )}
@@ -755,29 +752,29 @@ export const TimelinePage: React.FC = () => {
             {displayedYears.map((yrGroup) => (
               <div
                 key={yrGroup.year}
-                className="rounded-2xl bg-obsidian-900 border-2 border-[#111111] shadow-[6px_6px_0_#FF4D5A] p-5 flex flex-col justify-between gap-4 transition-all hover:border-amber-500/80"
+                className="rounded-2xl bg-white border border-[#E6E6EA] p-6 flex flex-col justify-between gap-5 transition-all hover:border-zinc-300 shadow-sm"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2 pb-3 border-b border-zinc-800">
-                    <span className="font-display text-2xl font-bold uppercase text-zinc-100">
+                  <div className="flex items-center justify-between gap-2 pb-3.5 border-b border-[#E6E6EA]">
+                    <span className="text-2xl font-bold tracking-tight text-[#16151A]">
                       {yrGroup.year_label}
                     </span>
-                    <span className="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-[#FF4D5A]/15 text-[#FF4D5A] border border-[#FF4D5A]/30">
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#FF4D5A]/10 text-[#C42A3C] border border-[#FF4D5A]/20">
                       {yrGroup.total_events} {yrGroup.total_events === 1 ? "evento" : "eventos"}
                     </span>
                   </div>
 
                   {/* Resumo Quantitativo de Autoria */}
-                  <div className="grid grid-cols-2 gap-2 my-3 text-xs font-mono">
-                    <div className="p-2 rounded-lg bg-obsidian-950 border border-zinc-800/80">
-                      <span className="text-zinc-400 block text-[10px]">Fatos Canônicos</span>
-                      <span className="text-amber-400 font-bold text-sm">
+                  <div className="grid grid-cols-2 gap-2.5 my-3.5 text-xs">
+                    <div className="p-3 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA]">
+                      <span className="text-zinc-500 block text-xs">Fatos Canônicos</span>
+                      <span className="text-[#FF4D5A] font-bold text-lg">
                         {yrGroup.canonical_count}
                       </span>
                     </div>
-                    <div className="p-2 rounded-lg bg-obsidian-950 border border-zinc-800/80">
-                      <span className="text-zinc-400 block text-[10px]">Registros Jogadores</span>
-                      <span className="text-sky-400 font-bold text-sm">
+                    <div className="p-3 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA]">
+                      <span className="text-zinc-500 block text-xs">Registros Jogadores</span>
+                      <span className="text-sky-600 font-bold text-lg">
                         {yrGroup.player_count}
                       </span>
                     </div>
@@ -785,8 +782,8 @@ export const TimelinePage: React.FC = () => {
 
                   {/* Meses com Registros */}
                   {yrGroup.months.length > 0 && (
-                    <div className="space-y-1.5 mt-2">
-                      <span className="text-[10px] font-mono uppercase text-zinc-500">
+                    <div className="space-y-2 mt-3">
+                      <span className="text-xs font-medium text-zinc-500">
                         Meses com atividade:
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -799,7 +796,7 @@ export const TimelinePage: React.FC = () => {
                               setFocusedMonth(m.month);
                               setZoomLevel("medium");
                             }}
-                            className="px-2 py-0.5 rounded text-[11px] font-mono bg-obsidian-950 hover:bg-amber-500/20 text-zinc-300 hover:text-amber-300 border border-zinc-800 transition-colors"
+                            className="px-2.5 py-1 rounded-lg text-xs bg-[#FAFAFB] hover:bg-zinc-100 text-zinc-700 border border-[#E6E6EA] transition-colors"
                           >
                             {m.month_name} ({m.total_events})
                           </button>
@@ -810,11 +807,11 @@ export const TimelinePage: React.FC = () => {
 
                   {/* Eventos Gerais do Ano */}
                   {yrGroup.year_level_events.length > 0 && (
-                    <div className="mt-3 p-2.5 rounded-lg bg-obsidian-950 border border-zinc-800/80">
-                      <span className="text-[10px] font-mono uppercase text-amber-400 block mb-1">
+                    <div className="mt-3.5 p-3 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA]">
+                      <span className="text-xs font-semibold text-[#16151A] block mb-1.5">
                         Contexto Geral do Ano:
                       </span>
-                      <ul className="text-xs text-zinc-300 space-y-1">
+                      <ul className="text-xs text-zinc-600 space-y-1">
                         {yrGroup.year_level_events.map((e) => (
                           <li key={e.id} className="truncate">
                             • {e.title}
@@ -826,13 +823,13 @@ export const TimelinePage: React.FC = () => {
                 </div>
 
                 {/* Ações Rápidas no Bloco Anual (Colaboração Direta e Zoom) */}
-                <div className="pt-3 border-t border-zinc-800 flex items-center justify-between gap-2">
+                <div className="pt-3.5 border-t border-[#E6E6EA] flex items-center justify-between gap-2">
                   <button
                     type="button"
                     onClick={() => handleQuickAdd(yrGroup.year, null, null)}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-mono font-semibold bg-obsidian-950 hover:bg-zinc-800 text-zinc-300 hover:text-amber-400 border border-zinc-800 transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] shadow-sm transition-colors"
                   >
-                    <Plus className="w-3.5 h-3.5 text-amber-400" />
+                    <Plus className="w-3.5 h-3.5 text-[#FF4D5A]" />
                     + Adicionar no Ano
                   </button>
 
@@ -842,7 +839,7 @@ export const TimelinePage: React.FC = () => {
                       setFocusedYear(yrGroup.year);
                       setZoomLevel("micro");
                     }}
-                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-mono font-bold bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] transition-colors"
+                    className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#FF4D5A] hover:bg-[#ff3b49] text-white shadow-[0_2px_8px_rgba(255,77,90,0.3)] transition-colors"
                   >
                     Ver Detalhes
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -862,19 +859,19 @@ export const TimelinePage: React.FC = () => {
           {displayedYears.map((yrGroup) => (
             <section
               key={yrGroup.year}
-              className="rounded-2xl bg-obsidian-900 border-2 border-[#111111] shadow-[6px_6px_0_#FF4D5A] p-6 space-y-6"
+              className="rounded-2xl bg-white border border-[#E6E6EA] p-6 space-y-6 shadow-sm"
             >
               {/* Cabeçalho do Ano com Gatilho Contextual */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b-2 border-zinc-800">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#E6E6EA]">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded bg-[#16151A] text-[#FF4D5A] border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] font-mono text-sm font-bold flex items-center justify-center">
+                  <div className="w-9 h-9 rounded-xl bg-[#FF4D5A]/10 text-[#FF4D5A] border border-[#FF4D5A]/20 font-bold flex items-center justify-center text-sm">
                     #
                   </div>
                   <div>
-                    <h2 className="font-display text-2xl font-bold uppercase text-zinc-100">
+                    <h2 className="text-2xl font-bold tracking-tight text-[#16151A]">
                       {yrGroup.year_label}
                     </h2>
-                    <span className="text-xs font-mono text-zinc-400">
+                    <span className="text-xs text-zinc-500">
                       {yrGroup.total_events} fatos registrados ({yrGroup.canonical_count} canônicos,{" "}
                       {yrGroup.player_count} jogadores)
                     </span>
@@ -885,9 +882,9 @@ export const TimelinePage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleQuickAdd(yrGroup.year, null, null)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-obsidian-950 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs font-mono transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
                   >
-                    <Plus className="w-3.5 h-3.5 text-amber-400" />
+                    <Plus className="w-3.5 h-3.5 text-[#FF4D5A]" />
                     + Fato Geral do Ano {yrGroup.year}
                   </button>
                 </div>
@@ -896,7 +893,7 @@ export const TimelinePage: React.FC = () => {
               {/* Eventos de Nível Geral do Ano */}
               {yrGroup.year_level_events.length > 0 && (
                 <div className="space-y-3">
-                  <span className="text-xs font-mono uppercase text-amber-400 font-bold block">
+                  <span className="text-xs font-semibold text-[#16151A] uppercase block">
                     Contexto Geral do Ano (Sem Mês Definido)
                   </span>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -910,14 +907,14 @@ export const TimelinePage: React.FC = () => {
                 {yrGroup.months.map((mGroup) => (
                   <div
                     key={mGroup.month}
-                    className="p-5 rounded-xl bg-obsidian-950 border border-zinc-800/90 space-y-4"
+                    className="p-5 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA] space-y-4"
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-zinc-800">
+                    <div className="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-[#E6E6EA]">
                       <div>
-                        <h3 className="font-display text-lg font-bold uppercase text-amber-300">
+                        <h3 className="text-lg font-bold text-[#16151A]">
                           {mGroup.month_name} de {yrGroup.year}
                         </h3>
-                        <span className="text-xs font-mono text-zinc-400">
+                        <span className="text-xs text-zinc-500">
                           {mGroup.total_events} {mGroup.total_events === 1 ? "acontecimento" : "acontecimentos"} distribuídos em {mGroup.days.length} {mGroup.days.length === 1 ? "dia" : "dias"}
                         </span>
                       </div>
@@ -927,9 +924,9 @@ export const TimelinePage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleQuickAdd(yrGroup.year, mGroup.month, null)}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-obsidian-900 hover:bg-zinc-800 text-zinc-300 hover:text-amber-300 border border-zinc-800 text-xs font-mono transition-colors"
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white hover:bg-zinc-50 text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
                         >
-                          <Plus className="w-3 h-3 text-amber-400" />
+                          <Plus className="w-3 h-3 text-[#FF4D5A]" />
                           + Adicionar no Mês
                         </button>
 
@@ -940,10 +937,10 @@ export const TimelinePage: React.FC = () => {
                             setFocusedMonth(mGroup.month);
                             setZoomLevel("micro");
                           }}
-                          className="inline-flex items-center gap-1 px-3 py-1 rounded bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] text-xs font-mono font-bold transition-colors"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#FF4D5A] hover:bg-[#ff3b49] text-white text-xs font-semibold shadow-[0_2px_8px_rgba(255,77,90,0.3)] transition-colors"
                         >
                           Ver Dias
-                          <ChevronRight className="w-3 h-3" />
+                          <ChevronRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
@@ -951,7 +948,7 @@ export const TimelinePage: React.FC = () => {
                     {/* Eventos Gerais do Mês */}
                     {mGroup.month_level_events.length > 0 && (
                       <div className="space-y-2">
-                        <span className="text-[11px] font-mono uppercase text-zinc-400">
+                        <span className="text-xs font-medium text-zinc-500">
                           Acontecimentos Gerais deste Mês:
                         </span>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -963,7 +960,7 @@ export const TimelinePage: React.FC = () => {
                     {/* Resumo dos Dias do Mês */}
                     {mGroup.days.length > 0 && (
                       <div className="space-y-1.5 pt-2">
-                        <span className="text-[11px] font-mono uppercase text-zinc-500">
+                        <span className="text-xs font-medium text-zinc-500">
                           Dias com registros:
                         </span>
                         <div className="flex flex-wrap gap-2">
@@ -976,7 +973,7 @@ export const TimelinePage: React.FC = () => {
                                 setFocusedMonth(mGroup.month);
                                 setZoomLevel("micro");
                               }}
-                              className="px-2.5 py-1 rounded-md text-xs font-mono bg-obsidian-900 hover:bg-amber-500/20 text-zinc-300 hover:text-amber-300 border border-zinc-800 transition-colors"
+                              className="px-2.5 py-1 rounded-lg text-xs bg-white hover:bg-zinc-50 text-zinc-700 border border-[#E6E6EA] transition-colors"
                             >
                               Dia {d.day} ({d.total_events})
                             </button>
@@ -1002,17 +999,17 @@ export const TimelinePage: React.FC = () => {
               {/* Nó de Ano no Eixo */}
               <div
                 id={`year-marker-${yrGroup.year}`}
-                className="flex flex-wrap items-center justify-between gap-3 pt-6 pb-2 border-b-2 border-[#111111]"
+                className="flex flex-wrap items-center justify-between gap-3 pt-6 pb-3 border-b border-[#E6E6EA]"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded bg-[#16151A] text-[#FF4D5A] border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] font-mono text-sm font-bold flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-[#FF4D5A]/10 text-[#FF4D5A] border border-[#FF4D5A]/20 font-bold flex items-center justify-center text-sm">
                     #
                   </div>
                   <div>
-                    <h2 className="font-display text-2xl font-bold uppercase text-[#111111]">
+                    <h2 className="text-2xl font-bold tracking-tight text-[#16151A]">
                       {yrGroup.year_label}
                     </h2>
-                    <span className="text-xs font-mono text-[#111111]/75">
+                    <span className="text-xs text-zinc-500">
                       {yrGroup.total_events} acontecimentos consolidados neste ano
                     </span>
                   </div>
@@ -1022,18 +1019,18 @@ export const TimelinePage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleQuickAdd(yrGroup.year, null, null)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-obsidian-900 hover:bg-zinc-800 text-zinc-100 border border-zinc-800 text-xs font-mono uppercase font-bold transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
                 >
-                  <Plus className="w-3.5 h-3.5 text-amber-400" />
+                  <Plus className="w-3.5 h-3.5 text-[#FF4D5A]" />
                   + Adicionar no Ano {yrGroup.year}
                 </button>
               </div>
 
               {/* Eventos Gerais do Ano (Contexto Primário) */}
               {yrGroup.year_level_events.length > 0 && (
-                <div className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#FF4D5A] space-y-4">
+                <div className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#E6E6EA] space-y-4">
                   <div className="relative -ml-6 sm:-ml-10 flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded bg-[#FF4D5A] text-[#111111] font-mono text-xs font-bold uppercase">
+                    <span className="px-3 py-1 rounded-full bg-[#FF4D5A]/10 text-[#C42A3C] border border-[#FF4D5A]/20 text-xs font-semibold">
                       Contexto Geral do Ano
                     </span>
                   </div>
@@ -1047,25 +1044,25 @@ export const TimelinePage: React.FC = () => {
               {yrGroup.months.map((mGroup) => (
                 <div key={mGroup.month} className="space-y-6 pt-2">
                   {/* Cabeçalho do Mês com Gatilho de Adição Rápida */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 py-2 px-4 rounded-xl bg-obsidian-950 border border-zinc-800">
-                    <span className="font-display text-lg font-bold uppercase text-amber-300">
+                  <div className="flex flex-wrap items-center justify-between gap-3 py-2.5 px-4 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA]">
+                    <span className="text-base font-bold text-[#16151A]">
                       {mGroup.month_name} de {yrGroup.year}
                     </span>
                     <button
                       type="button"
                       onClick={() => handleQuickAdd(yrGroup.year, mGroup.month, null)}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-obsidian-900 hover:bg-zinc-800 text-zinc-300 hover:text-amber-300 border border-zinc-800 text-xs font-mono transition-colors"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white hover:bg-zinc-50 text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
                     >
-                      <Plus className="w-3 h-3 text-amber-400" />
+                      <Plus className="w-3 h-3 text-[#FF4D5A]" />
                       + Adicionar em {mGroup.month_name}
                     </button>
                   </div>
 
                   {/* Eventos Gerais do Mês */}
                   {mGroup.month_level_events.length > 0 && (
-                    <div className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-amber-500/50 space-y-4">
+                    <div className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#E6E6EA] space-y-4">
                       <div className="relative -ml-6 sm:-ml-10 flex items-center gap-2">
-                        <span className="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono text-xs font-bold uppercase">
+                        <span className="px-3 py-1 rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200 text-xs font-semibold">
                           Contexto do Mês ({mGroup.month_name})
                         </span>
                       </div>
@@ -1079,16 +1076,16 @@ export const TimelinePage: React.FC = () => {
                   {mGroup.days.map((dGroup) => (
                     <div
                       key={dGroup.day}
-                      className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-gradient-to-b before:from-[#FF4D5A] before:to-[#111111] space-y-4"
+                      className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#E6E6EA] space-y-4"
                     >
                       {/* Cabeçalho do Nó Temporal do Dia com Gatilho Contextual */}
                       <div className="relative -ml-6 sm:-ml-10 flex flex-wrap items-center justify-between gap-2 pt-2">
-                        <div className="flex items-center gap-2">
-                          <span className="w-3.5 h-3.5 rounded-full border-2 border-[#111111] bg-[#FF4D5A] ring-4 ring-[#EFEAE2]" />
-                          <span className="font-display text-base sm:text-lg font-bold uppercase text-[#111111]">
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-3.5 h-3.5 rounded-full border-2 border-white bg-[#FF4D5A] shadow-sm ring-4 ring-[#FF4D5A]/20" />
+                          <span className="text-base font-bold text-[#16151A]">
                             {dGroup.day_label} de {yrGroup.year}
                           </span>
-                          <span className="text-xs font-mono text-[#111111]/70">
+                          <span className="text-xs text-zinc-500">
                             ({dGroup.total_events} {dGroup.total_events === 1 ? "registro" : "registros"})
                           </span>
                         </div>
@@ -1097,9 +1094,9 @@ export const TimelinePage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleQuickAdd(yrGroup.year, mGroup.month, dGroup.day)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] text-xs font-mono font-bold uppercase border border-[#111111] shadow-[2px_2px_0_#111111] transition-all"
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-all"
                         >
-                          <Plus className="w-3.5 h-3.5" />
+                          <Plus className="w-3.5 h-3.5 text-[#FF4D5A]" />
                           + Adicionar neste dia
                         </button>
                       </div>
@@ -1123,16 +1120,18 @@ export const TimelinePage: React.FC = () => {
       {!isLoading && !isError && undatedEvents.length > 0 && (
         <section
           id="undated-events-section"
-          className="pt-8 border-t-2 border-[#111111] space-y-4"
+          className="pt-8 border-t border-[#E6E6EA] space-y-4"
         >
           <div className="flex items-center justify-between gap-2.5">
             <div className="flex items-center gap-2.5">
-              <HelpCircle className="w-5 h-5 text-[#FF4D5A]" />
+              <div className="w-8 h-8 rounded-xl bg-[#FF4D5A]/10 text-[#FF4D5A] border border-[#FF4D5A]/20 flex items-center justify-center">
+                <HelpCircle className="w-4 h-4 text-[#FF4D5A]" />
+              </div>
               <div>
-                <h2 className="font-display text-xl font-bold uppercase text-[#111111]">
+                <h2 className="text-xl font-bold tracking-tight text-[#16151A]">
                   Acontecimentos sem Data Definida ({undatedEvents.length})
                 </h2>
-                <p className="text-xs text-[#111111]/75">
+                <p className="text-xs text-zinc-500">
                   Registros cuja data exata é desconhecida ou que antecedem os registros da cronologia.
                 </p>
               </div>
@@ -1145,9 +1144,9 @@ export const TimelinePage: React.FC = () => {
                 setCreationContext(null);
                 setModalOpen(true);
               }}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-obsidian-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs font-mono"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
             >
-              <Plus className="w-3.5 h-3.5 text-amber-400" />
+              <Plus className="w-3.5 h-3.5 text-[#FF4D5A]" />
               Adicionar Indefinido
             </button>
           </div>

@@ -121,7 +121,7 @@ export const EventDetailPage: React.FC = () => {
       <div className="flex items-center justify-between">
         <Link
           to={`/campaigns/${campaign.id}/timeline`}
-          className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#111111] hover:text-[#FF4D5A]"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500 hover:text-[#16151A] transition-colors"
         >
           <ChevronLeft className="w-4 h-4 text-[#FF4D5A]" />
           Voltar para a Linha do Tempo
@@ -132,15 +132,15 @@ export const EventDetailPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setEditModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-obsidian-900 hover:bg-zinc-800 text-zinc-100 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono font-bold uppercase"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
             >
-              <Edit3 className="w-3.5 h-3.5 text-amber-400" />
+              <Edit3 className="w-3.5 h-3.5 text-zinc-500" />
               Editar
             </button>
             <button
               type="button"
               onClick={() => setConfirmDeleteOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-obsidian-900 hover:bg-rose-950/60 text-rose-300 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono font-bold uppercase"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-rose-50 text-rose-600 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
             >
               <Trash2 className="w-3.5 h-3.5" />
               Excluir
@@ -149,10 +149,10 @@ export const EventDetailPage: React.FC = () => {
         )}
       </div>
 
-      <article className="rounded-2xl bg-obsidian-900 border border-zinc-800 p-6 sm:p-8 shadow-2xl space-y-6">
-        <div className="flex flex-wrap items-center gap-2.5 pb-4 border-b border-zinc-800">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-obsidian-950 border border-zinc-800 font-mono text-xs font-semibold text-amber-300">
-            <Clock className="w-3.5 h-3.5 text-amber-400" />
+      <article className="rounded-2xl bg-white border border-[#E6E6EA] p-6 sm:p-8 shadow-sm space-y-6 text-[#16151A]">
+        <div className="flex flex-wrap items-center gap-2.5 pb-4 border-b border-[#E6E6EA]">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF4D5A]/10 border border-[#FF4D5A]/20 text-xs font-semibold text-[#C42A3C]">
+            <Clock className="w-3.5 h-3.5 text-[#FF4D5A]" />
             {event.date_is_unknown
               ? "Data Indefinida"
               : `${event.narrative_date || ""}${
@@ -171,9 +171,9 @@ export const EventDetailPage: React.FC = () => {
           {event.session && (
             <Link
               to={`/campaigns/${campaign.id}/sessions/${event.session.id}`}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#FAFAFB] hover:bg-zinc-100 text-zinc-700 border border-[#E6E6EA] transition-colors"
             >
-              <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+              <BookOpen className="w-3.5 h-3.5 text-[#FF4D5A]" />
               Sessão #{String(event.session.session_number).padStart(2, "0")}:{" "}
               {event.session.title}
             </Link>
@@ -181,7 +181,7 @@ export const EventDetailPage: React.FC = () => {
         </div>
 
         <div>
-          <h1 className="font-display text-2xl sm:text-4xl font-bold text-zinc-100">
+          <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#16151A]">
             {event.title}
           </h1>
           <div className="mt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-zinc-500">
@@ -194,14 +194,14 @@ export const EventDetailPage: React.FC = () => {
         </div>
 
         {/* Descrição completa formatada */}
-        <div className="p-5 sm:p-6 rounded-xl bg-obsidian-950/90 border border-zinc-800/80 text-zinc-200 text-sm sm:text-base leading-relaxed space-y-3 whitespace-pre-line">
+        <div className="p-5 sm:p-6 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA] text-zinc-700 text-sm sm:text-base leading-relaxed space-y-3 whitespace-pre-line">
           {event.description}
         </div>
 
         {/* Entidades Relacionadas */}
-        <div className="pt-4 border-t border-zinc-800 space-y-3">
-          <h2 className="font-display text-base font-semibold text-zinc-100 flex items-center gap-2">
-            <Users className="w-4 h-4 text-amber-400" />
+        <div className="pt-4 border-t border-[#E6E6EA] space-y-3">
+          <h2 className="text-base font-bold text-[#16151A] flex items-center gap-2">
+            <Users className="w-4 h-4 text-[#FF4D5A]" />
             Entidades Relacionadas ({event.entities.length})
           </h2>
 
@@ -215,17 +215,17 @@ export const EventDetailPage: React.FC = () => {
                 <Link
                   key={ent.id}
                   to={`/campaigns/${campaign.id}/entities/${ent.id}`}
-                  className="p-3.5 rounded-xl bg-obsidian-950 hover:bg-zinc-900 border border-zinc-800 hover:border-amber-500/40 flex items-center justify-between transition-all group"
+                  className="p-4 rounded-2xl bg-[#FAFAFB] hover:bg-white border border-[#E6E6EA] hover:border-zinc-300 shadow-sm flex items-center justify-between transition-all group"
                 >
                   <div>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-amber-400">
+                    <div className="text-[10px] font-mono uppercase tracking-wider text-[#FF4D5A]">
                       {ENTITY_CATEGORY_LABELS[ent.category]}
                     </div>
-                    <div className="font-display font-semibold text-sm text-zinc-100 group-hover:text-amber-300 mt-0.5">
+                    <div className="font-display font-semibold text-sm text-[#16151A] group-hover:text-[#FF4D5A] mt-0.5">
                       {ent.name}
                     </div>
                   </div>
-                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-zinc-300">
+                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-white text-zinc-600 border border-[#E6E6EA]">
                     {ent.status}
                   </span>
                 </Link>
@@ -241,15 +241,15 @@ export const EventDetailPage: React.FC = () => {
           {prevEvent ? (
             <Link
               to={`/campaigns/${campaign.id}/events/${prevEvent.id}`}
-              className="p-4 rounded-xl bg-obsidian-900 hover:bg-zinc-900 border border-zinc-800 transition-colors"
+              className="p-5 rounded-2xl bg-white hover:bg-[#FAFAFB] border border-[#E6E6EA] shadow-sm transition-all"
             >
               <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">
                 ← Acontecimento Anterior
               </div>
-              <div className="font-display font-semibold text-sm text-zinc-100 mt-1">
+              <div className="font-semibold text-sm text-[#16151A] mt-1">
                 {prevEvent.title}
               </div>
-              <div className="text-xs font-mono text-amber-400 mt-0.5">
+              <div className="text-xs font-mono text-[#FF4D5A] mt-0.5">
                 {prevEvent.narrative_date}
               </div>
             </Link>
@@ -260,15 +260,15 @@ export const EventDetailPage: React.FC = () => {
           {nextEvent && (
             <Link
               to={`/campaigns/${campaign.id}/events/${nextEvent.id}`}
-              className="p-4 rounded-xl bg-obsidian-900 hover:bg-zinc-900 border border-zinc-800 text-right transition-colors"
+              className="p-5 rounded-2xl bg-white hover:bg-[#FAFAFB] border border-[#E6E6EA] text-right shadow-sm transition-all"
             >
               <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">
                 Próximo Acontecimento →
               </div>
-              <div className="font-display font-semibold text-sm text-zinc-100 mt-1">
+              <div className="font-semibold text-sm text-[#16151A] mt-1">
                 {nextEvent.title}
               </div>
-              <div className="text-xs font-mono text-amber-400 mt-0.5">
+              <div className="text-xs font-mono text-[#FF4D5A] mt-0.5">
                 {nextEvent.narrative_date}
               </div>
             </Link>

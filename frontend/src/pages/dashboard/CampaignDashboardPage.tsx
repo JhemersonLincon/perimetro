@@ -3,30 +3,16 @@ import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import {
   Clock,
-  Users,
-  MapPin,
-  Building2,
   BookOpen,
-  UserCheck,
-  Settings,
   Plus,
   ArrowRight,
-  Calendar,
+  ExternalLink,
 } from "lucide-react";
 import { CampaignOutletContext } from "../../components/layout/CampaignLayout";
 import { apiRequest } from "../../services/api";
 import { CampaignDashboard } from "../../types";
-import {
-  LoadingState,
-  ErrorState,
-  RoleBadge,
-  VisibilityBadge,
-} from "../../components/ui/StateViews";
-import {
-  EVENT_CATEGORY_META,
-  SESSION_STATUS_LABELS,
-  formatRealDate,
-} from "../../utils/formatters";
+import { LoadingState, ErrorState } from "../../components/ui/StateViews";
+import { EVENT_CATEGORY_META, formatRealDate } from "../../utils/formatters";
 
 export const CampaignDashboardPage: React.FC = () => {
   const { campaign, isGM } = useOutletContext<CampaignOutletContext>();
@@ -44,7 +30,7 @@ export const CampaignDashboardPage: React.FC = () => {
   });
 
   if (isLoading) {
-    return <LoadingState message="Calculando indicadores da campanha..." />;
+    return <LoadingState message="Carregando painel da campanha..." />;
   }
 
   if (isError || !dashboard) {
@@ -59,339 +45,218 @@ export const CampaignDashboardPage: React.FC = () => {
   const { indicators, recent_events, recent_sessions } = dashboard;
 
   return (
-    <div className="space-y-8">
-      {/* Cabeçalho da Campanha */}
-      <section className="rounded-2xl bg-obsidian-900 border border-zinc-800 overflow-hidden shadow-xl">
-        {campaign.cover_url && (
-          <div className="h-44 w-full relative overflow-hidden border-b border-zinc-800">
-            <img
-              src={campaign.cover_url}
-              alt={`Imagem de capa da campanha ${campaign.name}`}
-              className="w-full h-full object-cover opacity-75"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-obsidian-900 via-obsidian-900/40 to-transparent" />
-          </div>
-        )}
-        <div className="p-6 sm:p-8 flex flex-col md:flex-row md:items-start justify-between gap-6">
-          <div className="space-y-3 max-w-3xl">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="px-2.5 py-0.5 rounded text-xs font-mono uppercase tracking-wider bg-amber-500/15 text-amber-300 border border-amber-500/30">
+    <div className="space-y-8 animate-fadeIn">
+      {/* Topo da Campanha - Design Moderno Fundo Branco (Conforme Referência) */}
+      <section className="space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+          <div className="space-y-3">
+            {/* Badges do Sistema e Papel */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#FF4D5A]/10 text-[#C42A3C] border border-[#FF4D5A]/20">
                 {campaign.rpg_system}
               </span>
-              <RoleBadge role={campaign.user_role} />
-              {campaign.start_date && (
-                <span className="text-xs font-mono text-zinc-400 flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-zinc-500" />
-                  Início: {formatRealDate(campaign.start_date)}
-                </span>
-              )}
+              <span className="px-3.5 py-1 text-xs font-medium rounded-full bg-white text-zinc-600 border border-[#E6E6EA]">
+                {isGM ? "Mestre" : "Jogador"}
+              </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl font-bold text-zinc-100">
+            {/* Título da Campanha */}
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#16151A]">
               {campaign.name}
             </h1>
 
-            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed whitespace-pre-line">
-              {campaign.description || "Nenhuma descrição registrada para esta campanha."}
+            {/* Subtítulo / Descrição */}
+            <p className="text-sm text-zinc-500 font-normal max-w-3xl leading-relaxed">
+              {campaign.description || "Ainda em construção"}
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <Link
-              to={`/campaigns/${campaign.id}/timeline`}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-obsidian-950 font-display font-semibold text-sm transition-colors"
-            >
-              <Clock className="w-4 h-4" />
-              Abrir Linha do Tempo
-            </Link>
-            {isGM && (
-              <Link
-                to={`/campaigns/${campaign.id}/settings`}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-obsidian-950 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-sm font-medium transition-colors"
-              >
-                <Settings className="w-4 h-4 text-zinc-400" />
-                Configurações
-              </Link>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Indicadores Calculados em Tempo Real */}
-      <section aria-label="Indicadores da campanha">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          {/* Botão de Ação Primária: Abrir Linha do Tempo */}
           <Link
             to={`/campaigns/${campaign.id}/timeline`}
-            className="p-4 rounded-xl bg-obsidian-900 border border-zinc-800 hover:border-amber-500/40 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-2.5 rounded-2xl bg-[#FF4D5A] hover:bg-[#C42A3C] text-white font-medium text-sm shadow-[0_4px_14px_rgba(255,77,90,0.35)] transition-all shrink-0"
           >
-            <Clock className="w-5 h-5 text-amber-400 mb-2" />
-            <div className="font-mono text-2xl font-bold text-zinc-100">
+            Abrir linha do tempo
+          </Link>
+        </div>
+
+        {/* 4 Cards de Métricas e Indicadores em Linha */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Card Acontecimentos (Número em Vermelho #FF4D5A) */}
+          <Link
+            to={`/campaigns/${campaign.id}/timeline`}
+            className="bg-[#FAFAFB] border border-[#E6E6EA] rounded-2xl p-5 hover:border-zinc-300 transition-all block group"
+          >
+            <div className="text-3xl sm:text-4xl font-bold text-[#FF4D5A] group-hover:opacity-90">
               {indicators.events_count}
             </div>
-            <div className="text-xs text-zinc-400 mt-0.5">Acontecimentos</div>
+            <div className="text-xs text-zinc-500 font-normal mt-1">Acontecimentos</div>
           </Link>
 
+          {/* Card Personagens */}
           <Link
             to={`/campaigns/${campaign.id}/entities?category=character`}
-            className="p-4 rounded-xl bg-obsidian-900 border border-zinc-800 hover:border-amber-500/40 transition-colors"
+            className="bg-[#FAFAFB] border border-[#E6E6EA] rounded-2xl p-5 hover:border-zinc-300 transition-all block group"
           >
-            <Users className="w-5 h-5 text-sky-400 mb-2" />
-            <div className="font-mono text-2xl font-bold text-zinc-100">
+            <div className="text-3xl sm:text-4xl font-bold text-[#16151A] group-hover:text-[#FF4D5A] transition-colors">
               {indicators.characters_and_npcs_count}
             </div>
-            <div className="text-xs text-zinc-400 mt-0.5">
-              Personagens &amp; NPCs ({indicators.characters_count} PJ / {indicators.npcs_count} NPC)
-            </div>
+            <div className="text-xs text-zinc-500 font-normal mt-1">Personagens</div>
           </Link>
 
+          {/* Card Localidades */}
           <Link
             to={`/campaigns/${campaign.id}/entities?category=location`}
-            className="p-4 rounded-xl bg-obsidian-900 border border-zinc-800 hover:border-amber-500/40 transition-colors"
+            className="bg-[#FAFAFB] border border-[#E6E6EA] rounded-2xl p-5 hover:border-zinc-300 transition-all block group"
           >
-            <MapPin className="w-5 h-5 text-emerald-400 mb-2" />
-            <div className="font-mono text-2xl font-bold text-zinc-100">
+            <div className="text-3xl sm:text-4xl font-bold text-[#16151A] group-hover:text-[#FF4D5A] transition-colors">
               {indicators.locations_count}
             </div>
-            <div className="text-xs text-zinc-400 mt-0.5">Localidades</div>
+            <div className="text-xs text-zinc-500 font-normal mt-1">Localidades</div>
           </Link>
 
-          <Link
-            to={`/campaigns/${campaign.id}/entities?category=organization`}
-            className="p-4 rounded-xl bg-obsidian-900 border border-zinc-800 hover:border-amber-500/40 transition-colors"
-          >
-            <Building2 className="w-5 h-5 text-purple-400 mb-2" />
-            <div className="font-mono text-2xl font-bold text-zinc-100">
-              {indicators.organizations_count}
-            </div>
-            <div className="text-xs text-zinc-400 mt-0.5">Organizações</div>
-          </Link>
-
-          <Link
-            to={`/campaigns/${campaign.id}/sessions`}
-            className="p-4 rounded-xl bg-obsidian-900 border border-zinc-800 hover:border-amber-500/40 transition-colors"
-          >
-            <BookOpen className="w-5 h-5 text-orange-400 mb-2" />
-            <div className="font-mono text-2xl font-bold text-zinc-100">
-              {indicators.sessions_count}
-            </div>
-            <div className="text-xs text-zinc-400 mt-0.5">Sessões Registradas</div>
-          </Link>
-
+          {/* Card Participantes */}
           <Link
             to={`/campaigns/${campaign.id}/members`}
-            className="p-4 rounded-xl bg-obsidian-900 border border-zinc-800 hover:border-amber-500/40 transition-colors"
+            className="bg-[#FAFAFB] border border-[#E6E6EA] rounded-2xl p-5 hover:border-zinc-300 transition-all block group"
           >
-            <UserCheck className="w-5 h-5 text-rose-400 mb-2" />
-            <div className="font-mono text-2xl font-bold text-zinc-100">
+            <div className="text-3xl sm:text-4xl font-bold text-[#16151A] group-hover:text-[#FF4D5A] transition-colors">
               {indicators.members_count}
             </div>
-            <div className="text-xs text-zinc-400 mt-0.5">Participantes</div>
+            <div className="text-xs text-zinc-500 font-normal mt-1">Participantes</div>
           </Link>
         </div>
-      </section>
 
-      {/* Acesso Rápido */}
-      <section className="rounded-2xl bg-obsidian-900 border border-zinc-800 p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-display text-base font-semibold text-zinc-100">
-            Acesso Rápido
-          </h2>
-          <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-            {isGM ? "Operações do Mestre" : "Navegação de Consulta"}
-          </span>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {isGM ? (
-            <>
-              <button
-                type="button"
-                onClick={() => navigate(`/campaigns/${campaign.id}/timeline?newEvent=1`)}
-                className="p-3.5 rounded-xl bg-obsidian-950 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 text-left transition-all group"
-              >
-                <Plus className="w-4 h-4 text-amber-400 mb-1.5" />
-                <div className="text-xs font-semibold text-zinc-100 group-hover:text-amber-300">
-                  Criar Acontecimento
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() =>
-                  navigate(`/campaigns/${campaign.id}/entities?newEntity=character`)
-                }
-                className="p-3.5 rounded-xl bg-obsidian-950 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 text-left transition-all group"
-              >
-                <Plus className="w-4 h-4 text-sky-400 mb-1.5" />
-                <div className="text-xs font-semibold text-zinc-100 group-hover:text-amber-300">
-                  Cadastrar Personagem
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => navigate(`/campaigns/${campaign.id}/entities?newEntity=location`)}
-                className="p-3.5 rounded-xl bg-obsidian-950 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 text-left transition-all group"
-              >
-                <Plus className="w-4 h-4 text-emerald-400 mb-1.5" />
-                <div className="text-xs font-semibold text-zinc-100 group-hover:text-amber-300">
-                  Cadastrar Localidade
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() =>
-                  navigate(`/campaigns/${campaign.id}/entities?newEntity=organization`)
-                }
-                className="p-3.5 rounded-xl bg-obsidian-950 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 text-left transition-all group"
-              >
-                <Plus className="w-4 h-4 text-purple-400 mb-1.5" />
-                <div className="text-xs font-semibold text-zinc-100 group-hover:text-amber-300">
-                  Cadastrar Organização
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => navigate(`/campaigns/${campaign.id}/sessions?newSession=1`)}
-                className="p-3.5 rounded-xl bg-obsidian-950 hover:bg-amber-500/10 border border-zinc-800 hover:border-amber-500/40 text-left transition-all group"
-              >
-                <Plus className="w-4 h-4 text-orange-400 mb-1.5" />
-                <div className="text-xs font-semibold text-zinc-100 group-hover:text-amber-300">
-                  Registrar Sessão
-                </div>
-              </button>
-            </>
-          ) : null}
-
-          <Link
-            to={`/campaigns/${campaign.id}/timeline`}
-            className="p-3.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-left transition-all"
+        {/* 3 Botões de Ação Rápida */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <button
+            type="button"
+            onClick={() => navigate(`/campaigns/${campaign.id}/timeline?newEvent=1`)}
+            className="bg-white border border-[#E6E6EA] rounded-2xl py-3.5 px-5 text-sm font-medium text-[#16151A] hover:border-[#FF4D5A]/40 hover:bg-[#FAFAFB] hover:text-[#C42A3C] transition-all flex items-center justify-center gap-1.5 shadow-sm"
           >
-            <Clock className="w-4 h-4 text-amber-400 mb-1.5" />
-            <div className="text-xs font-semibold text-amber-200">
-              Visualizar Linha do Tempo
-            </div>
-          </Link>
+            <Plus className="w-4 h-4 text-[#FF4D5A]" />
+            Criar acontecimento
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigate(`/campaigns/${campaign.id}/entities?newEntity=character`)}
+            className="bg-white border border-[#E6E6EA] rounded-2xl py-3.5 px-5 text-sm font-medium text-[#16151A] hover:border-[#FF4D5A]/40 hover:bg-[#FAFAFB] hover:text-[#C42A3C] transition-all flex items-center justify-center gap-1.5 shadow-sm"
+          >
+            <Plus className="w-4 h-4 text-[#FF4D5A]" />
+            Cadastrar personagem
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigate(`/campaigns/${campaign.id}/sessions?newSession=1`)}
+            className="bg-white border border-[#E6E6EA] rounded-2xl py-3.5 px-5 text-sm font-medium text-[#16151A] hover:border-[#FF4D5A]/40 hover:bg-[#FAFAFB] hover:text-[#C42A3C] transition-all flex items-center justify-center gap-1.5 shadow-sm"
+          >
+            <Plus className="w-4 h-4 text-[#FF4D5A]" />
+            Registrar sessão
+          </button>
         </div>
       </section>
 
-      {/* Atividade Recente */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Últimos Acontecimentos */}
-        <section className="rounded-2xl bg-obsidian-900 border border-zinc-800 p-6 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800">
-              <h2 className="font-display text-lg font-semibold text-zinc-100 flex items-center gap-2">
-                <Clock className="w-4 h-4 text-amber-400" />
-                Últimos Acontecimentos
+      {/* Seção de Conteúdo Recente: Acontecimentos e Sessões */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-4 border-t border-[#E6E6EA]">
+        {/* Acontecimentos Recentes */}
+        <div className="bg-[#FAFAFB] border border-[#E6E6EA] rounded-2xl p-6 space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-[#FF4D5A]" />
+              <h2 className="text-base font-semibold text-[#16151A]">
+                Acontecimentos Recentes
               </h2>
-              <Link
-                to={`/campaigns/${campaign.id}/timeline`}
-                className="text-xs font-mono text-amber-400 hover:underline inline-flex items-center gap-1"
-              >
-                Ver todos <ArrowRight className="w-3 h-3" />
-              </Link>
             </div>
+            <Link
+              to={`/campaigns/${campaign.id}/timeline`}
+              className="text-xs font-medium text-[#C42A3C] hover:text-[#FF4D5A] inline-flex items-center gap-1"
+            >
+              Ver todos
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
 
-            {recent_events.length === 0 ? (
-              <p className="text-sm text-zinc-500 py-8 text-center">
-                Nenhum acontecimento registrado até o momento.
-              </p>
-            ) : (
-              <div className="space-y-3">
-                {recent_events.map((evt) => {
-                  const catMeta =
-                    EVENT_CATEGORY_META[evt.category] || EVENT_CATEGORY_META.outro;
-                  return (
-                    <Link
-                      key={evt.id}
-                      to={`/campaigns/${campaign.id}/events/${evt.id}`}
-                      className="block p-3.5 rounded-xl bg-obsidian-950/80 hover:bg-obsidian-950 border border-zinc-800/80 hover:border-zinc-700 transition-colors"
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-                        <span className="font-mono text-xs text-amber-400">
-                          {evt.date_is_unknown
-                            ? "Data Indefinida"
-                            : evt.narrative_date || "Sem data"}
-                        </span>
-                        <div className="flex items-center gap-1.5">
-                          <span
-                            className={`px-2 py-0.5 rounded text-[10px] font-mono border ${catMeta.badgeClass}`}
-                          >
-                            {catMeta.label}
-                          </span>
-                          <VisibilityBadge visibility={evt.visibility} />
-                        </div>
-                      </div>
-                      <h3 className="font-display font-semibold text-sm text-zinc-100">
+          {recent_events.length === 0 ? (
+            <div className="py-8 text-center text-xs text-zinc-500">
+              Nenhum acontecimento registrado ainda. Use a ação rápida acima para criar o primeiro.
+            </div>
+          ) : (
+            <div className="space-y-2.5">
+              {recent_events.slice(0, 5).map((evt) => {
+                const catMeta = EVENT_CATEGORY_META[evt.category] || EVENT_CATEGORY_META.outro;
+                return (
+                  <Link
+                    key={evt.id}
+                    to={`/campaigns/${campaign.id}/events/${evt.id}`}
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E6E6EA] hover:border-zinc-300 transition-all block group"
+                  >
+                    <div className="min-w-0 pr-3">
+                      <div className="text-sm font-medium text-[#16151A] group-hover:text-[#C42A3C] truncate">
                         {evt.title}
-                      </h3>
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Últimas Sessões */}
-        <section className="rounded-2xl bg-obsidian-900 border border-zinc-800 p-6 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800">
-              <h2 className="font-display text-lg font-semibold text-zinc-100 flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-amber-400" />
-                Últimas Sessões Registradas
-              </h2>
-              <Link
-                to={`/campaigns/${campaign.id}/sessions`}
-                className="text-xs font-mono text-amber-400 hover:underline inline-flex items-center gap-1"
-              >
-                Ver todas <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-
-            {recent_sessions.length === 0 ? (
-              <p className="text-sm text-zinc-500 py-8 text-center">
-                Nenhuma sessão registrada até o momento.
-              </p>
-            ) : (
-              <div className="space-y-3">
-                {recent_sessions.map((sess) => {
-                  const st =
-                    SESSION_STATUS_LABELS[sess.status] || SESSION_STATUS_LABELS.planejada;
-                  return (
-                    <Link
-                      key={sess.id}
-                      to={`/campaigns/${campaign.id}/sessions/${sess.id}`}
-                      className="block p-3.5 rounded-xl bg-obsidian-950/80 hover:bg-obsidian-950 border border-zinc-800/80 hover:border-zinc-700 transition-colors"
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-                        <span className="font-mono text-xs text-amber-400 font-semibold">
-                          SESSÃO #{String(sess.session_number).padStart(2, "0")} •{" "}
-                          {formatRealDate(sess.real_date)}
-                        </span>
-                        <div className="flex items-center gap-1.5">
-                          <span
-                            className={`px-2 py-0.5 rounded text-[10px] font-mono border ${st.className}`}
-                          >
-                            {st.label}
-                          </span>
-                          <VisibilityBadge visibility={sess.visibility} />
-                        </div>
                       </div>
-                      <h3 className="font-display font-semibold text-sm text-zinc-100">
-                        {sess.title}
-                      </h3>
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
+                      <div className="text-xs text-zinc-400 mt-0.5">
+                        {evt.narrative_date || "Data a definir"}
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-md bg-[#FAFAFB] border border-[#E6E6EA] text-zinc-600 shrink-0">
+                      {catMeta.label}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* Sessões Recentes */}
+        <div className="bg-[#FAFAFB] border border-[#E6E6EA] rounded-2xl p-6 space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-[#FF4D5A]" />
+              <h2 className="text-base font-semibold text-[#16151A]">
+                Sessões de Jogo
+              </h2>
+            </div>
+            <Link
+              to={`/campaigns/${campaign.id}/sessions`}
+              className="text-xs font-medium text-[#C42A3C] hover:text-[#FF4D5A] inline-flex items-center gap-1"
+            >
+              Ver todas
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
-        </section>
-      </div>
+
+          {recent_sessions.length === 0 ? (
+            <div className="py-8 text-center text-xs text-zinc-500">
+              Nenhuma sessão registrada. Clique em registrar sessão para começar o diário de jogo.
+            </div>
+          ) : (
+            <div className="space-y-2.5">
+              {recent_sessions.slice(0, 5).map((sess) => (
+                <Link
+                  key={sess.id}
+                  to={`/campaigns/${campaign.id}/sessions/${sess.id}`}
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E6E6EA] hover:border-zinc-300 transition-all block group"
+                >
+                  <div className="min-w-0 pr-3">
+                    <div className="text-sm font-medium text-[#16151A] group-hover:text-[#C42A3C] truncate">
+                      Sessão #{String(sess.session_number).padStart(2, "0")} — {sess.title}
+                    </div>
+                    <div className="text-xs text-zinc-400 mt-0.5">
+                      {sess.real_date ? formatRealDate(sess.real_date) : "Data a definir"}
+                    </div>
+                  </div>
+                  <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-md bg-[#FAFAFB] border border-[#E6E6EA] text-zinc-600 shrink-0 capitalize">
+                    {sess.status}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
 };

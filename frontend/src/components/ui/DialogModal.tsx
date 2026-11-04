@@ -87,20 +87,20 @@ export const DialogModal: React.FC<DialogModalProps> = ({
           dialogRef.current.close();
         }
       }}
-      className={`w-full ${maxWidthClass} rounded-xl bg-obsidian-900 border border-zinc-800 text-zinc-100 shadow-2xl p-0 open:flex open:flex-col max-h-[90vh]`}
+      className={`w-full ${maxWidthClass} rounded-2xl bg-white border border-[#E6E6EA] text-[#16151A] shadow-2xl p-0 open:flex open:flex-col max-h-[90vh]`}
     >
-      <div className="flex items-start justify-between gap-4 px-6 py-4 border-b border-zinc-800/80 shrink-0">
+      <div className="flex items-start justify-between gap-4 px-6 py-4 border-b border-[#E6E6EA] shrink-0">
         <div>
-          <h2 id={titleId} className="font-display text-lg font-semibold text-zinc-100">
+          <h2 id={titleId} className="text-xl font-bold tracking-tight text-[#16151A]">
             {title}
           </h2>
-          {subtitle && <p className="text-xs text-zinc-400 mt-0.5">{subtitle}</p>}
+          {subtitle && <p className="text-xs text-zinc-500 mt-0.5">{subtitle}</p>}
         </div>
         <button
           type="button"
           onClick={() => dialogRef.current?.close()}
           aria-label="Fechar janela"
-          className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/70 transition-colors"
+          className="p-1.5 rounded-xl text-zinc-400 hover:text-[#16151A] hover:bg-zinc-100 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>

@@ -4,23 +4,23 @@
 
 /* modern-web-guidance: dark-mode — Apply color-scheme to :root for viewport-wide theming */
 :root {
-  color-scheme: dark light;
-  --ink: #111111;
+  color-scheme: light;
+  --ink: #16151A;
   --deep: #16151A;
-  --cream: #EFEAE2;
+  --cream: #FAFAFB;
   --paper: #FFFFFF;
   --lime: #FF4D5A;
   --coral: #FF4D5A;
-  --blood: #FF4D5A;
+  --blood: #C42A3C;
   --gold: #FF4D5A;
-  --crimson: #FF4D5A;
-  --rose: #ffd6d9;
-  --taupe: #8c8782;
-  --line: rgba(17, 17, 17, 0.22);
+  --crimson: #C42A3C;
+  --rose: #ffe4e6;
+  --taupe: #71717A;
+  --line: #E6E6EA;
   --color-accent-dark: #FF4D5A;
   --color-accent-light: #16151A;
-  --color-scrollbar-thumb: #111111;
-  --color-scrollbar-track: #EFEAE2;
+  --color-scrollbar-thumb: #D4D4D8;
+  --color-scrollbar-track: #FAFAFB;
   accent-color: var(--color-accent-dark);
   scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
 }
@@ -32,7 +32,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--cream);
+  background: #FAFAFB;
   color: var(--ink);
   font-family: "Space Grotesk", Arial, sans-serif;
   overflow-x: clip;
@@ -489,7 +489,7 @@ dialog::backdrop {
 
 /* Cards Brutalistas / Editoriais */
 .pillar-card {
-  background: var(--cream);
+  background: #FAFAFB;
   color: var(--ink);
   border: 2px solid var(--ink);
   padding: 26px;
@@ -523,29 +523,9 @@ dialog::backdrop {
   background-image: radial-gradient(rgba(17, 17, 17, 0.14) 1px, transparent 1px);
 }
 
-/* Elevação Neo-Brutalista nas caixas pretas (carvão) com sombra vermelha */
-main section.rounded-2xl,
-main article.rounded-2xl,
-main div.rounded-2xl,
-main form.rounded-2xl,
-dialog.rounded-xl {
-  border-width: 2px !important;
-  border-color: #111111 !important;
-  box-shadow: 6px 6px 0 #FF4D5A !important;
-  border-radius: 4px !important;
-}
-
-main a.rounded-xl.bg-obsidian-900,
-main div.rounded-xl.bg-obsidian-900 {
-  border-width: 2px !important;
-  border-color: #111111 !important;
-  box-shadow: 4px 4px 0 #FF4D5A !important;
-}
-
-main a.rounded-xl,
-main button.rounded-xl,
-main div.rounded-xl {
-  border-radius: 4px !important;
+/* Tema limpo moderno fundo branco */
+.bg-dossier-grid {
+  background-color: #FAFAFB;
 }
 
 @media (max-width: 960px) {
