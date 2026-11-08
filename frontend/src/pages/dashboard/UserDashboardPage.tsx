@@ -15,13 +15,14 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { Navbar } from "../../components/layout/Navbar";
-import { apiRequest } from "../../services/api";
+import { apiRequest, resolveMediaUrl } from "../../services/api";
 import { Campaign } from "../../types";
 import {
   LoadingState,
   ErrorState,
   EmptyState,
   RoleBadge,
+  RpgSystemBadge,
 } from "../../components/ui/StateViews";
 import { ConfirmDialog } from "../../components/ui/ConfirmDialog";
 import { DialogModal } from "../../components/ui/DialogModal";
@@ -206,7 +207,7 @@ export const UserDashboardPage: React.FC = () => {
                   <div className="relative h-32 bg-[#FAFAFB] border-b border-[#E6E6EA] overflow-hidden">
                     {camp.cover_url ? (
                       <img
-                        src={camp.cover_url}
+                        src={resolveMediaUrl(camp.cover_url)}
                         alt={`Capa da campanha ${camp.name}`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
@@ -219,9 +220,7 @@ export const UserDashboardPage: React.FC = () => {
                     )}
 
                     <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                      <span className="px-2.5 py-1 text-[11px] font-semibold rounded-full bg-white/90 backdrop-blur-sm text-[#C42A3C] border border-[#E6E6EA]">
-                        {camp.rpg_system}
-                      </span>
+                      <RpgSystemBadge system={camp.rpg_system} overImage />
                       {camp.status === "archived" && (
                         <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-zinc-100 text-zinc-600 border border-[#E6E6EA]">
                           Arquivada

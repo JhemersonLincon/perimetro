@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from typing import List
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -7,6 +8,13 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "CRÔNICA — Plataforma de Gestão Narrativa de RPG"
     VERSION: str = "1.0.0"
     API_PREFIX: str = "/api"
+    UPLOAD_DIR: str = os.getenv(
+        "UPLOAD_DIR",
+        str(Path(__file__).resolve().parents[2] / "uploads"),
+    )
+    MAX_COVER_IMAGE_SIZE_BYTES: int = int(
+        os.getenv("MAX_COVER_IMAGE_SIZE_BYTES", str(5 * 1024 * 1024))
+    )
 
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",

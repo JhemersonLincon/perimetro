@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 /* modern-web-guidance: dark-mode — Apply color-scheme to :root for viewport-wide theming */
+/* modern-web-guidance: animate-to-intrinsic-sizes — Opt in to native height transitions */
 :root {
   color-scheme: light;
+  interpolate-size: allow-keywords;
   --ink: #16151A;
   --deep: #16151A;
   --cream: #FAFAFB;
@@ -468,11 +470,41 @@ dialog::backdrop {
   white-space: nowrap;
   display: flex;
   gap: 28px;
-  animation: marquee 28s linear infinite;
   font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.045em;
   text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ticker-track {
+    animation: marquee 28s linear infinite;
+  }
+}
+
+/* modern-web-guidance: animate-to-intrinsic-sizes + motion */
+.faq-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size 0.28s ease-out, content-visibility 0.28s allow-discrete;
+}
+
+.faq-details[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .faq-details::details-content {
+    transition: none !important;
+  }
 }
 
 .ticker-track b {

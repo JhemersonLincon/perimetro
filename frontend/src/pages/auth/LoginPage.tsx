@@ -8,6 +8,7 @@ import { apiRequest } from "../../services/api";
 import { TokenResponse } from "../../types";
 import { useAuth } from "../../contexts/AuthContext";
 import { useToast } from "../../contexts/ToastContext";
+import { BrandLogo } from "../../components/ui/DiceIcons";
 
 const loginSchema = z.object({
   email: z.string().email("Informe um endereço de e-mail válido."),
@@ -59,7 +60,7 @@ export const LoginPage: React.FC = () => {
             </span>
             <span className="brand-text !text-[#111111] text-left">
               CRÔNICA
-              <strong className="text-[#FF4D5A]">ARQUIVO RPG</strong>
+              <strong className="text-[#FF4D5A]">PERÍMETRO RPG</strong>
             </span>
           </Link>
           <div className="eyebrow text-[#111111] flex items-center justify-center gap-2 mb-2">

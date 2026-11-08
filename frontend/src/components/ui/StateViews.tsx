@@ -107,6 +107,19 @@ export const VisibilityBadge: React.FC<{ visibility: VisibilityLevel }> = ({
   );
 };
 
+export const RpgSystemBadge: React.FC<{
+  system: string;
+  overImage?: boolean;
+}> = ({ system, overImage = false }) => (
+  <span
+    className={`inline-flex items-center px-3.5 py-1 text-xs font-semibold rounded-full text-[#C42A3C] border border-[#FF4D5A]/20 ${
+      overImage ? "bg-[#FFEDEF]/95 backdrop-blur-sm" : "bg-[#FF4D5A]/10"
+    }`}
+  >
+    {system}
+  </span>
+);
+
 export const RoleBadge: React.FC<{ role: "gm" | "player" }> = ({ role }) => {
   if (role === "gm") {
     return (

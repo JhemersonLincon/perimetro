@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { LogOut, User as UserIcon, FolderKanban, Plus } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
+import { BrandLogo } from "../ui/DiceIcons";
 
 export const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -17,15 +18,14 @@ export const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E6E6EA]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[64px] flex items-center justify-between gap-6">
-        {/* Marca Limpa da Referência: Arquivo RPG */}
+        {/* Marca: Perímetro com dados d20 e d6 */}
         <div className="flex items-center gap-8">
           <Link
             to={isAuthenticated ? "/dashboard" : "/"}
-            className="flex items-center gap-1.5 text-lg font-bold tracking-tight text-[#16151A] hover:opacity-85 transition-opacity"
-            aria-label="Arquivo RPG — Início"
+            className="hover:opacity-90 transition-opacity"
+            aria-label="Perímetro — Início"
           >
-            <span>Arquivo</span>
-            <span className="text-[#FF4D5A]">RPG</span>
+            <BrandLogo size="md" />
           </Link>
 
           {isAuthenticated && (

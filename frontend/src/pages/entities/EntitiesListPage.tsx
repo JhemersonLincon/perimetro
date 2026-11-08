@@ -23,6 +23,7 @@ import {
   ErrorState,
   EmptyState,
   VisibilityBadge,
+  RpgSystemBadge,
 } from "../../components/ui/StateViews";
 import { ConfirmDialog } from "../../components/ui/ConfirmDialog";
 import { EntityFormModal } from "../../components/entities/EntityFormModal";
@@ -98,15 +99,15 @@ export const EntitiesListPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b-2 border-[#111111]">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-[#E6E6EA]">
         <div>
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D5A]">
-            CATÁLOGO DE ELEMENTOS NARRATIVOS
-          </span>
-          <h1 className="font-display text-3xl font-bold uppercase text-[#111111] mt-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <RpgSystemBadge system={campaign.rpg_system} />
+          </div>
+          <h1 className="text-3xl font-bold tracking-tight text-[#16151A] mt-3">
             Entidades da Campanha
           </h1>
-          <p className="text-sm text-[#111111]/75 mt-1">
+          <p className="text-sm text-zinc-500 mt-1">
             Personagens, NPCs, Localidades e Organizações que participam ou influenciam os
             acontecimentos.
           </p>
@@ -120,7 +121,7 @@ export const EntitiesListPage: React.FC = () => {
               setInitialCategory((category as EntityCategory) || "character");
               setModalOpen(true);
             }}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0_#111111] font-display font-bold uppercase text-xs transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#FF4D5A] hover:bg-[#ff3b49] text-white font-semibold text-xs shadow-[0_4px_14px_rgba(255,77,90,0.35)] transition-all"
           >
             <Plus className="w-4 h-4" />
             Nova Entidade
@@ -129,7 +130,7 @@ export const EntitiesListPage: React.FC = () => {
       </div>
 
       {/* Abas de Categorias e Barra de Pesquisa */}
-      <div className="rounded-2xl bg-obsidian-900 border border-zinc-800 p-4 space-y-4">
+      <div className="rounded-2xl bg-white border border-[#E6E6EA] p-4 space-y-4 shadow-sm">
         <div className="flex flex-wrap items-center gap-2">
           {(
             [
@@ -144,10 +145,10 @@ export const EntitiesListPage: React.FC = () => {
               key={tab.value}
               type="button"
               onClick={() => setCategory(tab.value)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider transition-colors ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
                 category === tab.value
-                  ? "bg-amber-500/15 text-amber-300 border border-amber-500/40"
-                  : "bg-obsidian-950 text-zinc-400 hover:text-zinc-200 border border-zinc-800"
+                  ? "bg-[#FF4D5A]/10 text-[#C42A3C] border-[#FF4D5A]/30 font-semibold"
+                  : "bg-[#FAFAFB] text-zinc-600 hover:text-[#16151A] border-[#E6E6EA]"
               }`}
             >
               {tab.label}
@@ -157,14 +158,14 @@ export const EntitiesListPage: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="relative">
-            <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Pesquisar por nome ou descrição..."
               aria-label="Pesquisar entidades"
-              className="w-full pl-10 pr-3.5 py-2 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-xs focus:outline-none focus:border-amber-500"
+              className="w-full pl-10 pr-3.5 py-2 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-xs focus:outline-none focus:border-[#FF4D5A]"
             />
           </div>
 
@@ -173,7 +174,7 @@ export const EntitiesListPage: React.FC = () => {
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               aria-label="Filtrar por status"
-              className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-200 text-xs"
+              className="w-full px-3 py-2 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-xs focus:outline-none focus:border-[#FF4D5A]"
             >
               <option value="">Todos os Status</option>
               <option value="ativo">Ativo / Ativa</option>
@@ -195,7 +196,7 @@ export const EntitiesListPage: React.FC = () => {
                 value={visibilityFilter}
                 onChange={(e) => setVisibilityFilter(e.target.value)}
                 aria-label="Filtrar por visibilidade"
-                className="flex-1 px-3 py-2 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-200 text-xs"
+                className="flex-1 px-3 py-2 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-xs focus:outline-none focus:border-[#FF4D5A]"
               >
                 <option value="">Qualquer Visibilidade</option>
                 <option value="public">Público</option>
@@ -212,7 +213,7 @@ export const EntitiesListPage: React.FC = () => {
                   setStatusFilter("");
                   setVisibilityFilter("");
                 }}
-                className="p-2 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30"
+                className="p-2 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 transition-colors"
                 title="Limpar filtros"
               >
                 <RotateCcw className="w-4 h-4" />
@@ -253,7 +254,7 @@ export const EntitiesListPage: React.FC = () => {
           {entities.map((ent) => (
             <article
               key={ent.id}
-              className="rounded-2xl bg-obsidian-900 border border-zinc-800 hover:border-zinc-700 overflow-hidden flex flex-col justify-between transition-all shadow-lg"
+              className="rounded-2xl bg-white border border-[#E6E6EA] hover:border-zinc-300 overflow-hidden flex flex-col justify-between transition-all shadow-sm text-[#16151A]"
             >
               <div>
                 <div className="p-5">
@@ -263,21 +264,21 @@ export const EntitiesListPage: React.FC = () => {
                         <img
                           src={ent.image_url}
                           alt={`Imagem de ${ent.name}`}
-                          className="w-12 h-12 rounded-xl object-cover border border-zinc-700 shrink-0"
+                          className="w-12 h-12 rounded-xl object-cover border border-[#E6E6EA] shrink-0"
                         />
                       ) : (
-                        <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-300 font-display font-bold text-lg shrink-0">
+                        <div className="w-12 h-12 rounded-xl bg-[#FF4D5A]/10 border border-[#FF4D5A]/20 flex items-center justify-center text-[#FF4D5A] font-bold text-lg shrink-0">
                           {ent.name.charAt(0).toUpperCase()}
                         </div>
                       )}
                       <div>
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-amber-400">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#FF4D5A]">
                           {ENTITY_CATEGORY_LABELS[ent.category]}
                         </span>
-                        <h2 className="font-display text-lg font-bold text-zinc-100 leading-tight">
+                        <h2 className="text-lg font-bold text-[#16151A] leading-tight">
                           <Link
                             to={`/campaigns/${campaign.id}/entities/${ent.id}`}
-                            className="hover:text-amber-400 transition-colors"
+                            className="hover:text-[#FF4D5A] transition-colors"
                           >
                             {ent.name}
                           </Link>
@@ -285,22 +286,22 @@ export const EntitiesListPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-obsidian-950 border border-zinc-800 text-zinc-300">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium uppercase bg-[#FAFAFB] border border-[#E6E6EA] text-zinc-600">
                       {ent.status}
                     </span>
                   </div>
 
-                  <p className="text-xs text-zinc-400 line-clamp-3 leading-relaxed">
+                  <p className="text-xs text-zinc-600 line-clamp-3 leading-relaxed">
                     {ent.description}
                   </p>
                 </div>
               </div>
 
-              <div className="px-5 py-3.5 bg-obsidian-950/70 border-t border-zinc-800/80 flex items-center justify-between gap-2">
+              <div className="px-5 py-3.5 bg-[#FAFAFB] border-t border-[#E6E6EA] flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <VisibilityBadge visibility={ent.visibility} />
-                  <span className="text-[11px] font-mono text-zinc-400 flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-amber-400" />
+                  <span className="text-[11px] text-zinc-500 font-medium flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-[#FF4D5A]" />
                     {ent.events_count} evento(s)
                   </span>
                 </div>
@@ -308,7 +309,7 @@ export const EntitiesListPage: React.FC = () => {
                 <div className="flex items-center gap-1">
                   <Link
                     to={`/campaigns/${campaign.id}/entities/${ent.id}`}
-                    className="px-2.5 py-1 rounded text-xs font-mono text-amber-400 hover:underline"
+                    className="px-2.5 py-1 rounded-xl text-xs font-semibold text-[#FF4D5A] hover:text-[#C42A3C] transition-colors"
                   >
                     Ver Ficha
                   </Link>
@@ -321,7 +322,7 @@ export const EntitiesListPage: React.FC = () => {
                           setModalOpen(true);
                         }}
                         aria-label={`Editar ${ent.name}`}
-                        className="p-1.5 text-zinc-400 hover:text-zinc-100"
+                        className="p-1.5 rounded-lg text-zinc-400 hover:text-[#16151A] hover:bg-zinc-200/50 transition-colors"
                       >
                         <Edit3 className="w-3.5 h-3.5" />
                       </button>
@@ -329,7 +330,7 @@ export const EntitiesListPage: React.FC = () => {
                         type="button"
                         onClick={() => setEntityToDelete(ent)}
                         aria-label={`Excluir ${ent.name}`}
-                        className="p-1.5 text-zinc-400 hover:text-rose-400"
+                        className="p-1.5 rounded-lg text-zinc-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>

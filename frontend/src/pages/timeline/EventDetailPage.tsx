@@ -23,6 +23,7 @@ import {
   LoadingState,
   ErrorState,
   VisibilityBadge,
+  RpgSystemBadge,
 } from "../../components/ui/StateViews";
 import { ConfirmDialog } from "../../components/ui/ConfirmDialog";
 import { EventFormModal } from "../../components/timeline/EventFormModal";
@@ -118,14 +119,17 @@ export const EventDetailPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <Link
-          to={`/campaigns/${campaign.id}/timeline`}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500 hover:text-[#16151A] transition-colors"
-        >
-          <ChevronLeft className="w-4 h-4 text-[#FF4D5A]" />
-          Voltar para a Linha do Tempo
-        </Link>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            to={`/campaigns/${campaign.id}/timeline`}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500 hover:text-[#16151A] transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4 text-[#FF4D5A]" />
+            Voltar para a Linha do Tempo
+          </Link>
+          <RpgSystemBadge system={campaign.rpg_system} />
+        </div>
 
         {isGM && (
           <div className="flex items-center gap-2">

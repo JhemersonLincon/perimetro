@@ -1,8 +1,14 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.api.routes import auth, campaigns, entities, events, sessions
 from app.core.config import settings
+
+upload_root = Path(settings.UPLOAD_DIR)
+(upload_root / "campaigns").mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -29,6 +35,11 @@ app.include_router(campaigns.router, prefix=settings.API_PREFIX)
 app.include_router(entities.router, prefix=settings.API_PREFIX)
 app.include_router(events.router, prefix=settings.API_PREFIX)
 app.include_router(sessions.router, prefix=settings.API_PREFIX)
+app.mount(
+    f"{settings.API_PREFIX}/uploads",
+    StaticFiles(directory=str(upload_root)),
+    name="uploads",
+)
 
 
 @app.get("/api/health", tags=["Sistema"])

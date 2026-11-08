@@ -27,7 +27,6 @@ export const DialogModal: React.FC<DialogModalProps> = ({
 }) => {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const titleId = useId();
-  const pressedOutsideRef = useRef(false);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -55,38 +54,12 @@ export const DialogModal: React.FC<DialogModalProps> = ({
     return () => dialog.removeEventListener("close", handleClose);
   }, [onClose]);
 
-  const isOutside = (e: React.PointerEvent<HTMLDialogElement>, dialog: HTMLDialogElement) => {
-    const r = dialog.getBoundingClientRect();
-    return (
-      e.clientX < r.left ||
-      e.clientX > r.right ||
-      e.clientY < r.top ||
-      e.clientY > r.bottom
-    );
-  };
-
   if (!isOpen) return null;
 
   return (
     <dialog
       ref={dialogRef}
       aria-labelledby={titleId}
-      {...({ closedby: "any" } as any)}
-      onPointerDown={(e) => {
-        if (dialogRef.current) {
-          pressedOutsideRef.current = isOutside(e, dialogRef.current);
-        }
-      }}
-      onPointerUp={(e) => {
-        if (
-          dialogRef.current &&
-          !("closedBy" in HTMLDialogElement.prototype) &&
-          pressedOutsideRef.current &&
-          isOutside(e, dialogRef.current)
-        ) {
-          dialogRef.current.close();
-        }
-      }}
       className={`w-full ${maxWidthClass} rounded-2xl bg-white border border-[#E6E6EA] text-[#16151A] shadow-2xl p-0 open:flex open:flex-col max-h-[90vh]`}
     >
       <div className="flex items-start justify-between gap-4 px-6 py-4 border-b border-[#E6E6EA] shrink-0">

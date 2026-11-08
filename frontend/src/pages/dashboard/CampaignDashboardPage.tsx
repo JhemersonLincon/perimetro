@@ -11,7 +11,7 @@ import {
 import { CampaignOutletContext } from "../../components/layout/CampaignLayout";
 import { apiRequest } from "../../services/api";
 import { CampaignDashboard } from "../../types";
-import { LoadingState, ErrorState } from "../../components/ui/StateViews";
+import { LoadingState, ErrorState, RpgSystemBadge } from "../../components/ui/StateViews";
 import { EVENT_CATEGORY_META, formatRealDate } from "../../utils/formatters";
 
 export const CampaignDashboardPage: React.FC = () => {
@@ -52,9 +52,7 @@ export const CampaignDashboardPage: React.FC = () => {
           <div className="space-y-3">
             {/* Badges do Sistema e Papel */}
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#FF4D5A]/10 text-[#C42A3C] border border-[#FF4D5A]/20">
-                {campaign.rpg_system}
-              </span>
+              <RpgSystemBadge system={campaign.rpg_system} />
               <span className="px-3.5 py-1 text-xs font-medium rounded-full bg-white text-zinc-600 border border-[#E6E6EA]">
                 {isGM ? "Mestre" : "Jogador"}
               </span>

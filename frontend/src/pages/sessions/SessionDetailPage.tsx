@@ -22,6 +22,7 @@ import {
   LoadingState,
   ErrorState,
   VisibilityBadge,
+  RpgSystemBadge,
 } from "../../components/ui/StateViews";
 import { ConfirmDialog } from "../../components/ui/ConfirmDialog";
 import { SessionFormModal } from "../../components/sessions/SessionFormModal";
@@ -137,28 +138,31 @@ export const SessionDetailPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <Link
-          to={`/campaigns/${campaign.id}/sessions`}
-          className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#111111] hover:text-[#FF4D5A]"
-        >
-          <ChevronLeft className="w-4 h-4 text-[#FF4D5A]" />
-          Voltar para Sessões
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            to={`/campaigns/${campaign.id}/sessions`}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500 hover:text-[#16151A] transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4 text-[#FF4D5A]" />
+            Voltar para Sessões
+          </Link>
+          <RpgSystemBadge system={campaign.rpg_system} />
+        </div>
 
         {isGM && (
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => setEditModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-obsidian-900 hover:bg-zinc-800 text-zinc-100 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono font-bold uppercase"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
             >
-              <Edit3 className="w-3.5 h-3.5 text-amber-400" />
+              <Edit3 className="w-3.5 h-3.5 text-zinc-500" />
               Editar Sessão
             </button>
             <button
               type="button"
               onClick={() => setConfirmDeleteOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-obsidian-900 hover:bg-rose-950/60 text-rose-300 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono font-bold uppercase"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-rose-50 text-rose-600 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
             >
               <Trash2 className="w-3.5 h-3.5" />
               Excluir
@@ -168,14 +172,14 @@ export const SessionDetailPage: React.FC = () => {
       </div>
 
       {/* Ficha Principal da Sessão */}
-      <article className="rounded-2xl bg-obsidian-900 border border-zinc-800 p-6 sm:p-8 shadow-2xl space-y-6">
-        <div className="flex flex-wrap items-center gap-2.5 pb-4 border-b border-zinc-800">
-          <span className="px-3 py-1 rounded-md bg-amber-500/15 border border-amber-500/30 font-mono text-xs font-bold text-amber-300">
+      <article className="rounded-2xl bg-white border border-[#E6E6EA] p-6 sm:p-8 shadow-sm space-y-6 text-[#16151A]">
+        <div className="flex flex-wrap items-center gap-2.5 pb-4 border-b border-[#E6E6EA]">
+          <span className="px-3 py-1 rounded-full bg-[#FF4D5A]/10 border border-[#FF4D5A]/20 text-xs font-semibold text-[#C42A3C]">
             SESSÃO #{String(session.session_number).padStart(2, "0")}
           </span>
 
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-obsidian-950 border border-zinc-800 font-mono text-xs text-zinc-300">
-            <Calendar className="w-3.5 h-3.5 text-amber-400" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAFAFB] border border-[#E6E6EA] text-xs font-medium text-zinc-600">
+            <Calendar className="w-3.5 h-3.5 text-[#FF4D5A]" />
             Data Real: {formatRealDate(session.real_date)}
           </span>
 
@@ -187,30 +191,30 @@ export const SessionDetailPage: React.FC = () => {
         </div>
 
         <div>
-          <h1 className="font-display text-2xl sm:text-4xl font-bold text-zinc-100">
+          <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#16151A]">
             {session.title}
           </h1>
-          <div className="mt-2 text-xs font-mono text-zinc-500">
+          <div className="mt-2 text-xs text-zinc-500">
             Registrada em: {formatDateTime(session.created_at)}
           </div>
         </div>
 
         <div className="space-y-2">
-          <h2 className="font-mono text-xs uppercase tracking-widest text-amber-400">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-[#16151A]">
             Resumo Narrativo da Sessão
           </h2>
-          <div className="p-5 rounded-xl bg-obsidian-950 border border-zinc-800 text-sm sm:text-base text-zinc-200 leading-relaxed whitespace-pre-line">
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA] text-sm sm:text-base text-zinc-700 leading-relaxed whitespace-pre-line">
             {session.summary}
           </div>
         </div>
 
         {session.notes && (
           <div className="space-y-2">
-            <h2 className="font-mono text-xs uppercase tracking-widest text-amber-400 flex items-center gap-1.5">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-[#16151A] flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5" />
               Observações e Notas
             </h2>
-            <div className="p-4 rounded-xl bg-obsidian-950/70 border border-zinc-800 text-sm text-zinc-300 whitespace-pre-line">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA] text-sm text-zinc-700 whitespace-pre-line">
               {session.notes}
             </div>
           </div>
@@ -218,14 +222,14 @@ export const SessionDetailPage: React.FC = () => {
       </article>
 
       {/* Acontecimentos Associados */}
-      <section className="rounded-2xl bg-obsidian-900 border border-zinc-800 p-6 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-800">
+      <section className="rounded-2xl bg-white border border-[#E6E6EA] p-6 space-y-5 shadow-sm text-[#16151A]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E6E6EA]">
           <div>
-            <h2 className="font-display text-lg font-semibold text-zinc-100 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-amber-400" />
+            <h2 className="text-lg font-bold text-[#16151A] flex items-center gap-2">
+              <Clock className="w-5 h-5 text-[#FF4D5A]" />
               Acontecimentos Associados ({session.events.length})
             </h2>
-            <p className="text-xs text-zinc-400 mt-0.5">
+            <p className="text-xs text-zinc-500 mt-0.5">
               Eventos da linha do tempo que ocorreram ou foram descobertos durante esta sessão.
             </p>
           </div>
@@ -236,7 +240,7 @@ export const SessionDetailPage: React.FC = () => {
                 value={eventToLinkId}
                 onChange={(e) => setEventToLinkId(e.target.value)}
                 aria-label="Selecionar acontecimento para associar"
-                className="px-3 py-2 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-200 text-xs max-w-xs"
+                className="px-3 py-2 rounded-xl bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-xs max-w-xs focus:outline-none focus:border-[#FF4D5A]"
               >
                 <option value="">Associar acontecimento existente...</option>
                 {availableEventsToLink.map((e) => (
@@ -251,7 +255,7 @@ export const SessionDetailPage: React.FC = () => {
                 onClick={() => {
                   if (eventToLinkId) linkMutation.mutate(eventToLinkId);
                 }}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-obsidian-950 font-display font-semibold text-xs disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FF4D5A] hover:bg-[#ff3b49] text-white font-semibold text-xs shadow-sm transition-all disabled:opacity-50"
               >
                 <Link2 className="w-3.5 h-3.5" />
                 Associar
@@ -271,11 +275,11 @@ export const SessionDetailPage: React.FC = () => {
               return (
                 <div
                   key={evt.id}
-                  className="p-4 rounded-xl bg-obsidian-950 border border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  className="p-4 rounded-2xl bg-[#FAFAFB] hover:bg-white border border-[#E6E6EA] hover:border-zinc-300 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all"
                 >
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-xs text-amber-400">
+                      <span className="font-mono text-xs text-[#FF4D5A]">
                         {evt.date_is_unknown
                           ? "Data Indefinida"
                           : `${evt.narrative_date || ""}${
@@ -291,17 +295,17 @@ export const SessionDetailPage: React.FC = () => {
                     </div>
                     <Link
                       to={`/campaigns/${campaign.id}/events/${evt.id}`}
-                      className="font-display font-semibold text-base text-zinc-100 hover:text-amber-400 block"
+                      className="font-semibold text-base text-[#16151A] hover:text-[#FF4D5A] block"
                     >
                       {evt.title}
                     </Link>
-                    <p className="text-xs text-zinc-400 line-clamp-2">{evt.description}</p>
+                    <p className="text-xs text-zinc-600 line-clamp-2">{evt.description}</p>
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
                     <Link
                       to={`/campaigns/${campaign.id}/events/${evt.id}`}
-                      className="px-3 py-1.5 rounded-lg bg-obsidian-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs font-mono"
+                      className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
                     >
                       Ver na Cronologia
                     </Link>
@@ -310,7 +314,7 @@ export const SessionDetailPage: React.FC = () => {
                         type="button"
                         onClick={() => unlinkMutation.mutate(evt.id)}
                         title="Remover associação com esta sessão"
-                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-obsidian-900 hover:bg-rose-950/40 text-zinc-400 hover:text-rose-300 border border-zinc-800 text-xs font-mono"
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-zinc-600 hover:text-rose-600 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
                       >
                         <Unlink className="w-3.5 h-3.5" />
                         Desvincular

@@ -160,7 +160,7 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
         {formError && (
           <div
             role="alert"
-            className="p-3.5 rounded-lg bg-rose-950/40 border border-rose-500/40 text-xs text-rose-200"
+            className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium"
           >
             {formError}
           </div>
@@ -170,9 +170,9 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
           <div>
             <label
               htmlFor="sess-number"
-              className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+              className="block text-xs font-semibold text-zinc-700 mb-1.5"
             >
-              Nº da Sessão <span className="text-amber-400">*</span>
+              Nº da Sessão <span className="text-[#FF4D5A]">*</span>
             </label>
             <input
               id="sess-number"
@@ -181,16 +181,16 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
               required
               value={sessionNumber}
               onChange={(e) => setSessionNumber(Number(e.target.value))}
-              className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm font-mono focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm font-mono rounded-xl focus:outline-none focus:border-[#FF4D5A]"
             />
           </div>
 
           <div className="sm:col-span-3">
             <label
               htmlFor="sess-title"
-              className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+              className="block text-xs font-semibold text-zinc-700 mb-1.5"
             >
-              Título da Sessão <span className="text-amber-400">*</span>
+              Título da Sessão <span className="text-[#FF4D5A]">*</span>
             </label>
             <input
               id="sess-title"
@@ -199,7 +199,7 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Ex: O Sussurro nas Catacumbas"
-              className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A]"
             />
           </div>
         </div>
@@ -208,7 +208,7 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
           <div>
             <label
               htmlFor="sess-date"
-              className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+              className="block text-xs font-semibold text-zinc-700 mb-1.5"
             >
               Data Real da Sessão
             </label>
@@ -217,16 +217,16 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
               type="date"
               value={realDate}
               onChange={(e) => setRealDate(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A]"
             />
           </div>
 
           <div>
             <label
               htmlFor="sess-status"
-              className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+              className="block text-xs font-semibold text-zinc-700 mb-1.5"
             >
-              Status <span className="text-amber-400">*</span>
+              Status <span className="text-[#FF4D5A]">*</span>
             </label>
             <select
               id="sess-status"
@@ -234,7 +234,7 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
               onChange={(e) =>
                 setStatus(e.target.value as "planejada" | "realizada" | "cancelada")
               }
-              className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A]"
             >
               <option value="planejada">Planejada</option>
               <option value="realizada">Realizada</option>
@@ -245,15 +245,15 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
           <div>
             <label
               htmlFor="sess-visibility"
-              className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+              className="block text-xs font-semibold text-zinc-700 mb-1.5"
             >
-              Visibilidade <span className="text-amber-400">*</span>
+              Visibilidade <span className="text-[#FF4D5A]">*</span>
             </label>
             <select
               id="sess-visibility"
               value={visibility}
               onChange={(e) => setVisibility(e.target.value as VisibilityLevel)}
-              className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
+              className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A]"
             >
               <option value="public">Público</option>
               <option value="private">Privado (Mestre)</option>
@@ -263,8 +263,8 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
         </div>
 
         {visibility === "restricted" && (
-          <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 space-y-2">
-            <div className="text-xs font-mono uppercase tracking-wider text-amber-300">
+          <div className="p-4 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA] space-y-2">
+            <div className="text-xs font-semibold text-[#16151A]">
               Jogadores Autorizados
             </div>
             {playerMembers.length === 0 ? (
@@ -278,8 +278,8 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
                       key={pm.user_id}
                       className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs cursor-pointer ${
                         checked
-                          ? "bg-amber-500/20 border-amber-500/50 text-amber-200"
-                          : "bg-obsidian-950 border-zinc-800 text-zinc-400"
+                          ? "bg-[#FF4D5A]/10 border-[#FF4D5A]/30 text-[#C42A3C] font-semibold"
+                          : "bg-white border-[#E6E6EA] text-zinc-600 hover:border-zinc-300"
                       }`}
                     >
                       <input
@@ -301,9 +301,9 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
         <div>
           <label
             htmlFor="sess-summary"
-            className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+            className="block text-xs font-semibold text-zinc-700 mb-1.5"
           >
-            Resumo Narrativo / Descrição <span className="text-amber-400">*</span>
+            Resumo Narrativo / Descrição <span className="text-[#FF4D5A]">*</span>
           </label>
           <textarea
             id="sess-summary"
@@ -312,14 +312,14 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
             placeholder="Descreva os principais desdobramentos do encontro..."
-            className="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
+            className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A]"
           />
         </div>
 
         <div>
           <label
             htmlFor="sess-notes"
-            className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-1.5"
+            className="block text-xs font-semibold text-zinc-700 mb-1.5"
           >
             Observações Adicionais (Opcional)
           </label>
@@ -329,13 +329,13 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Ganchos pendentes, anotações de bastidores ou pendências para o próximo encontro..."
-            className="w-full px-3.5 py-2 rounded-lg bg-obsidian-950 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-amber-500"
+            className="w-full px-3.5 py-2 rounded-lg bg-[#FAFAFB] border border-[#E6E6EA] text-[#16151A] text-sm rounded-xl focus:outline-none focus:border-[#FF4D5A]"
           />
         </div>
 
         {/* Associação de acontecimentos */}
-        <div className="pt-2 border-t border-zinc-800 space-y-2">
-          <div className="text-xs font-mono uppercase tracking-wider text-zinc-300">
+        <div className="pt-3 border-t border-[#E6E6EA] space-y-2">
+          <div className="text-xs font-semibold text-zinc-700">
             Acontecimentos Associados a esta Sessão ({selectedEventIds.length})
           </div>
           {events.length === 0 ? (
@@ -343,7 +343,7 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
               Nenhum acontecimento cadastrado na campanha ainda.
             </p>
           ) : (
-            <div className="max-h-40 overflow-y-auto p-3 rounded-xl bg-obsidian-950 border border-zinc-800 space-y-1.5">
+            <div className="max-h-44 overflow-y-auto p-3 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA] space-y-1.5">
               {events.map((evt) => {
                 const checked = selectedEventIds.includes(evt.id);
                 return (
@@ -351,8 +351,8 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
                     key={evt.id}
                     className={`flex items-center justify-between gap-2 px-3 py-1.5 rounded-lg border text-xs cursor-pointer transition-colors ${
                       checked
-                        ? "bg-amber-500/15 border-amber-500/40 text-amber-200"
-                        : "bg-obsidian-900 border-zinc-800 text-zinc-300"
+                        ? "bg-[#FF4D5A]/10 border-[#FF4D5A]/30 text-[#C42A3C] font-semibold"
+                        : "bg-white border-[#E6E6EA] text-zinc-700 hover:border-zinc-300"
                     }`}
                   >
                     <div className="flex items-center gap-2 min-w-0">
@@ -373,18 +373,18 @@ export const SessionFormModal: React.FC<SessionFormModalProps> = ({
           )}
         </div>
 
-        <div className="pt-4 border-t border-zinc-800 flex items-center justify-end gap-3">
+        <div className="pt-4 border-t border-[#E6E6EA] flex items-center justify-end gap-3">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-lg text-xs font-medium bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
           >
             Cancelar
           </button>
           <button
             type="submit"
             disabled={mutation.isPending}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-obsidian-950 font-display font-semibold text-xs transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF4D5A] hover:bg-[#ff3b49] text-white font-semibold text-xs shadow-[0_4px_14px_rgba(255,77,90,0.35)] transition-all disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             {mutation.isPending

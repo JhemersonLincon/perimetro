@@ -1,11 +1,15 @@
+from pathlib import Path
 from typing import List, Optional
-from fastapi import APIRouter, Depends, Query, status
+import uuid
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.database.session import get_db
 from app.dependencies.auth import get_campaign_and_member, get_current_user
 from app.models.user import User
 from app.schemas.campaign import (
+    CampaignCoverUploadResponse,
     CampaignCreate,
     CampaignDashboardResponse,
     CampaignMemberResponse,
@@ -17,6 +21,83 @@ from app.schemas.campaign import (
 from app.services.campaign_service import CampaignService
 
 router = APIRouter(tags=["Campanhas e Participantes"])
+
+ALLOWED_IMAGE_MIME_TYPES = {"image/jpeg", "image/jpg", "image/png", "image/webp"}
+ALLOWED_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
+
+
+def _detect_allowed_image_format(content: bytes) -> Optional[tuple[str, str]]:
+    """Valida os magic bytes do arquivo e retorna (extensão, content_type) ou None."""
+    if content.startswith(b"\xff\xd8\xff"):
+        return (".jpg", "image/jpeg")
+    if content.startswith(b"\x89PNG\r\n\x1a\n"):
+        return (".png", "image/png")
+    if len(content) >= 12 and content[:4] == b"RIFF" and content[8:12] == b"WEBP":
+        return (".webp", "image/webp")
+    return None
+
+
+@router.post(
+    "/campaigns/cover",
+    response_model=CampaignCoverUploadResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+async def upload_campaign_cover(
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+):
+    """Recebe uma imagem local (JPG, PNG ou WebP), valida e armazena como capa de campanha."""
+    _ = current_user
+    filename_ext = Path(file.filename or "").suffix.lower()
+    raw_content_type = (file.content_type or "").lower()
+
+    if (
+        raw_content_type
+        and raw_content_type not in ALLOWED_IMAGE_MIME_TYPES
+        and not (
+            raw_content_type == "application/octet-stream"
+            and filename_ext in ALLOWED_IMAGE_EXTENSIONS
+        )
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Formato de arquivo inválido. Envie apenas imagens JPG, PNG ou WebP.",
+        )
+
+    content = await file.read()
+    if not content:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="O arquivo enviado está vazio.",
+        )
+
+    if len(content) > settings.MAX_COVER_IMAGE_SIZE_BYTES:
+        raise HTTPException(
+            status_code=status.HTTP_413_CONTENT_TOO_LARGE,
+            detail="A imagem excede o limite máximo permitido de 5 MB.",
+        )
+
+    detected = _detect_allowed_image_format(content)
+    if not detected:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Conteúdo de imagem inválido ou corrompido. Use JPG, PNG ou WebP válidos.",
+        )
+
+    ext, canonical_ct = detected
+    target_dir = Path(settings.UPLOAD_DIR) / "campaigns"
+    target_dir.mkdir(parents=True, exist_ok=True)
+
+    unique_name = f"{uuid.uuid4().hex}{ext}"
+    target_path = target_dir / unique_name
+    target_path.write_bytes(content)
+
+    return CampaignCoverUploadResponse(
+        cover_url=f"{settings.API_PREFIX}/uploads/campaigns/{unique_name}",
+        filename=unique_name,
+        content_type=canonical_ct,
+        size=len(content),
+    )
 
 
 @router.get("/campaigns", response_model=List[CampaignResponse])

@@ -2,6 +2,24 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api"
 
 export const TOKEN_STORAGE_KEY = "cronica_rpg_token";
 
+export function resolveMediaUrl(url?: string | null): string | undefined {
+  if (!url) return undefined;
+  if (
+    url.startsWith("http://") ||
+    url.startsWith("https://") ||
+    url.startsWith("blob:") ||
+    url.startsWith("data:")
+  ) {
+    return url;
+  }
+  try {
+    const apiUrl = new URL(API_BASE_URL, window.location.origin);
+    return url.startsWith("/") ? `${apiUrl.origin}${url}` : `${apiUrl.origin}/${url}`;
+  } catch {
+    return url;
+  }
+}
+
 export class ApiError extends Error {
   status: number;
   constructor(message: string, status: number) {
@@ -15,8 +33,9 @@ export async function apiRequest<T>(
   options: RequestInit = {}
 ): Promise<T> {
   const token = localStorage.getItem(TOKEN_STORAGE_KEY);
+  const isFormData = typeof FormData !== "undefined" && options.body instanceof FormData;
   const headers: Record<string, string> = {
-    "Content-Type": "application/json",
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
     ...(options.headers as Record<string, string>),
   };
 

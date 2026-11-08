@@ -23,6 +23,7 @@ import {
   ErrorState,
   EmptyState,
   VisibilityBadge,
+  RpgSystemBadge,
 } from "../../components/ui/StateViews";
 import { ConfirmDialog } from "../../components/ui/ConfirmDialog";
 import { SessionFormModal } from "../../components/sessions/SessionFormModal";
@@ -105,15 +106,15 @@ export const SessionsListPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b-2 border-[#111111]">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-[#E6E6EA]">
         <div>
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D5A]">
-            DIÁRIO DE ENCONTROS DE JOGO
-          </span>
-          <h1 className="font-display text-3xl font-bold uppercase text-[#111111] mt-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <RpgSystemBadge system={campaign.rpg_system} />
+          </div>
+          <h1 className="text-3xl font-bold tracking-tight text-[#16151A] mt-3">
             Sessões da Campanha
           </h1>
-          <p className="text-sm text-[#111111]/75 mt-1">
+          <p className="text-sm text-zinc-500 mt-1">
             Acompanhe as sessões planejadas e realizadas, e consulte os acontecimentos narrativos
             associados a cada encontro.
           </p>
@@ -123,9 +124,9 @@ export const SessionsListPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setOrder((prev) => (prev === "asc" ? "desc" : "asc"))}
-            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded bg-obsidian-900 hover:bg-zinc-800 text-zinc-100 border-2 border-[#111111] shadow-[3px_3px_0_#FF4D5A] text-xs font-mono font-bold uppercase tracking-wider"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
           >
-            <ArrowUpDown className="w-4 h-4 text-amber-400" />
+            <ArrowUpDown className="w-4 h-4 text-zinc-400" />
             {order === "asc" ? "Sessão #01 → #N" : "Mais recentes"}
           </button>
 
@@ -136,7 +137,7 @@ export const SessionsListPage: React.FC = () => {
                 setEditingSession(null);
                 setModalOpen(true);
               }}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0_#111111] font-display font-bold uppercase text-xs transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#FF4D5A] hover:bg-[#ff3b49] text-white font-semibold text-xs shadow-[0_4px_14px_rgba(255,77,90,0.35)] transition-all"
             >
               <Plus className="w-4 h-4" />
               Registrar Sessão
@@ -159,10 +160,10 @@ export const SessionsListPage: React.FC = () => {
             key={tab.value}
             type="button"
             onClick={() => setStatusFilter(tab.value)}
-            className={`px-3.5 py-1.5 rounded text-xs font-mono font-bold uppercase tracking-wider border-2 border-[#111111] transition-colors ${
+            className={`px-3.5 py-1.5 rounded-2xl text-xs font-semibold border transition-all ${
               statusFilter === tab.value
-                ? "bg-[#FF4D5A] text-[#111111] shadow-[3px_3px_0_#111111]"
-                : "bg-obsidian-900 text-zinc-100 hover:bg-zinc-800 shadow-[3px_3px_0_#FF4D5A]"
+                ? "bg-[#FF4D5A]/10 text-[#C42A3C] border-[#FF4D5A]/30 shadow-sm"
+                : "bg-white hover:bg-[#FAFAFB] text-zinc-600 border-[#E6E6EA] shadow-sm"
             }`}
           >
             {tab.label}
@@ -203,15 +204,15 @@ export const SessionsListPage: React.FC = () => {
             return (
               <article
                 key={sess.id}
-                className="rounded-2xl bg-obsidian-900 border border-zinc-800 hover:border-zinc-700 p-5 sm:p-6 transition-all shadow-lg"
+                className="rounded-2xl bg-white border border-[#E6E6EA] hover:border-zinc-300 p-5 sm:p-6 transition-all shadow-sm text-[#16151A]"
               >
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
                   <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="px-3 py-1 rounded-md bg-amber-500/15 border border-amber-500/30 font-mono text-xs font-bold text-amber-300">
+                    <span className="px-3 py-1 rounded-full bg-[#FF4D5A]/10 border border-[#FF4D5A]/20 text-xs font-semibold text-[#C42A3C]">
                       SESSÃO #{String(sess.session_number).padStart(2, "0")}
                     </span>
 
-                    <span className="text-xs font-mono text-zinc-400 flex items-center gap-1">
+                    <span className="text-xs text-zinc-500 flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5 text-zinc-500" />
                       {formatRealDate(sess.real_date)}
                     </span>
@@ -226,14 +227,14 @@ export const SessionsListPage: React.FC = () => {
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono text-zinc-400 flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="text-xs text-zinc-500 flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-[#FF4D5A]" />
                       {sess.events_count} acontecimento(s)
                     </span>
 
                     <Link
                       to={`/campaigns/${campaign.id}/sessions/${sess.id}`}
-                      className="px-3 py-1 rounded-lg bg-obsidian-950 hover:bg-zinc-800 text-amber-400 border border-zinc-800 text-xs font-mono"
+                      className="px-3 py-1.5 rounded-xl bg-[#FAFAFB] hover:bg-zinc-100 text-zinc-700 border border-[#E6E6EA] text-xs font-semibold transition-colors"
                     >
                       Detalhes
                     </Link>
@@ -247,7 +248,7 @@ export const SessionsListPage: React.FC = () => {
                             setModalOpen(true);
                           }}
                           aria-label={`Editar sessão ${sess.title}`}
-                          className="p-1.5 rounded-lg bg-obsidian-950 text-zinc-400 hover:text-zinc-100 border border-zinc-800"
+                          className="p-1.5 rounded-xl bg-[#FAFAFB] hover:bg-zinc-100 text-zinc-500 hover:text-[#16151A] border border-[#E6E6EA] transition-colors"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
                         </button>
@@ -255,7 +256,7 @@ export const SessionsListPage: React.FC = () => {
                           type="button"
                           onClick={() => setSessionToDelete(sess)}
                           aria-label={`Excluir sessão ${sess.title}`}
-                          className="p-1.5 rounded-lg bg-obsidian-950 text-zinc-400 hover:text-rose-400 border border-zinc-800"
+                          className="p-1.5 rounded-xl bg-[#FAFAFB] hover:bg-rose-50 text-zinc-500 hover:text-rose-600 border border-[#E6E6EA] transition-colors"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -264,16 +265,16 @@ export const SessionsListPage: React.FC = () => {
                   </div>
                 </div>
 
-                <h2 className="font-display text-xl font-bold text-zinc-100">
+                <h2 className="text-xl font-bold tracking-tight text-[#16151A]">
                   <Link
                     to={`/campaigns/${campaign.id}/sessions/${sess.id}`}
-                    className="hover:text-amber-400 transition-colors"
+                    className="hover:text-[#FF4D5A] transition-colors"
                   >
                     {sess.title}
                   </Link>
                 </h2>
 
-                <p className="text-sm text-zinc-300 mt-2 line-clamp-3 leading-relaxed">
+                <p className="text-sm text-zinc-600 mt-2 line-clamp-3 leading-relaxed">
                   {sess.summary}
                 </p>
               </article>

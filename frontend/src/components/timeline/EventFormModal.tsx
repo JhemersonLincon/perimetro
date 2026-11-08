@@ -685,14 +685,14 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-obsidian-950 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 text-xs font-mono uppercase tracking-wider transition-colors"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#FAFAFB] text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
           >
             Cancelar
           </button>
           <button
             type="submit"
             disabled={mutation.isPending}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#FF4D5A] hover:bg-amber-600 text-[#111111] font-display font-bold uppercase text-xs border-2 border-[#111111] shadow-[3px_3px_0_#111111] transition-all disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF4D5A] hover:bg-[#ff3b49] text-white font-semibold text-xs shadow-[0_4px_14px_rgba(255,77,90,0.35)] transition-all disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             {mutation.isPending ? "Salvando..." : editingEvent ? "Salvar Alterações" : "Registrar Acontecimento"}

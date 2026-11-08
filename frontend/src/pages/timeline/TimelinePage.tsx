@@ -43,6 +43,7 @@ import {
   LoadingState,
   ErrorState,
   EmptyState,
+  RpgSystemBadge,
 } from "../../components/ui/StateViews";
 import { ConfirmDialog } from "../../components/ui/ConfirmDialog";
 import { EventFormModal } from "../../components/timeline/EventFormModal";
@@ -500,12 +501,10 @@ export const TimelinePage: React.FC = () => {
       {/* Cabeçalho da Linha do Tempo e Controle de Zoom Semântico */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-[#E6E6EA]">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FF4D5A]/10 text-[#C42A3C] border border-[#FF4D5A]/20">
-              EIXO CRONOLÓGICO DINÂMICO
-            </span>
+          <div className="flex flex-wrap items-center gap-2">
+            <RpgSystemBadge system={campaign.rpg_system} />
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-[#16151A] mt-2">
+          <h1 className="text-3xl font-bold tracking-tight text-[#16151A] mt-3">
             Linha do Tempo da Campanha
           </h1>
           <p className="text-sm text-zinc-500 mt-1">
@@ -1043,19 +1042,11 @@ export const TimelinePage: React.FC = () => {
               {/* Meses e Dias */}
               {yrGroup.months.map((mGroup) => (
                 <div key={mGroup.month} className="space-y-6 pt-2">
-                  {/* Cabeçalho do Mês com Gatilho de Adição Rápida */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 py-2.5 px-4 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA]">
+                  {/* Cabeçalho do Mês no Eixo Micro */}
+                  <div className="py-2.5 px-4 rounded-2xl bg-[#FAFAFB] border border-[#E6E6EA]">
                     <span className="text-base font-bold text-[#16151A]">
                       {mGroup.month_name} de {yrGroup.year}
                     </span>
-                    <button
-                      type="button"
-                      onClick={() => handleQuickAdd(yrGroup.year, mGroup.month, null)}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white hover:bg-zinc-50 text-zinc-700 border border-[#E6E6EA] text-xs font-semibold shadow-sm transition-colors"
-                    >
-                      <Plus className="w-3 h-3 text-[#FF4D5A]" />
-                      + Adicionar em {mGroup.month_name}
-                    </button>
                   </div>
 
                   {/* Eventos Gerais do Mês */}

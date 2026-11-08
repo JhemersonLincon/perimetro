@@ -102,3 +102,10 @@ class CampaignDashboardResponse(BaseModel):
     indicators: DashboardIndicators
     recent_events: List[Any] = Field(default_factory=list)
     recent_sessions: List[Any] = Field(default_factory=list)
+
+
+class CampaignCoverUploadResponse(BaseModel):
+    cover_url: str
+    filename: str
+    content_type: str
+    size: int

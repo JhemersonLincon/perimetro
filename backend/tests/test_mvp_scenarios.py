@@ -549,3 +549,91 @@ def test_09_campaign_isolation():
         },
     )
     assert cross_camp_evt.status_code == 400
+
+
+def test_10_campaign_cover_image_upload():
+    """Testa upload, validação (JPG/PNG/WebP), servir estático e criação de campanha com capa local."""
+    from pathlib import Path
+    from app.core.config import settings
+
+    gm_token = STATE["gm_token"]
+    created_files: list[Path] = []
+
+    try:
+        # 1. Sem autenticação deve falhar (401)
+        unauth = client.post(
+            "/api/campaigns/cover",
+            files={"file": ("capa.png", b"\x89PNG\r\n\x1a\n" + b"\x00" * 16, "image/png")},
+        )
+        assert unauth.status_code == 401
+
+        # 2. Upload PNG, JPG e WebP válidos
+        samples = [
+            ("capa.png", b"\x89PNG\r\n\x1a\n" + b"\x00" * 24, "image/png", ".png"),
+            ("capa.jpg", b"\xff\xd8\xff\xe0" + b"\x00" * 24, "image/jpeg", ".jpg"),
+            ("capa.webp", b"RIFF\x24\x00\x00\x00WEBP" + b"\x00" * 20, "image/webp", ".webp"),
+        ]
+
+        last_cover_url = None
+        for fname, payload_bytes, mime, expected_ext in samples:
+            up_resp = client.post(
+                "/api/campaigns/cover",
+                headers=auth_headers(gm_token),
+                files={"file": (fname, payload_bytes, mime)},
+            )
+            assert up_resp.status_code == 201, up_resp.text
+            body = up_resp.json()
+            assert body["cover_url"].startswith("/api/uploads/campaigns/")
+            assert body["filename"].endswith(expected_ext)
+            assert body["content_type"] == mime
+            assert body["size"] == len(payload_bytes)
+            last_cover_url = body["cover_url"]
+
+            saved_path = Path(settings.UPLOAD_DIR) / "campaigns" / body["filename"]
+            created_files.append(saved_path)
+            assert saved_path.exists()
+
+            # Verifica que o arquivo é servido via StaticFiles
+            get_resp = client.get(body["cover_url"])
+            assert get_resp.status_code == 200
+            assert get_resp.content == payload_bytes
+
+        # 3. Criação da campanha com a cover_url gerada
+        camp_with_cover = client.post(
+            "/api/campaigns",
+            headers=auth_headers(gm_token),
+            json={
+                "name": "Campanha com Capa Local",
+                "description": "Teste completo de capa.",
+                "rpg_system": "Ordem Paranormal",
+                "cover_url": last_cover_url,
+            },
+        )
+        assert camp_with_cover.status_code == 201, camp_with_cover.text
+        assert camp_with_cover.json()["cover_url"] == last_cover_url
+
+        # 4. Formato proibido ou arquivo forjado deve ser rejeitado (400)
+        bad_mime = client.post(
+            "/api/campaigns/cover",
+            headers=auth_headers(gm_token),
+            files={"file": ("evil.svg", b"<svg></svg>", "image/svg+xml")},
+        )
+        assert bad_mime.status_code == 400
+
+        spoofed_jpg = client.post(
+            "/api/campaigns/cover",
+            headers=auth_headers(gm_token),
+            files={"file": ("fake.jpg", b"NOT_A_REAL_IMAGE_CONTENT", "image/jpeg")},
+        )
+        assert spoofed_jpg.status_code == 400
+
+        empty_file = client.post(
+            "/api/campaigns/cover",
+            headers=auth_headers(gm_token),
+            files={"file": ("empty.png", b"", "image/png")},
+        )
+        assert empty_file.status_code == 400
+    finally:
+        for fp in created_files:
+            if fp.exists():
+                fp.unlink()

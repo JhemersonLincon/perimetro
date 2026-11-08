@@ -16,6 +16,7 @@ import { apiRequest } from "../../services/api";
 import { Campaign } from "../../types";
 import { Navbar } from "./Navbar";
 import { LoadingState, ErrorState } from "../ui/StateViews";
+import { BrandLogo } from "../ui/DiceIcons";
 
 export interface CampaignOutletContext {
   campaign: Campaign;
@@ -154,14 +155,14 @@ export const CampaignLayout: React.FC = () => {
         >
           <div className="p-5 flex flex-col h-full justify-between gap-6">
             <div>
-              {/* Logo Arquivo RPG */}
+              {/* Logo Perímetro */}
               <div className="mb-6 px-3">
                 <Link
                   to="/dashboard"
-                  className="inline-flex items-center gap-1.5 text-lg font-bold tracking-tight text-[#16151A] hover:opacity-85 transition-opacity"
+                  className="inline-flex items-center hover:opacity-90 transition-opacity"
+                  aria-label="Perímetro — Ir ao Dashboard"
                 >
-                  <span>Arquivo</span>
-                  <span className="text-[#FF4D5A]">RPG</span>
+                  <BrandLogo size="md" />
                 </Link>
               </div>
 
