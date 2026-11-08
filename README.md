@@ -1,6 +1,6 @@
 # CRÔNICA — Plataforma Web de Gerenciamento Narrativo de Campanhas de RPG
 
-O **CRÔNICA** é uma plataforma web projetada para organização, documentação histórica e visualização de campanhas de RPG de mesa, tendo como núcleo uma **linha do tempo interativa** capaz de conectar acontecimentos, personagens (PJs), NPCs, localidades, organizações e sessões de jogo com controle granular de visibilidade.
+O **CRÔNICA** é uma plataforma web projetada para organização, documentação histórica e visualização de campanhas de RPG de mesa, tendo como núcleo uma **linha do tempo interativa** capaz de conectar acontecimentos, personagens, NPCs, localidades, organizações e sessões de jogo com controle granular de visibilidade.
 
 ---
 
