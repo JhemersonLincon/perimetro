@@ -1027,8 +1027,9 @@ export const TimelinePage: React.FC = () => {
 
               {/* Eventos Gerais do Ano (Contexto Primário) */}
               {yrGroup.year_level_events.length > 0 && (
-                <div className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#E6E6EA] space-y-4">
-                  <div className="relative -ml-6 sm:-ml-10 flex items-center gap-2">
+                <div className="relative pl-6 sm:pl-10 space-y-4">
+                  <div className="relative -ml-6 sm:-ml-10 flex items-center gap-2.5">
+                    <span className="w-3.5 h-3.5 rounded-full border-2 border-white bg-[#FF4D5A] shadow-sm ring-4 ring-[#FF4D5A]/20" />
                     <span className="px-3 py-1 rounded-full bg-[#FF4D5A]/10 text-[#C42A3C] border border-[#FF4D5A]/20 text-xs font-semibold">
                       Contexto Geral do Ano
                     </span>
@@ -1051,8 +1052,9 @@ export const TimelinePage: React.FC = () => {
 
                   {/* Eventos Gerais do Mês */}
                   {mGroup.month_level_events.length > 0 && (
-                    <div className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#E6E6EA] space-y-4">
-                      <div className="relative -ml-6 sm:-ml-10 flex items-center gap-2">
+                    <div className="relative pl-6 sm:pl-10 space-y-4">
+                      <div className="relative -ml-6 sm:-ml-10 flex items-center gap-2.5">
+                        <span className="w-3.5 h-3.5 rounded-full border-2 border-white bg-[#FF4D5A] shadow-sm ring-4 ring-[#FF4D5A]/20" />
                         <span className="px-3 py-1 rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200 text-xs font-semibold">
                           Contexto do Mês ({mGroup.month_name})
                         </span>
@@ -1067,7 +1069,7 @@ export const TimelinePage: React.FC = () => {
                   {mGroup.days.map((dGroup) => (
                     <div
                       key={dGroup.day}
-                      className="relative pl-6 sm:pl-10 before:content-[''] before:absolute before:left-2.5 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#E6E6EA] space-y-4"
+                      className="relative pl-6 sm:pl-10 space-y-4"
                     >
                       {/* Cabeçalho do Nó Temporal do Dia com Gatilho Contextual */}
                       <div className="relative -ml-6 sm:-ml-10 flex flex-wrap items-center justify-between gap-2 pt-2">
