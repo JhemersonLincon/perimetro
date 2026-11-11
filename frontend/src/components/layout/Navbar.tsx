@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { LogOut, User as UserIcon, FolderKanban, Plus } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { BrandLogo } from "../ui/DiceIcons";
+import { ThemeToggleButton } from "../ui/ThemeToggleButton";
 
 export const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -78,6 +79,8 @@ export const Navbar: React.FC = () => {
         )}
 
         <div className="flex items-center gap-3">
+          <ThemeToggleButton compactOnMobile />
+
           {isAuthenticated && user ? (
             <>
               <Link

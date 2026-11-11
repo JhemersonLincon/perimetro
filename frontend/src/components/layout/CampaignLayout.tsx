@@ -17,6 +17,7 @@ import { Campaign } from "../../types";
 import { Navbar } from "./Navbar";
 import { LoadingState, ErrorState } from "../ui/StateViews";
 import { BrandLogo } from "../ui/DiceIcons";
+import { ThemeToggleButton } from "../ui/ThemeToggleButton";
 
 export interface CampaignOutletContext {
   campaign: Campaign;
@@ -188,8 +189,9 @@ export const CampaignLayout: React.FC = () => {
               </nav>
             </div>
 
-            {/* Rodapé da sidebar com link de retorno */}
-            <div className="pt-4 border-t border-[#E6E6EA]">
+            {/* Rodapé da sidebar com botão de tema e link de retorno */}
+            <div className="pt-4 border-t border-[#E6E6EA] space-y-2">
+              <ThemeToggleButton className="w-full justify-center py-2" />
               <Link
                 to="/dashboard"
                 className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-zinc-500 hover:text-[#16151A] rounded-xl hover:bg-[#FAFAFB] transition-colors"

@@ -9,6 +9,7 @@ import { TokenResponse } from "../../types";
 import { useAuth } from "../../contexts/AuthContext";
 import { useToast } from "../../contexts/ToastContext";
 import { BrandLogo } from "../../components/ui/DiceIcons";
+import { ThemeToggleButton } from "../../components/ui/ThemeToggleButton";
 
 const loginSchema = z.object({
   email: z.string().email("Informe um endereço de e-mail válido."),
@@ -48,7 +49,10 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col justify-center items-center px-4 py-12 bg-dossier-grid">
+    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col justify-center items-center px-4 py-12 bg-dossier-grid relative">
+      <div className="w-full max-w-md flex justify-end mb-4">
+        <ThemeToggleButton />
+      </div>
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="brand justify-center mb-5">

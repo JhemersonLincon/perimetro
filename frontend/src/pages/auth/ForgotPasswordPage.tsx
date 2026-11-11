@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Compass, KeyRound, CheckCircle2, ArrowLeft } from "lucide-react";
 import { apiRequest } from "../../services/api";
 import { useToast } from "../../contexts/ToastContext";
+import { ThemeToggleButton } from "../../components/ui/ThemeToggleButton";
 
 export const ForgotPasswordPage: React.FC = () => {
   const { showToast } = useToast();
@@ -68,7 +69,10 @@ export const ForgotPasswordPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col justify-center items-center px-4 py-12 bg-dossier-grid">
+    <div className="min-h-screen bg-[#EFEAE2] text-[#111111] flex flex-col justify-center items-center px-4 py-12 bg-dossier-grid relative">
+      <div className="w-full max-w-md flex justify-end mb-4">
+        <ThemeToggleButton />
+      </div>
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2.5 mb-4">
